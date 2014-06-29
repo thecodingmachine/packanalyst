@@ -1,0 +1,19 @@
+{
+	"require" : {
+		"composer/composer" : "dev-master",
+		"nikic/php-parser" : "dev-master",
+		"mouf/mouf" : "~2.0",
+		"hirevoice/neo4jphp-ogm" : "dev-master@dev",
+		"mouf/utils.common.doctrine-annotations-wrapper" : "~2.4",
+		"elasticsearch/elasticsearch" : "~1.1",
+		"mouf/mvc.splash" : "~4.3",
+		"components/typeahead.js" : "<2.0",
+		"geoffroy-aubry/logger": "1.*"
+	},
+	"autoload" : {
+		"psr-0" : {
+			"Mouf\\Packanalyst" : "src"
+		}
+	},
+	"minimum-stability" : "dev"
+}

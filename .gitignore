@@ -1,0 +1,8 @@
+*~
+vendor/*
+downloads/*
+config.php
+.buildpath
+.composer
+.project
+.settings
