@@ -47,5 +47,6 @@ EOT
     	$fetchDataService->reset();
     	$elasticSearchService = \Mouf::getElasticSearchService();
     	$elasticSearchService->deleteIndex();
+    	$elasticSearchService->createIndex();
     }
 }

@@ -8,6 +8,7 @@ use Psr\Log\LoggerInterface;
 use \Twig_Environment;
 use Mouf\Html\Renderer\Twig\TwigTemplate;
 use Mouf\Packanalyst\Repositories\ItemNameRepository;
+use Mouf\Packanalyst\Widgets\Graph;
 
 /**
  * TODO: write controller comment
@@ -66,23 +67,59 @@ class ClassAnalyzerController extends Controller {
 	 */
 	public function index($q) {
 		
-		$entities = $this->itemNameRepository->findAll();
+		//$entity = $this->itemNameRepository->getOneByName($q);
+		/*$entities = $this->itemNameRepository->findAll();
 		$entity = \Mouf::getItemRepository()->findOneBy(["name"=>$q]);
 		$entity = $this->itemNameRepository->findOneBy(["name"=>$q]);
 		$entity = $this->itemNameRepository->findOneBy(["itemNameIdx"=>$q]);
 		$entity = $this->itemNameRepository->getIndex()->findOne('itemNameIdx', $q);
-		$entity = $this->itemNameRepository->getIndex()->findOne('name', $q);
+		$entity = $this->itemNameRepository->getIndex()->findOne('name', $q);*/
 		//$entity = $this->itemNameRepository->findOneByItemNameIdx($q);
 		
-		if ($entity == null) {
+		/*if ($entity == null) {
 			echo "Unable to find entity itemname"; exit;
+		}*/
+		
+		$graphData = $this->itemNameRepository->findItemGraph($q);
+		$graph = new Graph($graphData->current()['n']);
+		
+		foreach ($graphData as $row) {
+			/* @var $origin \Everyman\Neo4j\Node */
+			//$origin = $row['n'];
+			
+			/* @var $relations \Everyman\Neo4j\Query\Row */
+			$relations = $row['r'];
+
+			/* @var $item \Everyman\Neo4j\Node */
+			//$item = $row['x'];
+			
+			/* @var $package \Everyman\Neo4j\Node */
+			$package = $row['y'];
+				
+			/*echo "Target: ".$item->getProperty('name').' from package '.$package->getProperty('packageName').'-'.$package->getProperty('version').'<br/><br/>';
+			
+			foreach ($relations as $relation) {
+				/* @var $relation \Everyman\Neo4j\Relationship * /
+				$startNode = $relation->getStartNode();
+				$endNode = $relation->getEndNode();
+				$type = $relation->getType();
+				
+				echo "Relationship: from ".$startNode->getProperty('name')." to ".$endNode->getProperty('name').' - '.$type.'<br/>';
+			}
+			
+			echo '<br/><br/>';*/
+			
+			$graph->registerRelations($relations, $package);
+			
+			/*foreach ($row as $key=>$item) {
+				echo "****$key***";
+				var_dump($item);
+			}*/
+		
 		}
 		
-		$graph = $this->itemNameRepository->findItemGraph($entity);
-		var_dump($graph);exit;
-		
 		// Let's add the twig file to the template.
-		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig', array("class"=>$q)));
+		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig', array("class"=>$q, "graph"=>$graph)));
 		$this->template->toHtml();
 		
 		/*

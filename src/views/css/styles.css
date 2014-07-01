@@ -38,3 +38,30 @@
 }
 
 .twitter-typeahead { width: 100%; } 
+
+.item {
+	border: 1px solid #999;
+	border-radius: 5px;
+	margin-bottom: 3px;
+	padding-left: 20px;
+	background-repeat: no-repeat;
+	background-position: 3px 3px;
+}
+
+.item.class {
+	background-image: url(images/class_obj.png)
+}
+
+.item.interface {
+	background-image: url(images/int_obj.png)
+}
+
+.item.trait {
+	background-image: url(images/trait_obj.png)
+}
+
+
+.className {
+	font-family: "Lucida Console", monospace;
+	
+}

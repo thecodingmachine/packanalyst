@@ -41,6 +41,7 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
 
 			$item = new ItemEntity();
 			$itemName = $node->namespacedName->toString();
+
 			$item->setName($itemName);
 			$item->setItemName($this->itemNameRepository->findOrCreateItemName($itemName));
 			$comment = $node->getDocComment();

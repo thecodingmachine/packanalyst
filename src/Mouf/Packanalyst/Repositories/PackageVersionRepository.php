@@ -16,6 +16,7 @@ class PackageVersionRepository extends BaseRepository
 		// Intégrer le cache avec Mouf pour bénéficier du bouton purge cache.
 		
 		$packageVersionEntity = $this->findOneBy(array('packageName' => $package->getName(), 'version' => $package->getPrettyVersion()));
+		//$packageVersionEntity = $this->getByPackageNameAndVersion($package->getName(), $package->getPrettyVersion());
 		if ($packageVersionEntity == null) {
 			$packageVersionEntity = new PackageVersionEntity();
 			$packageVersionEntity->setPackageName($package->getName());
@@ -37,6 +38,19 @@ class PackageVersionRepository extends BaseRepository
 	 */
 	function findPackage(Package $package) {
 		return $this->findOneBy(array('packageName' => $package->getName(), 'version' => $package->getPrettyVersion()));
+	}
+	
+	public function getByPackageNameAndVersion($packageName, $version) {
+		$result = $this->getEntityManager()->createCypherQuery()
+		->match('(i:PackageVersion { packageName: "'.addslashes($packageName).'", version: "'.addslashes($version).'" })')
+		->end('i')
+		->getList();
+		
+		if (count($result)) {
+			return $result[0];
+		} else {
+			return null;
+		}
 	}
 	
 	/**

@@ -1,0 +1,22 @@
+<li>
+	<div class='item {{ type }}'>
+		<div class='className'>{{ name }}</div>
+		{% for packageName, versions in packages  %}
+		<div class='package small'>
+		{{ packageName }}
+		<span class="versions">
+		{% for version in versions%}
+		<span class="version badge">{{ version }}</span>
+		{% endfor %}
+		</span>
+		</div>
+		{% endfor %}
+	</div>
+	{% if children %}
+	<ul>
+	{% for child in children  %}
+		{{ toHtml(child) }}
+	{% endfor %}
+	</ul>
+	{% endif %}
+</li>

@@ -16,7 +16,7 @@ class ItemNameRepository extends BaseRepository
 			return $this->itemNames[$name];
 		}
 		
-		$entity = $this->findOneBy(array('name'=>$name));
+		$entity = $this->getOneByName($name);
 		if ($entity == null) {
 			$entity = new ItemNameEntity();
 			$entity->setName($name);
@@ -63,17 +63,52 @@ class ItemNameRepository extends BaseRepository
 	}
 	
 	/**
+	 * @return ItemNameEntity
+	 */
+	public function getOneByName($name) {
+		// FIXME: All the options below do not work. Find why:
+		/*$entity = \Mouf::getItemRepository()->findOneBy(["name"=>$q]);
+		$entity = $this->itemNameRepository->findOneBy(["name"=>$q]);
+		$entity = $this->itemNameRepository->findOneBy(["itemNameIdx"=>$q]);
+		$entity = $this->itemNameRepository->getIndex()->findOne('itemNameIdx', $q);
+		$entity = $this->itemNameRepository->getIndex()->findOne('name', $q);*/
+		
+		$result = $this->getEntityManager()->createCypherQuery()
+		->match('(i:ItemName { name: "'.addslashes($name).'" })')
+		->end('i')
+		->getList();
+	
+		if (count($result)) {
+			return $result[0];
+		} else {
+			return null;
+		}
+	}
+	
+	/**
 	 * Finds a graph of dependency from a, ItemName
 	 * 
-	 * @param ItemNameEntity $name
+	 * @param $name string
+	 * @return \Everyman\Neo4j\Query\ResultSet
 	 */
-	public function findItemGraph(ItemNameEntity $name) {
+	public function findItemGraph($name) {
+		
+		//$this->getEntityManager()->getClient()->
+		
+		
+		$queryString = "START n=node:itemNameIdx(name=\"".addslashes($name)."\") OPTIONAL MATCH n<-[r:`is-a-reverse`|`inherits`*]-(x:Item)-[r2:`belongs-to`]->(y:PackageVersion)
+		  RETURN n,r,x,r2,y";
+		
+		$query = new \Everyman\Neo4j\Cypher\Query($this->getEntityManager()->getClient(), $queryString);
+		$result = $query->getResultSet();
+		return $result;
 		
 		$list = $this->getEntityManager()->createCypherQuery()
-			->startWithNode(n, $name)
+			->startWithNode("n", $name)
 			->optionalMatch('n<-[r:`is-a-reverse`|`inherits`*]-(x:Item)-[:`belongs-to`]->(y:PackageVersion)')
-			->end("n,r,x,y")
-			->limit(200)
+			//->end("n,r,x,y")
+			->end("x")
+			->limit(2000)
 			->getList();
 		
 		return $list;
