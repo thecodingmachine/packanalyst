@@ -7,6 +7,7 @@ use Mouf\Html\HtmlElement\HtmlBlock;
 use Psr\Log\LoggerInterface;
 use \Twig_Environment;
 use Mouf\Html\Renderer\Twig\TwigTemplate;
+use Mouf\Packanalyst\Repositories\ItemNameRepository;
 
 /**
  * TODO: write controller comment
@@ -37,6 +38,11 @@ class ClassAnalyzerController extends Controller {
 	 */
 	private $twig;
 
+	/**
+	 * 
+	 * @var ItemNameRepository
+	 */
+	private $itemNameRepository;
 
 	/**
 	 * Controller's constructor.
@@ -45,11 +51,12 @@ class ClassAnalyzerController extends Controller {
 	 * @param HtmlBlock $content The main content block of the page
 	 * @param Twig_Environment $twig The Twig environment (used to render Twig templates)
 	 */
-	public function __construct(LoggerInterface $logger, TemplateInterface $template, HtmlBlock $content, Twig_Environment $twig) {
+	public function __construct(LoggerInterface $logger, TemplateInterface $template, HtmlBlock $content, Twig_Environment $twig, ItemNameRepository $itemNameRepository) {
 		$this->logger = $logger;
 		$this->template = $template;
 		$this->content = $content;
 		$this->twig = $twig;
+		$this->itemNameRepository = $itemNameRepository;
 	}
 	
 	/**
@@ -58,6 +65,21 @@ class ClassAnalyzerController extends Controller {
 	 * @param string $q
 	 */
 	public function index($q) {
+		
+		$entities = $this->itemNameRepository->findAll();
+		$entity = \Mouf::getItemRepository()->findOneBy(["name"=>$q]);
+		$entity = $this->itemNameRepository->findOneBy(["name"=>$q]);
+		$entity = $this->itemNameRepository->findOneBy(["itemNameIdx"=>$q]);
+		$entity = $this->itemNameRepository->getIndex()->findOne('itemNameIdx', $q);
+		$entity = $this->itemNameRepository->getIndex()->findOne('name', $q);
+		//$entity = $this->itemNameRepository->findOneByItemNameIdx($q);
+		
+		if ($entity == null) {
+			echo "Unable to find entity itemname"; exit;
+		}
+		
+		$graph = $this->itemNameRepository->findItemGraph($entity);
+		var_dump($graph);exit;
 		
 		// Let's add the twig file to the template.
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig', array("class"=>$q)));
@@ -84,7 +106,14 @@ class ClassAnalyzerController extends Controller {
 		  MATCH p
 		   
 		   
+		  START n=node:itemNameIdx(name="Doctrine\\Common\\Annotations\\Annotation") OPTIONAL MATCH n<-[r:`is-a-reverse`|`inherits`*]-(x:Item)
+		  RETURN n,r,x
+		   
+		   
+		   START n=node:itemNameIdx(name="Doctrine\\Common\\Annotations\\Annotation") OPTIONAL MATCH n<-[r:`is-a-reverse`|`inherits`*]-(x:Item)-[:`belongs-to`]->(y:PackageVersion)
+		  RETURN n,r,x,y
+		   
+		   
 		   */
-		 
 	}
 }

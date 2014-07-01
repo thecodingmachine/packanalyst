@@ -25,6 +25,16 @@ class ItemNameEntity
 	 */
 	protected $name;
 	
+	/**
+	 * The inverse relationship of "is-a".
+	 * We need a relationship in both way to write queries more easily.
+	 * 
+	 * @OGM\ManyToMany(relation="is-a-reverse")
+	 * @var array<ItemEntity>
+	 */
+	protected $items = array();
+	
+	
 	public function getId() {
 		return $this->id;
 	}
@@ -39,6 +49,28 @@ class ItemNameEntity
 		$this->name = $name;
 		return $this;
 	}
+	public function getItems() {
+		return $this->items;
+	}
+	public function setItems($items) {
+		$this->items = $items;
+		return $this;
+	}
+	/**
+	 * Adds the item to the list if items that share this itemname.
+	 * Called by ItemEntity::setItemName
+	 * 
+	 * @param ItemEntity $item
+	 */
+	public function addItem(ItemEntity $item) {
+		foreach ($this->items as $itemBean) {
+			if ($itemBean == $item) {
+				return;
+			}
+		}
+		$this->items[] = $item;
+	}
+	
 	
 	
 	

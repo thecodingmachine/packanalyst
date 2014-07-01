@@ -229,6 +229,15 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
         array (
         ),
       ),
+      4 => 
+      array (
+        'value' => 'itemNameRepository',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
     ),
   ),
   'classesDetector' => 
@@ -1362,6 +1371,13 @@ return $repository;
 	 }
 
 	/**
+	 * @return Mouf\Packanalyst\Controllers\ClassAnalyzerController
+	 */
+	 public static function getClassAnalyzerController() {
+	 	return MoufManager::getMoufManager()->getInstance('classAnalyzerController');
+	 }
+
+	/**
 	 * @return Mouf\Packanalyst\ClassesDetector
 	 */
 	 public static function getClassesDetector() {
@@ -1695,13 +1711,6 @@ return $repository;
 	 */
 	 public static function getValidatorsTranslateService() {
 	 	return MoufManager::getMoufManager()->getInstance('validatorsTranslateService');
-	 }
-
-	/**
-	 * @return Mouf\Packanalyst\Controllers\ClassAnalyzerController
-	 */
-	 public static function getClassAnalyzerController() {
-	 	return MoufManager::getMoufManager()->getInstance('classAnalyzerController');
 	 }
 
 }

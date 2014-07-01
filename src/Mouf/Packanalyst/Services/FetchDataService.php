@@ -147,7 +147,7 @@ class FetchDataService
 		}
 		 
 		 
-		 
+		
 		//var_dump("Nb packages: ".count($repositories->getPackages()));
 		 
 	}
@@ -200,4 +200,12 @@ class FetchDataService
 		return $keptPackages;
 	}
 	
+	/**
+	 * Removes all data from Neo4j!
+	 */
+	public function reset() {
+		$this->entityManager->cypherQuery("START n = node(*) 
+OPTIONAL MATCH n-[r]-() 
+DELETE n, r;");
+	}
 }

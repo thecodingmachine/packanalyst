@@ -220,6 +220,7 @@ class ItemEntity
 	 */
 	public function setItemName(ItemNameEntity $itemName) {
 		$this->itemName = $itemName;
+		$itemName->addItem($this);
 		return $this;
 	}
 }

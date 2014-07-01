@@ -23,7 +23,7 @@ use Mouf\Packanalyst\ClassesDetector;
  * @author david
  *
  */
-class ReindexCommand extends Command
+class ResetCommand extends Command
 {
     private $gitConfig;
     private $repos;
@@ -32,10 +32,10 @@ class ReindexCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('reindex-el')
-            ->setDescription('Reindexes all elastic search records.')
+            ->setName('reset')
+            ->setDescription('Deletes all data.')
             ->setHelp(<<<EOT
-The <info>reindex-el</info> command reindexes all elastic search records from the Neo4J database.
+The <info>reset</info> command deletes all data from the Neo4J and the ElasticSearch database. Use with caution!
 EOT
             )
         ;
@@ -43,7 +43,9 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+    	$fetchDataService = \Mouf::getFetchDataService();
+    	$fetchDataService->reset();
     	$elasticSearchService = \Mouf::getElasticSearchService();
-    	$elasticSearchService->reindexAll();
+    	$elasticSearchService->deleteIndex();
     }
 }

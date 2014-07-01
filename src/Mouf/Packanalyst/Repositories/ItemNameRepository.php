@@ -61,4 +61,21 @@ class ItemNameRepository extends BaseRepository
 			}
 		}
 	}
+	
+	/**
+	 * Finds a graph of dependency from a, ItemName
+	 * 
+	 * @param ItemNameEntity $name
+	 */
+	public function findItemGraph(ItemNameEntity $name) {
+		
+		$list = $this->getEntityManager()->createCypherQuery()
+			->startWithNode(n, $name)
+			->optionalMatch('n<-[r:`is-a-reverse`|`inherits`*]-(x:Item)-[:`belongs-to`]->(y:PackageVersion)')
+			->end("n,r,x,y")
+			->limit(200)
+			->getList();
+		
+		return $list;
+	}
 }
