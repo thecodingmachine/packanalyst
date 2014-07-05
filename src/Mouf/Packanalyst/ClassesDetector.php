@@ -18,6 +18,7 @@ use Mouf\Packanalyst\Repositories\ItemNameRepository;
 use Mouf\Packanalyst\Entities\PackageVersionEntity;
 use PhpParser\Error;
 use Psr\Log\LoggerInterface;
+use Mouf\Packanalyst\Dao\ItemDao;
 
 /**
  * This package is in charge of detecting classes/interfaces/traits inside a package.
@@ -31,8 +32,9 @@ class ClassesDetector extends NodeVisitorAbstract
 	private $itemRepository;
 	private $packageVersionRepository;
 	private $logger;
+	private $itemDao;
 	
-	public function __construct(ItemNameRepository $itemNameRepository, Repository $itemRepository, PackageVersionRepository $packageVersionRepository, LoggerInterface $logger) {
+	public function __construct(ItemNameRepository $itemNameRepository, Repository $itemRepository, PackageVersionRepository $packageVersionRepository, LoggerInterface $logger, ItemDao $itemDao) {
 		// use the emulative lexer here, as we are running PHP 5.2 but want to parse PHP 5.3
 		//$this->parser        = new PhpParser\Parser(new PhpParser\Lexer\Emulative);
 		$this->parser        = new Parser(new Lexer());
@@ -40,6 +42,7 @@ class ClassesDetector extends NodeVisitorAbstract
 		$this->itemRepository = $itemRepository;
 		$this->packageVersionRepository = $packageVersionRepository;
 		$this->logger = $logger;
+		$this->itemDao = $itemDao;
 	}
 	
 	/**
@@ -47,12 +50,12 @@ class ClassesDetector extends NodeVisitorAbstract
 	 * 
 	 * @return array<string, string>
 	 */
-	public function storePackage($basePath, PackageVersionEntity $packageVersionEntity) {
+	public function storePackage($basePath, array $packageVersion) {
 		
 		$this->traverser     = new NodeTraverser();
 		
 		$this->traverser->addVisitor(new NameResolver()); // we will need resolved names
-		$this->traverser->addVisitor(new StoreInDbNodeVisitor($packageVersionEntity, $this->itemNameRepository, $this->itemRepository));     // our own node visitor
+		$this->traverser->addVisitor(new StoreInDbNodeVisitor($packageVersion, $this->itemDao));     // our own node visitor
 		
 		
 		$files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($basePath));

@@ -35,7 +35,7 @@ class ResetCommand extends Command
             ->setName('reset')
             ->setDescription('Deletes all data.')
             ->setHelp(<<<EOT
-The <info>reset</info> command deletes all data from the Neo4J and the ElasticSearch database. Use with caution!
+The <info>reset</info> command deletes all data from the MongoDB and the ElasticSearch database. Use with caution! It also creates the MongoDB collections with the indexes.
 EOT
             )
         ;
@@ -43,8 +43,15 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-    	$fetchDataService = \Mouf::getFetchDataService();
-    	$fetchDataService->reset();
+    	$itemDao = \Mouf::getItemDao();
+    	$packageDao = \Mouf::getPackageDao();
+    	$itemDao->drop();
+    	$itemDao->createIndex();
+    	$packageDao->drop();
+    	$packageDao->createIndex();
+    	 
+    	//$fetchDataService = \Mouf::getFetchDataService();
+    	//$fetchDataService->reset();
     	$elasticSearchService = \Mouf::getElasticSearchService();
     	$elasticSearchService->deleteIndex();
     	$elasticSearchService->createIndex();

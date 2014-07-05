@@ -11,6 +11,8 @@ use Mouf\Packanalyst\Repositories\PackageVersionRepository;
 use Psr\Log\LoggerInterface;
 use Composer\Package\AliasPackage;
 use Composer\Util\Filesystem;
+use Mouf\Packanalyst\Dao\ItemDao;
+use Mouf\Packanalyst\Dao\PackageDao;
 /**
  * This package is in charge of loading data from all packagist packages.
  * This is the entry point of the RunCommand. 
@@ -29,18 +31,22 @@ class FetchDataService
 	private $packageRepository;
 	private $packageVersionRepository;
 	private $logger;
+	private $itemDao;
+	private $packageDao;
 	
 	/**
 	 * @var DownloadManager
 	 */
 	private $downloadManager;
 	
-	public function __construct(EntityManager $entityManager, ClassesDetector $classesDetector, PackageRepository $packageRepository, PackageVersionRepository $packageVersionRepository, LoggerInterface $logger) {
+	public function __construct(EntityManager $entityManager, ClassesDetector $classesDetector, PackageRepository $packageRepository, PackageVersionRepository $packageVersionRepository, LoggerInterface $logger, ItemDao $itemDao, PackageDao $packageDao) {
 		$this->entityManager = $entityManager;
 		$this->classesDetector = $classesDetector;
 		$this->packageRepository = $packageRepository;
 		$this->packageVersionRepository = $packageVersionRepository;
 		$this->logger = $logger;
+		$this->itemDao = $itemDao;
+		$this->packageDao = $packageDao;
 	}
 	
 	/**
@@ -86,7 +92,9 @@ class FetchDataService
 						"version"=>$notImportantPackage->getPrettyVersion()
 				));
 				
-				$this->packageVersionRepository->deletePackageVersion($notImportantPackage->getName(), $notImportantPackage->getPrettyVersion());
+				$this->itemDao->deletePackage($notImportantPackage->getName(), $notImportantPackage->getPrettyVersion());
+				$this->packageDao->deletePackage($notImportantPackage->getName(), $notImportantPackage->getPrettyVersion());
+				
 				$downloadPath = DOWNLOAD_DIR."/".$package->getName()."/".$package->getPrettyVersion();
 				$filesystem->removeDirectory($downloadPath);
 			}
@@ -99,17 +107,19 @@ class FetchDataService
 					$packageVersionEntity = null;
 					
 					// Let's get the update date of each version and let's compare it with the one we stored.
-					$packageVersionEntity = $this->packageVersionRepository->findPackage($package);
-					if ($packageVersionEntity && $packageVersionEntity->getReleaseDate() == $package->getReleaseDate()) {
+					$packageVersion = $this->packageDao->get($package->getName(), $package->getPrettyVersion());
+					
+					if ($packageVersion && $packageVersion['releaseDate'] == $package->getReleaseDate()) {
 						$this->logger->debug("{packageName} {version} has not moved since last run. Ignoring.", array(
 								"packageName"=>$package->getPrettyName(),
 								"version"=>$package->getPrettyVersion()
 						));
 						continue;
 					}
-					$this->packageVersionRepository->deletePackageVersion($package->getName(), $package->getPrettyVersion());
 					
-					
+					$this->itemDao->deletePackage($package->getName(), $package->getPrettyVersion());
+					$this->packageDao->deletePackage($package->getName(), $package->getPrettyVersion());
+				
 					$this->logger->info("Downloading {packageName} {version}", array(
 								"packageName"=>$package->getPrettyName(),
 								"version"=>$package->getPrettyVersion()
@@ -120,11 +130,11 @@ class FetchDataService
 					
 					$this->downloadManager->download($package, $downloadPath);
 					
-					$packageVersionEntity = $this->packageVersionRepository->findOrCreatePackageVersion($package);
-						
-	    			$this->classesDetector->storePackage($downloadPath, $packageVersionEntity);
-	    			$packageVersionEntity->setOnError(false);
-	    			$packageVersionEntity->setErrorMsg("");
+					$packageVersion = $this->packageDao->createOrUpdatePackage($package);
+					
+	    			$this->classesDetector->storePackage($downloadPath, $packageVersion);
+	    			$packageVersion['onError'] = false;
+	    			$packageVersion['errorMsg'] = '';
 				} catch (\Exception $e) {
 					if (!$packageVersionEntity) {
 						$packageVersionEntity = $this->packageVersionRepository->findOrCreatePackageVersion($package);
@@ -136,9 +146,10 @@ class FetchDataService
 								"exception"=>$e
 						)
 					);
-					$packageVersionEntity->setOnError(true);
-					$packageVersionEntity->setErrorMsg($e->getMessage()."\n".$e->getTraceAsString());
+	    			$packageVersion['onError'] = true;
+	    			$packageVersion['errorMsg'] = $e->getMessage()."\n".$e->getTraceAsString();
 				}
+				$this->packageDao->save($packageVersion);
 			}
 			
 			$this->entityManager->flush();
@@ -200,12 +211,4 @@ class FetchDataService
 		return $keptPackages;
 	}
 	
-	/**
-	 * Removes all data from Neo4j!
-	 */
-	public function reset() {
-		$this->entityManager->cypherQuery("START n = node(*) 
-OPTIONAL MATCH n-[r]-() 
-DELETE n, r;");
-	}
 }

@@ -50,6 +50,12 @@ $moufManager->getConfigManager()->setConstantsDefinitionArray(array (
     'type' => 'string',
     'comment' => 'The download directory',
   ),
+  'MONGODB_CONNECTIONSTRING' => 
+  array (
+    'defaultValue' => 'mongodb://localhost:27017',
+    'type' => 'string',
+    'comment' => 'Connection string to MongoDB',
+  ),
 ));
 
 $moufManager->setAllVariables(array (
@@ -277,6 +283,15 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       3 => 
       array (
         'value' => 'colorLogger',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      4 => 
+      array (
+        'value' => 'itemDao',
         'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 
@@ -585,6 +600,24 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
         array (
         ),
       ),
+      5 => 
+      array (
+        'value' => 'itemDao',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      6 => 
+      array (
+        'value' => 'packageDao',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
     ),
   ),
   'fileCacheService' => 
@@ -641,6 +674,24 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       array (
         'value' => 'DEBUG_MODE',
         'type' => 'config',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'itemDao' => 
+  array (
+    'class' => 'Mouf\\Packanalyst\\Dao\\ItemDao',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'mongoItemsCollection',
+        'parametertype' => 'object',
+        'type' => 'string',
         'metadata' => 
         array (
         ),
@@ -784,6 +835,38 @@ return $repository;',
       'messageProvider' => 'userMessageService',
     ),
   ),
+  'mongoClient' => 
+  array (
+    'weak' => false,
+    'comment' => '',
+    'external' => false,
+    'code' => 'return new \\MongoClient(MONGODB_CONNECTIONSTRING);',
+    'class' => 'MongoClient',
+  ),
+  'mongoItemsCollection' => 
+  array (
+    'weak' => false,
+    'comment' => '',
+    'external' => false,
+    'code' => 'return $container->get(\'mongoPackanalystDb\')->items;',
+    'class' => 'MongoCollection',
+  ),
+  'mongoPackagesCollection' => 
+  array (
+    'weak' => false,
+    'comment' => '',
+    'class' => 'MongoCollection',
+    'external' => false,
+    'code' => 'return $container->get(\'mongoPackanalystDb\')->packages;',
+  ),
+  'mongoPackanalystDb' => 
+  array (
+    'weak' => false,
+    'comment' => '',
+    'external' => false,
+    'code' => 'return $container->get(\'mongoClient\')->packanalyst;',
+    'class' => 'MongoDB',
+  ),
   'neo4jEntityManager' => 
   array (
     'weak' => false,
@@ -818,6 +901,24 @@ return $em;',
       'allowDecimals' => 
       array (
         'value' => true,
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'packageDao' => 
+  array (
+    'class' => 'Mouf\\Packanalyst\\Dao\\PackageDao',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'mongoPackagesCollection',
+        'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 
         array (
@@ -1284,6 +1385,18 @@ return $repository;
 				$repository = $container->get('neo4jEntityManager')->getRepository('Mouf\\Packanalyst\\Entities\\ItemEntity');
 return $repository;
 			},
+			'mongoClient' => function(ContainerInterface $container) {
+				return new \MongoClient(MONGODB_CONNECTIONSTRING);
+			},
+			'mongoItemsCollection' => function(ContainerInterface $container) {
+				return $container->get('mongoPackanalystDb')->items;
+			},
+			'mongoPackagesCollection' => function(ContainerInterface $container) {
+				return $container->get('mongoPackanalystDb')->packages;
+			},
+			'mongoPackanalystDb' => function(ContainerInterface $container) {
+				return $container->get('mongoClient')->packanalyst;
+			},
 			'neo4jEntityManager' => function(ContainerInterface $container) {
 				$em = new HireVoice\Neo4j\EntityManager(array(
     'transport' => 'curl', // or 'stream'
@@ -1497,6 +1610,13 @@ return $repository;
 	 }
 
 	/**
+	 * @return Mouf\Packanalyst\Dao\ItemDao
+	 */
+	 public static function getItemDao() {
+	 	return MoufManager::getMoufManager()->getInstance('itemDao');
+	 }
+
+	/**
 	 * @return Mouf\Packanalyst\Repositories\ItemNameRepository
 	 */
 	 public static function getItemNameRepository() {
@@ -1539,6 +1659,34 @@ return $repository;
 	 }
 
 	/**
+	 * @return MongoClient
+	 */
+	 public static function getMongoClient() {
+	 	return MoufManager::getMoufManager()->getInstance('mongoClient');
+	 }
+
+	/**
+	 * @return MongoCollection
+	 */
+	 public static function getMongoItemsCollection() {
+	 	return MoufManager::getMoufManager()->getInstance('mongoItemsCollection');
+	 }
+
+	/**
+	 * @return MongoCollection
+	 */
+	 public static function getMongoPackagesCollection() {
+	 	return MoufManager::getMoufManager()->getInstance('mongoPackagesCollection');
+	 }
+
+	/**
+	 * @return MongoDB
+	 */
+	 public static function getMongoPackanalystDb() {
+	 	return MoufManager::getMoufManager()->getInstance('mongoPackanalystDb');
+	 }
+
+	/**
 	 * @return HireVoice\Neo4j\EntityManager
 	 */
 	 public static function getNeo4jEntityManager() {
@@ -1557,6 +1705,13 @@ return $repository;
 	 */
 	 public static function getNumericValidatorDecimals() {
 	 	return MoufManager::getMoufManager()->getInstance('numericValidatorDecimals');
+	 }
+
+	/**
+	 * @return Mouf\Packanalyst\Dao\PackageDao
+	 */
+	 public static function getPackageDao() {
+	 	return MoufManager::getMoufManager()->getInstance('packageDao');
 	 }
 
 	/**

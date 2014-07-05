@@ -29,3 +29,34 @@ curl -XPUT 'http://localhost:9200/_river/my_neo_river/_meta' -d '{
     }
 }'
 ```
+
+
+BON, NEO4J, C'est galère!
+TESTONS AVEC MONGODB.
+
+Idée de modèle:
+
+Items:
+
+{
+	"name": "FQDN",
+	"inherits": [ FQDN1, FQDN2... ],
+	"type": "class",
+	"packageName": "packagename",
+	"packageVersion": "version",
+	"phpDoc": "doc class"
+
+}
+
+index sur: packageName + packageVersion
+index sur: name
+index sur: inherits
+
+Mais aussi:
+
+{
+	packageName: ""
+	version: ""
+	type: ""
+	releaseDate: date
+}

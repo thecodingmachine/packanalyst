@@ -14,6 +14,7 @@ use Mouf\Packanalyst\Entities\ItemNameEntity;
 use HireVoice\Neo4j\Repository;
 use Mouf\Packanalyst\Entities\PackageVersionEntity;
 use Mouf\Packanalyst\Repositories\ItemNameRepository;
+use Mouf\Packanalyst\Dao\ItemDao;
 
 /**
  * This package stores classes / interfaces / functions / traits each time it gets a chance.
@@ -23,13 +24,11 @@ use Mouf\Packanalyst\Repositories\ItemNameRepository;
 class StoreInDbNodeVisitor extends NodeVisitorAbstract
 {
 	private $package;
-	private $itemNameRepository;
-	private $itemRepository;
+	private $itemDao;
 	
-	public function __construct(PackageVersionEntity $package, ItemNameRepository $itemNameRepository, Repository $itemRepository) {
+	public function __construct($package, ItemDao $itemDao) {
 		$this->package = $package;
-		$this->itemNameRepository = $itemNameRepository;
-		$this->itemRepository = $itemRepository;
+		$this->itemDao = $itemDao;
 	}
 	
 	public function leaveNode(Node $node) {
@@ -39,47 +38,47 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
 		if ($node instanceof Stmt\Class_ || $node instanceof Stmt\Interface_ 
 			|| $node instanceof Stmt\Trait_ || $node instanceof Stmt\Function_) {
 
-			$item = new ItemEntity();
+			$item = [];
 			$itemName = $node->namespacedName->toString();
 
-			$item->setName($itemName);
-			$item->setItemName($this->itemNameRepository->findOrCreateItemName($itemName));
+			$item['name'] = $itemName;
 			$comment = $node->getDocComment();
 			if ($comment) {
-				$item->setPhpDoc($node->getDocComment()->getText());
+				$item['phpDoc'] = $node->getDocComment()->getText();
 			}
 			
-			$item->setPackageVersion($this->package);
+			$item['packageName'] = $this->package['packageName'];
+			$item['packageVersion'] = $this->package['packageVersion'];
 			
 				
 			if ($node instanceof Stmt\Class_) {
-				$item->setType(ItemEntity::TYPE_CLASS);
+				$item['type'] = ItemDao::TYPE_CLASS;
 				
 				$inherits = [];
 				if ($node->extends) {
-					$inherits[] = $this->itemNameRepository->findOrCreateItemName($node->extends->toString());
+					$inherits[] = $node->extends->toString();
 				}
 				
 				foreach ($node->implements as $implement) {
-					$inherits[] = $this->itemNameRepository->findOrCreateItemName($implement->toString());
+					$inherits[] = $implement->toString();
 				}
-				$item->setInherits($inherits);
+				$item['inherits'] = $inherits;
 			} elseif ($node instanceof Stmt\Interface_) {
-				$item->setType(ItemEntity::TYPE_INTERFACE);
+				$item['type'] = ItemDao::TYPE_INTERFACE;
 				
 				$inherits = [];
 				
 				foreach ($node->extends as $extend) {
-					$inherits[] = $this->itemNameRepository->findOrCreateItemName($extend->toString());
+					$inherits[] = $extend->toString();
 				}
-				$item->setInherits($inherits);
+				$item['inherits'] = $inherits;
 			} elseif ($node instanceof Stmt\Trait_) {
-				$item->setType(ItemEntity::TYPE_TRAIT);
+				$item['type'] = ItemDao::TYPE_TRAIT;
 			} elseif ($node instanceof Stmt\Function_) {
-				$item->setType(ItemEntity::TYPE_FUNCTION);
+				$item['type'] = ItemDao::TYPE_FUNCTION;
 			}
 			
-			$this->itemRepository->getEntityManager()->persist($item);
+			$this->itemDao->save($item);
 		}
 	}
 }
