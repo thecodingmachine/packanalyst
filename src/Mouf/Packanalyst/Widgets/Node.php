@@ -12,8 +12,6 @@ class Node implements HtmlElementInterface
 {
 	use Renderable;
 	
-	private $node;
-	
 	private $name;
 	private $type;
 	
@@ -34,15 +32,12 @@ class Node implements HtmlElementInterface
 	 */
 	private $packages;
 	
-	public function __construct(\Everyman\Neo4j\Node $node) {
-		$this->node = $node;
-		$this->name = $node->getProperty('name');
-		$this->type = $node->getProperty('type');
+	public function __construct($className, $type) {
+		$this->name = $className;
+		$this->type = $type;
 	}
 	
-	public function registerPackage(\Everyman\Neo4j\Node $node) {
-		$packageName = $node->getProperty('packageName');
-		$version = $node->getProperty('version');
+	public function registerPackage($packageName, $version) {
 		
 		if (!isset($this->packages[$packageName])) {
 			$this->packages[$packageName] = [];

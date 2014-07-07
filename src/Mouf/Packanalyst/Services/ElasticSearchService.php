@@ -13,6 +13,7 @@ use Mouf\Packanalyst\Repositories\ItemRepository;
 use Mouf\Packanalyst\Entities\ItemEntity;
 use Elasticsearch\Client;
 use Mouf\Packanalyst\Entities\ItemNameEntity;
+use Everyman\Neo4j\Exception;
 /**
  * This package is in charge of indexing data into elastic search.
  * 
@@ -62,10 +63,24 @@ class ElasticSearchService
 		//$indexParams['body']['settings']['number_of_shards'] = 2;
 		//$indexParams['body']['settings']['number_of_replicas'] = 0;
 		
-		// Example Index Mapping
+		// Mapping as both a suggester and a not_analyzed field (to be searchable via filters)
+		/*$itemNameMapping = array(
+				'properties' => array(
+						"name" => [ "type" => "multi_field",
+						"fields" => [
+							"name" => ["type" => "string"],
+							"untouched" => ["type" => "string", "index" => "not_analyzed"]
+						], "suggest" => [
+								"type" => "completion",
+								"index_analyzer" => "simple",
+								"search_analyzer" => "simple",
+								//"payloads" => true
+								]],
+				)
+		);*/
 		$itemNameMapping = array(
 				'properties' => array(
-						"name" => [ "type" => "string" ],
+						"name" => [ "type" => "string", "index" => "not_analyzed" ],
 			            "suggest" => [ 
 							"type" => "completion",
 			                "index_analyzer" => "simple",
@@ -83,33 +98,56 @@ class ElasticSearchService
 	/**
 	 * Stores an item name in elastic search.
 	 * 
-	 * @param ItemNameEntity $item
+	 * @param string $item
 	 */
-	public function storeItemName(ItemNameEntity $itemName) {
+	public function storeItemName($itemName) {
 		
-		if (!$itemName->getId()) {
-			throw new \Exception("An item name must have an ID to be stored in Elastic Search.");
+		// FIXME: we must be sure we don't import the same item TWICE!!!!
+		// FIXME: we must import all the inherited names (like Exception)!!!!
+		// TODO: a local "cache" array that contain all the classes we know that exist in ElasticSearch.
+		// Or find a way in ElasticSearch to have unique indexes.
+		
+		// Before inserting itemName, let's make sure it is not ALREADY in the index.
+		if ($this->checkItemNameExists($itemName)) {
+			return;
 		}
 		
-		$store = explode('\\', $itemName->getName());
+		$store = explode('\\', $itemName);
 		if (count($store) != 1) {
-			$store[] = $itemName->getName();
+			$store[] = $itemName;
 		}
 		
 		$params = array();
 		$params['body']  = array(
-				'name' => $itemName->getName(),
+				'name' => $itemName,
 				'suggest' => [
 					"input" => $store,
-					"output" => $itemName->getName(),
-					//"payload" => [ "artistId" : 2321 ],
-					//"weight" => 34
+					"output" => $itemName,
 				]
 		);
 		$params['index'] = 'packanalyst';
 		$params['type']  = 'itemname';
-		$params['id']    = $itemName->getId();
 		$ret = $this->elasticSearchClient->index($params);
+	}
+	
+	private function checkItemNameExists($itemName) {
+		$params = array();
+		$params['body']  = [
+			"filter" => [
+				"term" => [
+					"name" => $itemName
+				]
+			]
+		];
+		$params['index'] = 'packanalyst';
+		$params['type']  = 'itemname';
+		$ret = $this->elasticSearchClient->search($params);
+		
+		if ($ret['hits']['total'] > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public function suggestItemName($input) {
@@ -127,6 +165,10 @@ class ElasticSearchService
 		];
 		
 		$suggestions = $this->elasticSearchClient->suggest($params);
+		
+		if (!isset($suggestions['itemname'])) {
+			throw new \Exception("Error while querying autocomplete: ".json_encode($suggestions));
+		}
 		
 		return array_map(function($item) {
 			return [

@@ -4,7 +4,10 @@ namespace Mouf\Packanalyst\Widgets;
 use Mouf\Html\HtmlElement\HtmlElementInterface;
 
 /**
- * An object representing a node in the displayed class graph
+ * A graph of dependencies.
+ * 
+ * Each node represents a class/interface... Each node can potentially belong to one or more packages/versions
+ * 
  * 
  */
 class Graph implements HtmlElementInterface
@@ -16,61 +19,40 @@ class Graph implements HtmlElementInterface
 	 */
 	private $nodesList;
 	
-	public function __construct(\Everyman\Neo4j\Node $rootNode) {
-		$node = $this->getNode($rootNode);
-		$this->rootNode = $node;
-	}
-	
-	public function registerRelations(\Everyman\Neo4j\Query\Row $relations, \Everyman\Neo4j\Node $package) {
-		// Let's get the complete list of items.
-		// Note: relations are the other way around so we start with end.
-		$chain = [];
-		foreach ($relations as $relation) {
-			/* @var $relation \Everyman\Neo4j\Relationship */
-			if (empty($chain)) {
-				$chain[] = $relation->getEndNode();
-			}
-			$chain[] = $relation->getStartNode();
+	public function __construct($rootNodeItems, $allItems) {
+
+		foreach ($rootNodeItems as $rootNodeItem) {
+			$this->rootNode = $this->registerNode($rootNodeItem);
 		}
 		
-		// Now, let's keep only the nodes that are Item, and let's get rid of ItemName
-		$filteredChain = array_values(array_filter($chain, function(\Everyman\Neo4j\Node $node) {
-			//if (array_search('Item', $node->getLabels())!== false) {
-			if ($node->getProperty('class') == 'Mouf\\Packanalyst\\Entities\\ItemEntity') {
-				return true;
-			} else {
-				return false;
-			}
-		}));
-		
-		$this->rootNode->addChild($this->getNode($filteredChain[0]));
-		
-		// Now, $chain is a chain of items.
-		for ($i=0; $i<count($filteredChain)-1; $i++) {
-			$parent = $this->getNode($filteredChain[$i]);
-			$child = $this->getNode($filteredChain[$i+1]);
-			$parent->addChild($child);
+		// First pass, let's register all items.
+		foreach ($allItems as $item) {
+			$this->registerNode($item);
 		}
 		
-		$lastNode = $this->getNode($filteredChain[count($filteredChain)-1]);
-		$lastNode->registerPackage($package);
-		
+		// Second path, let's register relationships.
+		foreach ($allItems as $item) {
+			foreach ($item['inherits'] as $parentItemName) {
+				if (isset($this->nodesList[$parentItemName])) {
+					$this->nodesList[$parentItemName]->addChild($this->nodesList[$item['name']]);
+				}
+			}
+		}
 		
 	}
+
 	
-	/**
-	 * 
-	 * @param \Everyman\Neo4j\Node $node
-	 * @return Node
-	 */
-	protected function getNode(\Everyman\Neo4j\Node $node) {
-		$className = $node->getProperty('name');
+	private function registerNode($item) {
+		$className = $item['name'];
 		if (!isset($this->nodesList[$className])) {
-			$this->nodesList[$className] = new Node($node);
-			
+			$this->nodesList[$className] = new Node($className, isset($item['type'])?$item['type']:null);
+		}
+		if (isset($item['packageName'])) {
+			$this->nodesList[$className]->registerPackage($item['packageName'], $item['packageVersion']);
 		}
 		return $this->nodesList[$className];
 	}
+	
 	
 	public function toHtml() {
 		echo "<ul class='classgraph'>";

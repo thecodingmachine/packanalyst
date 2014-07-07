@@ -237,7 +237,7 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
       4 => 
       array (
-        'value' => 'itemNameRepository',
+        'value' => 'itemDao',
         'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 
@@ -690,6 +690,15 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       0 => 
       array (
         'value' => 'mongoItemsCollection',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'elasticSearchService',
         'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 

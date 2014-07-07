@@ -109,7 +109,7 @@ class FetchDataService
 					// Let's get the update date of each version and let's compare it with the one we stored.
 					$packageVersion = $this->packageDao->get($package->getName(), $package->getPrettyVersion());
 					
-					if ($packageVersion && $packageVersion['releaseDate'] == $package->getReleaseDate()) {
+					if ($packageVersion && $packageVersion['releaseDate']->sec == $package->getReleaseDate()->getTimestamp()) {
 						$this->logger->debug("{packageName} {version} has not moved since last run. Ignoring.", array(
 								"packageName"=>$package->getPrettyName(),
 								"version"=>$package->getPrettyVersion()

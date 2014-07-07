@@ -41,6 +41,7 @@ Items:
 {
 	"name": "FQDN",
 	"inherits": [ FQDN1, FQDN2... ],
+	"globalInherits": [ FQDN1, FQDN2... ], // inherits + inherits of parents, recursively
 	"type": "class",
 	"packageName": "packagename",
 	"packageVersion": "version",
