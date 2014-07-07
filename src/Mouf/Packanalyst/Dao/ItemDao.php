@@ -127,4 +127,10 @@ class ItemDao
 	public function findItemsInheriting($itemName) {
 		return $this->collection->find([ "globalInherits" => $itemName ]);
 	}
+	
+	public function applyOnAllItemName(callable $callback) {
+		foreach ($this->collection->find() as $item) {
+			$callback($item);
+		}
+	}
 }

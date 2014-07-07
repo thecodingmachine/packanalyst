@@ -255,33 +255,6 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     array (
       0 => 
       array (
-        'value' => 'itemNameRepository',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      1 => 
-      array (
-        'value' => 'itemRepository',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      2 => 
-      array (
-        'value' => 'packageVersionRepository',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      3 => 
-      array (
         'value' => 'colorLogger',
         'parametertype' => 'object',
         'type' => 'string',
@@ -289,7 +262,7 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
         array (
         ),
       ),
-      4 => 
+      1 => 
       array (
         'value' => 'itemDao',
         'parametertype' => 'object',
@@ -507,15 +480,6 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     array (
       0 => 
       array (
-        'value' => 'itemNameRepository',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      1 => 
-      array (
         'value' => 'elasticSearchClient',
         'parametertype' => 'object',
         'type' => 'string',
@@ -523,6 +487,13 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
         array (
         ),
       ),
+    ),
+    'setterProperties' => 
+    array (
+    ),
+    'setterBinds' => 
+    array (
+      'setItemDao' => 'itemDao',
     ),
   ),
   'emailValidator' => 
@@ -557,7 +528,7 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     array (
       0 => 
       array (
-        'value' => 'neo4jEntityManager',
+        'value' => 'classesDetector',
         'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 
@@ -566,7 +537,7 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
       1 => 
       array (
-        'value' => 'classesDetector',
+        'value' => 'colorLogger',
         'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 
@@ -575,33 +546,6 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
       2 => 
       array (
-        'value' => 'packageRepository',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      3 => 
-      array (
-        'value' => 'packageVersionRepository',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      4 => 
-      array (
-        'value' => 'colorLogger',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      5 => 
-      array (
         'value' => 'itemDao',
         'parametertype' => 'object',
         'type' => 'string',
@@ -609,7 +553,7 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
         array (
         ),
       ),
-      6 => 
+      3 => 
       array (
         'value' => 'packageDao',
         'parametertype' => 'object',
@@ -706,24 +650,6 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
         ),
       ),
     ),
-  ),
-  'itemNameRepository' => 
-  array (
-    'weak' => false,
-    'comment' => '',
-    'class' => 'Mouf\\Packanalyst\\Repositories\\ItemNameRepository',
-    'external' => false,
-    'code' => '$repository = $container->get(\'neo4jEntityManager\')->getRepository(\'Mouf\\\\Packanalyst\\\\Entities\\\\ItemNameEntity\');
-return $repository;',
-  ),
-  'itemRepository' => 
-  array (
-    'weak' => false,
-    'comment' => '',
-    'external' => false,
-    'code' => '$repository = $container->get(\'neo4jEntityManager\')->getRepository(\'Mouf\\\\Packanalyst\\\\Entities\\\\ItemEntity\');
-return $repository;',
-    'class' => 'Mouf\\Packanalyst\\Repositories\\ItemRepository',
   ),
   'jQueryLibrary' => 
   array (
@@ -876,24 +802,6 @@ return $repository;',
     'code' => 'return $container->get(\'mongoClient\')->packanalyst;',
     'class' => 'MongoDB',
   ),
-  'neo4jEntityManager' => 
-  array (
-    'weak' => false,
-    'comment' => '',
-    'external' => false,
-    'code' => '$em = new HireVoice\\Neo4j\\EntityManager(array(
-    \'transport\' => \'curl\', // or \'stream\'
-    \'host\' => NEO4J_HOST,
-    \'port\' => NEO4J_PORT,
-    // \'username\' => null,
-    // \'password\' => null,
-    // \'proxy_dir\' => \'/tmp\',
-    // \'debug\' => true, // Force proxy regeneration on each request
-    \'annotation_reader\' => $container->get(\'annotationReader\') // Should be a cached instance of the doctrine annotation reader in production
-));
-return $em;',
-    'class' => 'HireVoice\\Neo4j\\EntityManager',
-  ),
   'noCacheService' => 
   array (
     'class' => 'Mouf\\Utils\\Cache\\NoCache',
@@ -1024,24 +932,6 @@ return $em;',
         ),
       ),
     ),
-  ),
-  'packageRepository' => 
-  array (
-    'weak' => false,
-    'comment' => '',
-    'class' => 'Mouf\\Packanalyst\\Repositories\\PackageRepository',
-    'external' => false,
-    'code' => '$repository = $container->get(\'neo4jEntityManager\')->getRepository(\'Mouf\\\\Packanalyst\\\\Entities\\\\PackageEntity\');
-return $repository;',
-  ),
-  'packageVersionRepository' => 
-  array (
-    'weak' => false,
-    'comment' => '',
-    'class' => 'Mouf\\Packanalyst\\Repositories\\PackageVersionRepository',
-    'external' => false,
-    'code' => '$repository = $container->get(\'neo4jEntityManager\')->getRepository(\'Mouf\\\\Packanalyst\\\\Entities\\\\PackageVersionEntity\');
-return $repository;',
   ),
   'psr.errorLogLogger' => 
   array (
@@ -1386,14 +1276,6 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 					},
 				],
 			],
-			'itemNameRepository' => function(ContainerInterface $container) {
-				$repository = $container->get('neo4jEntityManager')->getRepository('Mouf\\Packanalyst\\Entities\\ItemNameEntity');
-return $repository;
-			},
-			'itemRepository' => function(ContainerInterface $container) {
-				$repository = $container->get('neo4jEntityManager')->getRepository('Mouf\\Packanalyst\\Entities\\ItemEntity');
-return $repository;
-			},
 			'mongoClient' => function(ContainerInterface $container) {
 				return new \MongoClient(MONGODB_CONNECTIONSTRING);
 			},
@@ -1405,27 +1287,6 @@ return $repository;
 			},
 			'mongoPackanalystDb' => function(ContainerInterface $container) {
 				return $container->get('mongoClient')->packanalyst;
-			},
-			'neo4jEntityManager' => function(ContainerInterface $container) {
-				$em = new HireVoice\Neo4j\EntityManager(array(
-    'transport' => 'curl', // or 'stream'
-    'host' => NEO4J_HOST,
-    'port' => NEO4J_PORT,
-    // 'username' => null,
-    // 'password' => null,
-    // 'proxy_dir' => '/tmp',
-    // 'debug' => true, // Force proxy regeneration on each request
-    'annotation_reader' => $container->get('annotationReader') // Should be a cached instance of the doctrine annotation reader in production
-));
-return $em;
-			},
-			'packageRepository' => function(ContainerInterface $container) {
-				$repository = $container->get('neo4jEntityManager')->getRepository('Mouf\\Packanalyst\\Entities\\PackageEntity');
-return $repository;
-			},
-			'packageVersionRepository' => function(ContainerInterface $container) {
-				$repository = $container->get('neo4jEntityManager')->getRepository('Mouf\\Packanalyst\\Entities\\PackageVersionEntity');
-return $repository;
 			},
 		];
 	}
@@ -1626,20 +1487,6 @@ return $repository;
 	 }
 
 	/**
-	 * @return Mouf\Packanalyst\Repositories\ItemNameRepository
-	 */
-	 public static function getItemNameRepository() {
-	 	return MoufManager::getMoufManager()->getInstance('itemNameRepository');
-	 }
-
-	/**
-	 * @return Mouf\Packanalyst\Repositories\ItemRepository
-	 */
-	 public static function getItemRepository() {
-	 	return MoufManager::getMoufManager()->getInstance('itemRepository');
-	 }
-
-	/**
 	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
 	 */
 	 public static function getJQueryLibrary() {
@@ -1696,13 +1543,6 @@ return $repository;
 	 }
 
 	/**
-	 * @return HireVoice\Neo4j\EntityManager
-	 */
-	 public static function getNeo4jEntityManager() {
-	 	return MoufManager::getMoufManager()->getInstance('neo4jEntityManager');
-	 }
-
-	/**
 	 * @return Mouf\Utils\Cache\NoCache
 	 */
 	 public static function getNoCacheService() {
@@ -1735,20 +1575,6 @@ return $repository;
 	 */
 	 public static function getPackageRenderer_moufhtml_widgets_messageservice() {
 	 	return MoufManager::getMoufManager()->getInstance('packageRenderer_mouf/html.widgets.messageservice');
-	 }
-
-	/**
-	 * @return Mouf\Packanalyst\Repositories\PackageRepository
-	 */
-	 public static function getPackageRepository() {
-	 	return MoufManager::getMoufManager()->getInstance('packageRepository');
-	 }
-
-	/**
-	 * @return Mouf\Packanalyst\Repositories\PackageVersionRepository
-	 */
-	 public static function getPackageVersionRepository() {
-	 	return MoufManager::getMoufManager()->getInstance('packageVersionRepository');
 	 }
 
 	/**

@@ -14,6 +14,7 @@ use Mouf\Packanalyst\Entities\ItemEntity;
 use Elasticsearch\Client;
 use Mouf\Packanalyst\Entities\ItemNameEntity;
 use Everyman\Neo4j\Exception;
+use Mouf\Packanalyst\Dao\ItemDao;
 /**
  * This package is in charge of indexing data into elastic search.
  * 
@@ -21,13 +22,18 @@ use Everyman\Neo4j\Exception;
  */
 class ElasticSearchService
 {
-	private $itemNameRepository;
+	/**
+	 * 
+	 * @var ItemDao
+	 */
+	private $itemDao;
 	private $elasticSearchClient;
 	
-	public function __construct(ItemNameRepository $itemNameRepository, Client $elasticSearchClient) {
-		$this->itemNameRepository = $itemNameRepository;
+	public function __construct(Client $elasticSearchClient) {
 		$this->elasticSearchClient = $elasticSearchClient;
 	}
+	
+	
 	
 	/**
 	 * Reindex everything in elastic search.
@@ -35,9 +41,9 @@ class ElasticSearchService
 	public function reindexAll() {
 		$this->deleteIndex();
 		$this->createIndex();
-		$this->itemNameRepository->applyOnAllItemName(function(ItemNameEntity $itemName) {
-			echo "Indexing ".$itemName->getName()."\n";
-			$this->storeItemName($itemName);
+		$this->itemDao->applyOnAllItemName(function($item) {
+			echo "Indexing ".$item['name']."\n";
+			$this->storeItemName($item['name']);
 		});
 	}
 	
@@ -176,4 +182,9 @@ class ElasticSearchService
 			];
 		}, $suggestions['itemname'][0]['options']);
 	}
+	public function setItemDao(ItemDao $itemDao) {
+		$this->itemDao = $itemDao;
+		return $this;
+	}
+	
 }

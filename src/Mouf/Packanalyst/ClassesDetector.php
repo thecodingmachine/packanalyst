@@ -8,14 +8,8 @@ use PhpParser\Parser;
 use PhpParser\Lexer;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
-use Mouf\Packanalyst\Entities\ItemEntity;
 use Composer\Package\Package;
 use Mouf\Packanalyst\Services\StoreInDbNodeVisitor;
-use HireVoice\Neo4j\Repository;
-use Mouf\Packanalyst\Entities\PackageEntity;
-use Mouf\Packanalyst\Repositories\PackageVersionRepository;
-use Mouf\Packanalyst\Repositories\ItemNameRepository;
-use Mouf\Packanalyst\Entities\PackageVersionEntity;
 use PhpParser\Error;
 use Psr\Log\LoggerInterface;
 use Mouf\Packanalyst\Dao\ItemDao;
@@ -28,19 +22,13 @@ use Mouf\Packanalyst\Dao\ItemDao;
 class ClassesDetector extends NodeVisitorAbstract
 {
 	private $parser;
-	private $itemNameRepository;
-	private $itemRepository;
-	private $packageVersionRepository;
 	private $logger;
 	private $itemDao;
 	
-	public function __construct(ItemNameRepository $itemNameRepository, Repository $itemRepository, PackageVersionRepository $packageVersionRepository, LoggerInterface $logger, ItemDao $itemDao) {
+	public function __construct(LoggerInterface $logger, ItemDao $itemDao) {
 		// use the emulative lexer here, as we are running PHP 5.2 but want to parse PHP 5.3
 		//$this->parser        = new PhpParser\Parser(new PhpParser\Lexer\Emulative);
 		$this->parser        = new Parser(new Lexer());
-		$this->itemNameRepository = $itemNameRepository;
-		$this->itemRepository = $itemRepository;
-		$this->packageVersionRepository = $packageVersionRepository;
 		$this->logger = $logger;
 		$this->itemDao = $itemDao;
 	}

@@ -21,15 +21,12 @@ use Mouf\Packanalyst\Dao\PackageDao;
  */
 class FetchDataService
 {
-	private $entityManager;
 	
 	/**
 	 * @var ComposerRepository
 	 */
 	private $packagistRepository;
 	
-	private $packageRepository;
-	private $packageVersionRepository;
 	private $logger;
 	private $itemDao;
 	private $packageDao;
@@ -39,11 +36,8 @@ class FetchDataService
 	 */
 	private $downloadManager;
 	
-	public function __construct(EntityManager $entityManager, ClassesDetector $classesDetector, PackageRepository $packageRepository, PackageVersionRepository $packageVersionRepository, LoggerInterface $logger, ItemDao $itemDao, PackageDao $packageDao) {
-		$this->entityManager = $entityManager;
+	public function __construct(ClassesDetector $classesDetector, LoggerInterface $logger, ItemDao $itemDao, PackageDao $packageDao) {
 		$this->classesDetector = $classesDetector;
-		$this->packageRepository = $packageRepository;
-		$this->packageVersionRepository = $packageVersionRepository;
 		$this->logger = $logger;
 		$this->itemDao = $itemDao;
 		$this->packageDao = $packageDao;
