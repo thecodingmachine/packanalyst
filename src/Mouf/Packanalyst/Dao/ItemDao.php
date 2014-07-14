@@ -28,6 +28,9 @@ class ItemDao
 			"inherits" => 1
 		]);
 		$this->collection->createIndex([
+			"globalInherits" => 1
+		]);
+		$this->collection->createIndex([
 			"name" => 1
 		]);
 		$this->collection->createIndex([
@@ -126,6 +129,15 @@ class ItemDao
 	 */
 	public function findItemsInheriting($itemName) {
 		return $this->collection->find([ "globalInherits" => $itemName ]);
+	}
+	
+	/**
+	 * Find the list of items that inherit in a way or another $itemName
+	 *
+	 * @param string $itemName
+	 */
+	public function findItemsByPackageVersion($packageName, $packageVersion) {
+		return $this->collection->find([ "packageName" => $packageName, "packageVersion" => $packageVersion ]);
 	}
 	
 	public function applyOnAllItemName(callable $callback) {

@@ -1,5 +1,20 @@
-<h1><small>Analyzing class</small> {{ class }}</h1>
+<div class="page-header">
+<h1><small>Analyzing {{ type }}</small> {{ class }}</h1>
+</div>
+
+{% if description %}
+<h2>Description</h2>
+<div class="well">
+<div class="description">{{ description | raw }}</div>
+</div>
+{% endif %}
 
 <h2>Known implementations</h2>
 
 {{ toHtml(graph) }}
+
+<h2>Implement / Extends</h2>
+
+<ul class='classgraph'>
+{{ toHtml(inheritNodes) }}
+</ul>

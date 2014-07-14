@@ -1,12 +1,12 @@
 <li>
 	<div class='item {{ type }}'>
-		<div class='className'>{{ name }}</div>
+		<div class='className'><a href="class?q={{ name | url_encode }}">{{ name }}</a></div>
 		{% for packageName, versions in packages  %}
 		<div class='package small'>
 		{{ packageName }}
 		<span class="versions">
 		{% for version in versions%}
-		<span class="version badge">{{ version }}</span>
+		<span class="version badge"><a href="{{ constant("ROOT_URL") }}package?name={{ packageName }}&version={{ version }}">{{ version }}</a></span>
 		{% endfor %}
 		</span>
 		</div>

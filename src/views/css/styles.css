@@ -65,3 +65,19 @@
 	font-family: "Lucida Console", monospace;
 	
 }
+
+.item a {
+	color: #333
+}
+
+.item .badge a {
+	color: white
+}
+
+.versions .badge {
+	font-size: 10px;
+}
+
+div.description {
+	font-style: italic;	
+}

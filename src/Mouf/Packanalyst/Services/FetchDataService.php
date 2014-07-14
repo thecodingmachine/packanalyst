@@ -68,8 +68,25 @@ class FetchDataService
 		// TODO: each package is there twice. Find why.
 		$filesystem = new Filesystem();
 		
-		$i=0;
-		foreach ($this->packagistRepository->getProviderNames() as $packageName) {
+		if (file_exists(DOWNLOAD_DIR."/last_analyzed_package")) {
+			$lastAnalyzedPackage = file_get_contents(DOWNLOAD_DIR."/last_analyzed_package");
+		} else {
+			$lastAnalyzedPackage = "";
+		}
+		
+		$providerNames = $this->packagistRepository->getProviderNames();
+		
+		// If analyzis is over, let's start from the beginning again.
+		if ($lastAnalyzedPackage == $providerNames[count($providerNames)-1]) {
+			$lastAnalyzedPackage = '';
+		}
+		
+		foreach ($providerNames as $packageName) {
+			
+			if ($packageName <= $lastAnalyzedPackage) {
+				continue;
+			}
+			
 			//if ($packageName != '10up/wp_mock') continue;
 			//var_dump($packagistRepo->findPackages($packageName));
 			$packages = $this->packagistRepository->findPackages($packageName);
@@ -89,7 +106,7 @@ class FetchDataService
 				$this->itemDao->deletePackage($notImportantPackage->getName(), $notImportantPackage->getPrettyVersion());
 				$this->packageDao->deletePackage($notImportantPackage->getName(), $notImportantPackage->getPrettyVersion());
 				
-				$downloadPath = DOWNLOAD_DIR."/".$package->getName()."/".$package->getPrettyVersion();
+				$downloadPath = DOWNLOAD_DIR."/".$notImportantPackage->getName()."/".$notImportantPackage->getPrettyVersion();
 				$filesystem->removeDirectory($downloadPath);
 			}
 			
@@ -130,8 +147,8 @@ class FetchDataService
 	    			$packageVersion['onError'] = false;
 	    			$packageVersion['errorMsg'] = '';
 				} catch (\Exception $e) {
-					if (!$packageVersionEntity) {
-						$packageVersionEntity = $this->packageVersionRepository->findOrCreatePackageVersion($package);
+					if (!$packageVersion) {
+						$packageVersion = $this->packageDao->createOrUpdatePackage($package);
 					}
 					$this->logger->error("Package {packageName} {version} failed to download. Exception: ".$e->getMessage(),
 						array(
@@ -146,9 +163,9 @@ class FetchDataService
 				$this->packageDao->save($packageVersion);
 			}
 			
-			$this->entityManager->flush();
-			//exit();
-				
+			// Let's write the name of the last package we analyzed/
+			// We will use it to start again from next package.
+			file_put_contents(DOWNLOAD_DIR."/last_analyzed_package", $packageName);
 		}
 		 
 		 

@@ -825,6 +825,69 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
     ),
   ),
+  'packageAnalyzerController' => 
+  array (
+    'class' => 'Mouf\\Packanalyst\\Controllers\\PackageAnalyzerController',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'psr.errorLogLogger',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'bootstrapTemplate',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'block.content',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'twigEnvironment',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      4 => 
+      array (
+        'value' => 'itemDao',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      5 => 
+      array (
+        'value' => 'packageDao',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
   'packageDao' => 
   array (
     'class' => 'Mouf\\Packanalyst\\Dao\\PackageDao',
@@ -1554,6 +1617,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 */
 	 public static function getNumericValidatorDecimals() {
 	 	return MoufManager::getMoufManager()->getInstance('numericValidatorDecimals');
+	 }
+
+	/**
+	 * @return Mouf\Packanalyst\Controllers\PackageAnalyzerController
+	 */
+	 public static function getPackageAnalyzerController() {
+	 	return MoufManager::getMoufManager()->getInstance('packageAnalyzerController');
 	 }
 
 	/**

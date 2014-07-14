@@ -3,6 +3,7 @@ namespace Mouf\Packanalyst\Dao;
 
 
 use Composer\Package\Package;
+use Composer\Package\CompletePackage;
 class PackageDao
 {
 	/**
@@ -71,6 +72,9 @@ class PackageDao
 		
 		$packageVersion['releaseDate'] = new \MongoDate($package->getReleaseDate()->getTimestamp());
 		$packageVersion['type'] = $package->getType();
+		if ($package instanceof CompletePackage) {
+			$packageVersion['description'] = $package->getDescription();
+		}
 		
 		$this->collection->save($packageVersion);
 		return $packageVersion;

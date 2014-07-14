@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0a1192e5f64cb75dbd731871176f87b6",
+    "hash": "b69bbec4f41d623517aaf58bc7a57eea",
     "packages": [
         {
             "name": "components/typeahead.js",
@@ -148,12 +148,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "d9b1a37e9351ddde1f19f09a02e3d6ee92e82efd"
+                "reference": "0db097b6c15e2e9547b1098e1caa66aa07598c3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/d9b1a37e9351ddde1f19f09a02e3d6ee92e82efd",
-                "reference": "d9b1a37e9351ddde1f19f09a02e3d6ee92e82efd",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/0db097b6c15e2e9547b1098e1caa66aa07598c3b",
+                "reference": "0db097b6c15e2e9547b1098e1caa66aa07598c3b",
                 "shasum": ""
             },
             "require": {
@@ -213,7 +213,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-07-06 15:52:21"
+            "time": "2014-07-10 13:30:26"
         },
         {
             "name": "doctrine/lexer",
@@ -328,6 +328,51 @@
                 "search"
             ],
             "time": "2014-06-18 16:48:46"
+        },
+        {
+            "name": "ezyang/htmlpurifier",
+            "version": "v4.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezyang/htmlpurifier.git",
+                "reference": "6f389f0f25b90d0b495308efcfa073981177f0fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/6f389f0f25b90d0b495308efcfa073981177f0fd",
+                "reference": "6f389f0f25b90d0b495308efcfa073981177f0fd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HTMLPurifier": "library/"
+                },
+                "files": [
+                    "library/HTMLPurifier.composer.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Edward Z. Yang",
+                    "email": "admin@htmlpurifier.org",
+                    "homepage": "http://ezyang.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Standards compliant HTML filter written in PHP",
+            "homepage": "http://htmlpurifier.org/",
+            "keywords": [
+                "html"
+            ],
+            "time": "2013-11-30 08:25:19"
         },
         {
             "name": "geoffroy-aubry/helpers",
@@ -595,12 +640,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kriswallsmith/assetic.git",
-                "reference": "964340e69361802eddf51e8eaa85acbd1c621edf"
+                "reference": "5bea57990f7ddbeb3d57e7ef96eae9ddd56c4297"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/964340e69361802eddf51e8eaa85acbd1c621edf",
-                "reference": "964340e69361802eddf51e8eaa85acbd1c621edf",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/5bea57990f7ddbeb3d57e7ef96eae9ddd56c4297",
+                "reference": "5bea57990f7ddbeb3d57e7ef96eae9ddd56c4297",
                 "shasum": ""
             },
             "require": {
@@ -661,7 +706,58 @@
                 "compression",
                 "minification"
             ],
-            "time": "2014-05-05 12:59:42"
+            "time": "2014-07-08 11:30:40"
+        },
+        {
+            "name": "michelf/php-markdown",
+            "version": "dev-lib",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michelf/php-markdown.git",
+                "reference": "123c43a65c783e7535384cfbec640d9702204c22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/123c43a65c783e7535384cfbec640d9702204c22",
+                "reference": "123c43a65c783e7535384cfbec640d9702204c22",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-lib": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Michelf": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Michel Fortin",
+                    "email": "michel.fortin@michelf.ca",
+                    "homepage": "http://michelf.ca/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "John Gruber",
+                    "homepage": "http://daringfireball.net/"
+                }
+            ],
+            "description": "PHP Markdown",
+            "homepage": "http://michelf.ca/projects/php-markdown/",
+            "keywords": [
+                "markdown"
+            ],
+            "time": "2014-05-15 19:49:30"
         },
         {
             "name": "monolog/monolog",
@@ -932,12 +1028,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/html.template.bootstrap.git",
-                "reference": "913cbeddfb2985d110514d3ae8d115e21d0c37d2"
+                "reference": "a5acd8450ed7be93a2e2d0593032a11666e3c471"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/html.template.bootstrap/zipball/913cbeddfb2985d110514d3ae8d115e21d0c37d2",
-                "reference": "913cbeddfb2985d110514d3ae8d115e21d0c37d2",
+                "url": "https://api.github.com/repos/thecodingmachine/html.template.bootstrap/zipball/a5acd8450ed7be93a2e2d0593032a11666e3c471",
+                "reference": "a5acd8450ed7be93a2e2d0593032a11666e3c471",
                 "shasum": ""
             },
             "require": {
@@ -984,7 +1080,7 @@
                 "mouf",
                 "template"
             ],
-            "time": "2014-07-07 08:23:14"
+            "time": "2014-07-09 15:13:03"
         },
         {
             "name": "mouf/html.template.templateinterface",
@@ -1370,12 +1466,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/mouf.git",
-                "reference": "959eb09cc53dcedb6139266f091b9c710dc077de"
+                "reference": "8c046980d46226fe1d063753897d5f5d04ba6e66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/mouf/zipball/959eb09cc53dcedb6139266f091b9c710dc077de",
-                "reference": "959eb09cc53dcedb6139266f091b9c710dc077de",
+                "url": "https://api.github.com/repos/thecodingmachine/mouf/zipball/8c046980d46226fe1d063753897d5f5d04ba6e66",
+                "reference": "8c046980d46226fe1d063753897d5f5d04ba6e66",
                 "shasum": ""
             },
             "require": {
@@ -1505,7 +1601,7 @@
                 "ioc",
                 "mouf"
             ],
-            "time": "2014-07-07 17:07:03"
+            "time": "2014-07-14 16:57:54"
         },
         {
             "name": "mouf/mouf-installer",
@@ -1603,12 +1699,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/mvc.splash.git",
-                "reference": "13135d65076572c0ccf1c133a68005817f797fc2"
+                "reference": "5322023a298e97b9a6dc3d9d53d864ece2a29950"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/mvc.splash/zipball/13135d65076572c0ccf1c133a68005817f797fc2",
-                "reference": "13135d65076572c0ccf1c133a68005817f797fc2",
+                "url": "https://api.github.com/repos/thecodingmachine/mvc.splash/zipball/5322023a298e97b9a6dc3d9d53d864ece2a29950",
+                "reference": "5322023a298e97b9a6dc3d9d53d864ece2a29950",
                 "shasum": ""
             },
             "require": {
@@ -1702,7 +1798,7 @@
                 "mvc",
                 "splash"
             ],
-            "time": "2014-06-17 12:36:59"
+            "time": "2014-07-09 09:07:49"
         },
         {
             "name": "mouf/mvc.splash-common",
@@ -2787,12 +2883,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Pimple.git",
-                "reference": "6a18683f5f52c7eff442812b48122d21d44fbddb"
+                "reference": "c4d56ed5cfafcf0278e0a355d8925904dc0f931d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/6a18683f5f52c7eff442812b48122d21d44fbddb",
-                "reference": "6a18683f5f52c7eff442812b48122d21d44fbddb",
+                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/c4d56ed5cfafcf0278e0a355d8925904dc0f931d",
+                "reference": "c4d56ed5cfafcf0278e0a355d8925904dc0f931d",
                 "shasum": ""
             },
             "require": {
@@ -2827,7 +2923,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2014-06-26 14:39:39"
+            "time": "2014-07-13 08:59:48"
         },
         {
             "name": "psr/log",
@@ -2873,12 +2969,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobLoach/component-installer.git",
-                "reference": "c2e456e7644885f786169e52f590719aa5a8a7d8"
+                "reference": "225068e491c5059d006a7841257540979f082012"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/c2e456e7644885f786169e52f590719aa5a8a7d8",
-                "reference": "c2e456e7644885f786169e52f590719aa5a8a7d8",
+                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/225068e491c5059d006a7841257540979f082012",
+                "reference": "225068e491c5059d006a7841257540979f082012",
                 "shasum": ""
             },
             "require": {
@@ -2910,7 +3006,7 @@
                 }
             ],
             "description": "Allows installation of Components via Composer.",
-            "time": "2013-09-08 14:10:00"
+            "time": "2014-07-10 16:19:44"
         },
         {
             "name": "seld/jsonlint",
@@ -2966,12 +3062,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "9a491e7983209bf320d40917291c03e856eee947"
+                "reference": "a8cc82877396aab7b028c4594dad9a4392fbf7f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/9a491e7983209bf320d40917291c03e856eee947",
-                "reference": "9a491e7983209bf320d40917291c03e856eee947",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/a8cc82877396aab7b028c4594dad9a4392fbf7f0",
+                "reference": "a8cc82877396aab7b028c4594dad9a4392fbf7f0",
                 "shasum": ""
             },
             "require": {
@@ -3016,7 +3112,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-06-20 17:41:51"
+            "time": "2014-07-09 09:06:26"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3025,12 +3121,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "7a4f4b42886f8c2e35acb1071f157a0b8eb1bd39"
+                "reference": "dc2182b4275f153469321b99c3a675ef3cffafd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/7a4f4b42886f8c2e35acb1071f157a0b8eb1bd39",
-                "reference": "7a4f4b42886f8c2e35acb1071f157a0b8eb1bd39",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/dc2182b4275f153469321b99c3a675ef3cffafd4",
+                "reference": "dc2182b4275f153469321b99c3a675ef3cffafd4",
                 "shasum": ""
             },
             "require": {
@@ -3075,7 +3171,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-23 14:36:49"
+            "time": "2014-07-08 12:21:41"
         },
         {
             "name": "symfony/finder",
@@ -3084,12 +3180,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "e26f1529c714f57d667599b4eb1b482326691f08"
+                "reference": "e518598652b9fe093b1b07a9de83309459fcb357"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/e26f1529c714f57d667599b4eb1b482326691f08",
-                "reference": "e26f1529c714f57d667599b4eb1b482326691f08",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/e518598652b9fe093b1b07a9de83309459fcb357",
+                "reference": "e518598652b9fe093b1b07a9de83309459fcb357",
                 "shasum": ""
             },
             "require": {
@@ -3124,7 +3220,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2014-06-20 17:41:51"
+            "time": "2014-07-09 09:06:26"
         },
         {
             "name": "symfony/process",
@@ -3133,12 +3229,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "6ce30e850357c844696411d49c4cfe7f19446f6e"
+                "reference": "b39c84a77bd722e459a5dde521167acbac2030c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/6ce30e850357c844696411d49c4cfe7f19446f6e",
-                "reference": "6ce30e850357c844696411d49c4cfe7f19446f6e",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/b39c84a77bd722e459a5dde521167acbac2030c1",
+                "reference": "b39c84a77bd722e459a5dde521167acbac2030c1",
                 "shasum": ""
             },
             "require": {
@@ -3173,7 +3269,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-01 06:41:10"
+            "time": "2014-07-08 12:21:41"
         },
         {
             "name": "twig/twig",
@@ -3234,25 +3330,22 @@
         },
         {
             "name": "twitter/bootstrap",
-            "version": "dev-master",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "a0d8d56593388790fba2b20acf117fb954e0766a"
+                "reference": "a365d8689c3f3cee7f1acf86b61270ecca8e106d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a0d8d56593388790fba2b20acf117fb954e0766a",
-                "reference": "a0d8d56593388790fba2b20acf117fb954e0766a",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a365d8689c3f3cee7f1acf86b61270ecca8e106d",
+                "reference": "a365d8689c3f3cee7f1acf86b61270ecca8e106d",
                 "shasum": ""
-            },
-            "replace": {
-                "twitter/bootstrap": "self.version"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2.x-dev"
+                    "dev-master": "3.0.x-dev"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3269,19 +3362,13 @@
                     "email": "markdotto@gmail.com"
                 }
             ],
-            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "description": "Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.",
             "homepage": "http://getbootstrap.com",
             "keywords": [
-                "JS",
-                "css",
-                "framework",
-                "front-end",
-                "less",
-                "mobile-first",
-                "responsive",
-                "web"
+                "bootstrap",
+                "css"
             ],
-            "time": "2014-07-07 07:59:51"
+            "time": "2014-02-13 17:24:59"
         }
     ],
     "packages-dev": [
