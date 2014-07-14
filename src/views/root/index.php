@@ -43,3 +43,34 @@ $(function() {
 </div>
     
 </form>
+
+<h3 class="text-center">What is this?</h3>
+
+<div class="row">
+	<div class="col-xs-12 col-md-6">
+		<div class="panel panel-default">
+		  <!-- Default panel contents -->
+		  <div class="panel-heading">A PHP class analyzer</div>
+		  <div class="panel-body">
+		    <p>Packanalyst is a service that let's you browse in <strong>any</strong> PHP class / interface / trait
+		    defined in <a href="http://packagist.org/">Packagist</a>. Not used to Packagist? You should! This is the
+		    de-facto central repository for storing any PHP open-source project. 
+		    </p>
+		  </div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-6">
+		<div class="panel panel-default">
+		  <!-- Default panel contents -->
+		  <div class="panel-heading">Find any class implementing your interface</div>
+		  <div class="panel-body">
+		    <p>Packanalyst can be useful for the average developer, but we believe it can be tremendously 
+		    useful for any package developer. Indeed, using Packanalyst, you can find any package containing
+		    classes that implement/extend your classes/interfaces. 
+		    </p>
+		    <p>Therefore, this is an absolutely unique tool to know who is using and implementing
+		    your interfaces / abstract classes / traits.</p>
+		  </div>
+		</div>
+	</div>
+</div>

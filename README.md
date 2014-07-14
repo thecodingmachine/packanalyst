@@ -6,37 +6,17 @@ A PHP package analyzer for Composer/Packagist.
 Install
 -------
 
-Install Neo4J
+Packanalyst requires a MongoDB database and an ElasticSearch database.
 
-Install ElasticSearch
+- Clone the application from the Git repository
+- Run `composer.phar install`
+- Configure the application in Mouf: `http://[yourserver]/[yourapp]/vendor/mouf/mouf`
+- Init the databases: `./console.php reset`
 
-###Install ElasticSearch river module for Neo4J:
+Implementation details
+----------------------
 
-In elastic search directory, run:
-
-```js
-bin/plugin -install com.sksamuel.elasticsearch/elasticsearch-river-neo4j/1.2.1.1
-
-curl -XPUT 'http://localhost:9200/_river/my_neo_river/_meta' -d '{
-    "type": "neo4j",
-    "neo4j": {
-        "uri": "http://localhost:7474",
-        "interval": 10000
-    },
-    "index": {
-        "name": "neo4j",
-        "type": "allitems"
-    }
-}'
-```
-
-
-BON, NEO4J, C'est galère!
-TESTONS AVEC MONGODB.
-
-Idée de modèle:
-
-Items:
+MongoDB item collection:
 
 {
 	"name": "FQDN",
@@ -46,14 +26,14 @@ Items:
 	"packageName": "packagename",
 	"packageVersion": "version",
 	"phpDoc": "doc class"
-
 }
 
-index sur: packageName + packageVersion
-index sur: name
-index sur: inherits
+index on: packageName + packageVersion
+index on: name
+index on: inherits
+index on: globalInherits
 
-Mais aussi:
+MongoDB package collection:
 
 {
 	packageName: ""

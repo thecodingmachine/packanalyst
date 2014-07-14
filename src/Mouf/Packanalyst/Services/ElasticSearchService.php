@@ -1,20 +1,13 @@
 <?php
 namespace Mouf\Packanalyst\Services;
 
-use HireVoice\Neo4j\EntityManager;
 use Composer\Repository\ComposerRepository;
 use Composer\Downloader\DownloadManager;
 use Mouf\Packanalyst\ClassesDetector;
 use Composer\Package\Package;
-use Mouf\Packanalyst\Repositories\PackageRepository;
-use Mouf\Packanalyst\Repositories\PackageVersionRepository;
-use Mouf\Packanalyst\Repositories\ItemNameRepository;
-use Mouf\Packanalyst\Repositories\ItemRepository;
-use Mouf\Packanalyst\Entities\ItemEntity;
 use Elasticsearch\Client;
-use Mouf\Packanalyst\Entities\ItemNameEntity;
-use Everyman\Neo4j\Exception;
 use Mouf\Packanalyst\Dao\ItemDao;
+
 /**
  * This package is in charge of indexing data into elastic search.
  * 
@@ -108,8 +101,6 @@ class ElasticSearchService
 	 */
 	public function storeItemName($itemName) {
 		
-		// FIXME: we must be sure we don't import the same item TWICE!!!!
-		// FIXME: we must import all the inherited names (like Exception)!!!!
 		// TODO: a local "cache" array that contain all the classes we know that exist in ElasticSearch.
 		// Or find a way in ElasticSearch to have unique indexes.
 		
