@@ -79,7 +79,13 @@ class ElasticSearchService
 		);*/
 		$itemNameMapping = array(
 				'properties' => array(
-						"name" => [ "type" => "string", "index" => "not_analyzed" ],
+						"name" => [ 
+							"type" => "multi_field",
+							"fields" => [
+								"name" => [ "type" => "string", "index" => "not_analyzed" ],
+								"nameAuto" => [ "type" => "string", "index" => "analyzed" ],
+							],
+						],
 			            "suggest" => [ 
 							"type" => "completion",
 			                "index_analyzer" => "simple",
@@ -88,6 +94,7 @@ class ElasticSearchService
 			            ]
 				)
 		);
+		
 		$indexParams['body']['mappings']['itemname'] = $itemNameMapping;
 		
 		

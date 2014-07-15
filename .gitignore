@@ -6,3 +6,4 @@ config.php
 .composer
 .project
 .settings
+mouf/no_commit/*
