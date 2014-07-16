@@ -216,7 +216,8 @@ class FetchDataService
 		
 		// If no package has been kept, let's grab all of them...
 		if (empty($keptPackages)) {
-			$keptPackages = $packages;
+			// But still, let's remove any AliasPackage
+			$keptPackages = array_filter($packages, function($package) { return !($package instanceof AliasPackage); });
 		}
 
 		return $keptPackages;
