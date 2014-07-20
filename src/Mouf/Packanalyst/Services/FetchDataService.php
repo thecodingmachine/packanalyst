@@ -150,7 +150,7 @@ class FetchDataService
 					if (!$packageVersion) {
 						$packageVersion = $this->packageDao->createOrUpdatePackage($package);
 					}
-					$this->logger->error("Package {packageName} {version} failed to download. Exception: ".$e->getMessage(),
+					$this->logger->error("Package {packageName} {version} failed to download. Exception: ".$e->getMessage()." - ".$e->getTraceAsString(),
 						array(
 								"packageName"=>$package->getName(),
 								"version"=>$package->getPrettyVersion(),
@@ -158,7 +158,7 @@ class FetchDataService
 						)
 					);
 	    			$packageVersion['packageName'] = $package->getName();
-	    			$packageVersion['packageVersion'] = $package->getPrettyVersion;
+	    			$packageVersion['packageVersion'] = $package->getPrettyVersion();
 					$packageVersion['onError'] = true;
 	    			$packageVersion['errorMsg'] = $e->getMessage()."\n".$e->getTraceAsString();
 				}
