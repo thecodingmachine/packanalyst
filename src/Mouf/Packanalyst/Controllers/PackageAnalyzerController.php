@@ -64,12 +64,38 @@ class PackageAnalyzerController extends Controller {
 	 * @param string $name
 	 * @param string $version
 	 */
-	public function index($name, $version) {
-		$package = $this->packageDao->get($name, $version);
+	public function index($name, $version = null) {
+		if ($version != null) {
+			$package = $this->packageDao->get($name, $version);
+		} else {
+			$package = $this->packageDao->getLatestPackage($name);
+			if (isset($package['packageVersion'])) {
+				$version = $package['packageVersion'];
+			}
+		}
+		
+		if (!$package) {
+			header("HTTP/1.0 404 Not Found");
+			$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/packageAnalyzer/404.twig', array("packageName"=>$name, "packageVersion"=>$version)));
+			$this->template->toHtml();
+			return;
+		}
+		
+		$allPackages = $this->packageDao->getPackagesByName($name);
+		$otherVersions = [];
+		foreach ($allPackages as $package) {
+			if ($package['packageVersion'] != $version) {
+				$otherVersions[] = $package['packageVersion'];
+			}
+		}
+		
 		$itemsList = $this->itemDao->findItemsByPackageVersion($name, $version);
 		
+		// Let's sort alphabetically.
+		$itemsList->sort(['name'=>1]);
+		
 		// Let's add the twig file to the template.
-		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/packageAnalyzer/index.twig', array("package"=>$package, "itemsList"=>$itemsList)));
+		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/packageAnalyzer/index.twig', array("package"=>$package, "itemsList"=>$itemsList, "otherVersions"=>$otherVersions)));
 		$this->template->toHtml();
 	}
 }

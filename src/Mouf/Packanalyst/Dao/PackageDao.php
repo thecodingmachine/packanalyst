@@ -4,15 +4,19 @@ namespace Mouf\Packanalyst\Dao;
 
 use Composer\Package\Package;
 use Composer\Package\CompletePackage;
+use Mouf\Packanalyst\Services\ElasticSearchService;
 class PackageDao
 {
 	/**
 	 * @var \MongoCollection $collection
 	 */
-	private $collection; 
+	private $collection;
 	
-	public function __construct(\MongoCollection $collection) {
+	private $elasticSearchService;
+	
+	public function __construct(\MongoCollection $collection, ElasticSearchService $elasticSearchService) {
 		$this->collection = $collection;
+		$this->elasticSearchService = $elasticSearchService;
 	}
 	
 	public function createIndex() {
@@ -53,6 +57,43 @@ class PackageDao
 			"packageVersion" => $packageVersion
 		]);
 	}
+	
+	public function getPackagesByName($packageName) {
+		return $this->collection->find([
+			"packageName" => $packageName
+		]);
+	}
+	
+	/**
+	 * 
+	 * @param string $packageName
+	 * @return array
+	 */
+	public function getLatestPackage($packageName) {
+		$packages = $this->getPackagesByName($packageName);
+
+		if ($packages->count() == 0) {
+			return null;
+		}
+		
+		// Is there a dev-master?
+		foreach ($packages as $package) {
+			if ($package['packageVersion'] == 'dev-master') {
+				return $package;
+			}		
+		}
+		
+		$latestVersion = "0.0.0";
+		$selectedPackage = $package[0];
+		
+		foreach ($packages as $package) {
+			if (version_compare($package['packageVersion'], $latestVersion) > 0) {
+				$latestVersion = $package['packageVersion'];
+				$selectedPackage = $package;
+			}
+		}
+		return $selectedPackage;
+	}
 
 	/**
 	 * Creates or update a package in MongoDB from the Package passed in parameter. 
@@ -77,10 +118,19 @@ class PackageDao
 		}
 		
 		$this->collection->save($packageVersion);
+		
+		$this->elasticSearchService->storeItemName($package->getName(), 'package');
+		
 		return $packageVersion;
 	}
 	
 	public function save($packageVersion) {
 		$this->collection->save($packageVersion);		
+	}
+	
+	public function applyOnAllPackages(callable $callback) {
+		foreach ($this->collection->find() as $item) {
+			$callback($item);
+		}
 	}
 }

@@ -8,12 +8,6 @@ use PhpParser\Parser;
 use PhpParser\Lexer;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
-use Mouf\Packanalyst\Entities\ItemEntity;
-use Mouf\Packanalyst\Entities\PackageEntity;
-use Mouf\Packanalyst\Entities\ItemNameEntity;
-use HireVoice\Neo4j\Repository;
-use Mouf\Packanalyst\Entities\PackageVersionEntity;
-use Mouf\Packanalyst\Repositories\ItemNameRepository;
 use Mouf\Packanalyst\Dao\ItemDao;
 
 /**

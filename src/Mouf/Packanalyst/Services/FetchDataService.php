@@ -152,12 +152,14 @@ class FetchDataService
 					}
 					$this->logger->error("Package {packageName} {version} failed to download. Exception: ".$e->getMessage(),
 						array(
-								"packageName"=>$package->getPrettyName(),
+								"packageName"=>$package->getName(),
 								"version"=>$package->getPrettyVersion(),
 								"exception"=>$e
 						)
 					);
-	    			$packageVersion['onError'] = true;
+	    			$packageVersion['packageName'] = $package->getName();
+	    			$packageVersion['packageVersion'] = $package->getPrettyVersion;
+					$packageVersion['onError'] = true;
 	    			$packageVersion['errorMsg'] = $e->getMessage()."\n".$e->getTraceAsString();
 				}
 				$this->packageDao->save($packageVersion);

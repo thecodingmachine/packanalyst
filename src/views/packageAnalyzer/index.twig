@@ -4,6 +4,17 @@
 
 <div class="description">{{ package.description }}</div>
 
+{% if otherVersions %}
+<p>
+<b>Other packages versions: </b>
+{% for otherVersion in otherVersions %}
+<span class="badge"><a href="{{ constant('ROOT_URL') }}package?name={{ package.packageName | url_encode }}&version={{ otherVersion | url_encode }}">{{ otherVersion }}</a></span>
+{% endfor %}
+</p>
+{% endif %}
+
+<p><a href="http://packagist.org/packages/{{ package.packageName }}">View on Packagist</a></p>
+
 <h2>Declared items in this package</h2>
 
 <ul>

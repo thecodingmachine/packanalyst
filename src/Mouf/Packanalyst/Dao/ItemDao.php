@@ -63,10 +63,10 @@ class ItemDao
 		$this->recomputeGlobalInherits($item);
 		
 		// Let's store all possible class names in ElasticSearch.
-		$this->elasticSearchService->storeItemName($item['name']);
+		$this->elasticSearchService->storeItemName($item['name'], $item['type']);
 		if (isset($item['inherits'])) {
 			foreach ($item['inherits'] as $itemName) {
-				$this->elasticSearchService->storeItemName($itemName);
+				$this->elasticSearchService->storeItemName($itemName, null);
 			}
 		}
 	}

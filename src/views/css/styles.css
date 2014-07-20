@@ -60,6 +60,10 @@
 	background-image: url(images/trait_obj.png)
 }
 
+.item.package {
+	background-image: url(images/package_obj.png)
+}
+
 
 .className {
 	font-family: "Lucida Console", monospace;
@@ -70,7 +74,7 @@
 	color: #333
 }
 
-.item .badge a {
+.badge a {
 	color: white
 }
 

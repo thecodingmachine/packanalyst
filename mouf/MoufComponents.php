@@ -494,6 +494,7 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     'setterBinds' => 
     array (
       'setItemDao' => 'itemDao',
+      'setPackageDao' => 'packageDao',
     ),
   ),
   'emailValidator' => 
@@ -904,6 +905,15 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
         array (
         ),
       ),
+      1 => 
+      array (
+        'value' => 'elasticSearchService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
     ),
   ),
   'packageRenderer_mouf/html.widgets.menu' => 
@@ -1060,6 +1070,33 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       2 => 
       array (
         'value' => 'elasticSearchService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'packageDao',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      4 => 
+      array (
+        'value' => 'itemDao',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      5 => 
+      array (
+        'value' => 'twigEnvironment',
         'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 

@@ -5,11 +5,12 @@ use Mouf\Html\HtmlElement\HtmlBlock;
 use Mouf\Html\Template\TemplateInterface;
 use Mouf\Mvc\Splash\Controllers\Controller;
 use Mouf\Packanalyst\Services\ElasticSearchService;
+use Mouf\Packanalyst\Dao\PackageDao;
+use Mouf\Packanalyst\Dao\ItemDao;
+use Mouf\Html\Renderer\Twig\TwigTemplate;
 				
 /**
  * This is the controller in charge of managing the first page of the application.
- * 
- * @Component
  */
 class RootController extends Controller {
 	
@@ -28,11 +29,18 @@ class RootController extends Controller {
 	private $content;
 	
 	private $elasticSearchService;
+	private $packageDao;
+	private $itemDao;
+	private $twig;
 	
-	public function __construct(TemplateInterface $template, HtmlBlock $content, ElasticSearchService $elasticSearchService) {
+	public function __construct(TemplateInterface $template, HtmlBlock $content, ElasticSearchService $elasticSearchService,
+			PackageDao $packageDao, ItemDao $itemDao, \Twig_Environment $twig) {
 		$this->template = $template;
 		$this->content = $content;
 		$this->elasticSearchService = $elasticSearchService;
+		$this->packageDao = $packageDao;
+		$this->itemDao = $itemDao;
+		$this->twig = $twig;
 	}
 	
 	/**
@@ -51,5 +59,40 @@ class RootController extends Controller {
 	public function suggest($q) {
 		header('Content-type: application/json');
 		echo json_encode($this->elasticSearchService->suggestItemName($q));
+	}
+	
+	/**
+	 * @URL /search
+	 * @param string $q The query string
+	 */
+	public function search($q, $page=0) {
+		// If query is a valid item of package, let's go to the dedicated page.
+		$item = $this->itemDao->getItemsByName($q);
+		if ($item->count() != 0) {
+			header("Location: ".ROOT_URL."class?q=".urlencode($q));
+			return;
+		}
+		
+		$package = $this->packageDao->getLatestPackage($q);
+		if ($package != null) {
+			// Let's grab the first
+			header("Location: ".ROOT_URL."package?name=".urlencode($q)."&version=".$package['packageVersion']);
+			return;
+		}
+		
+		$searchResults = $this->elasticSearchService->suggestItemName2($q,50, $page*50);
+		$totalCount = $searchResults['total'];
+		$hits = $searchResults['hits'];
+		$nbPages = floor($totalCount/50);
+		
+		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/root/search.twig', 
+				array(
+						"searchResults"=>$hits,
+						"totalCount"=>$totalCount,
+						"query"=>$q,
+						"nbPages"=>$nbPages,
+						"page"=>$page
+		)));
+		$this->template->toHtml();
 	}
 }
