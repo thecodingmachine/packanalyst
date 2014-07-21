@@ -126,7 +126,7 @@ class ElasticSearchService
 	public function storeItemName($itemName, $type = null) {
 		
 		// TODO: a local "cache" array that contain all the classes we know that exist in ElasticSearch.
-		// Or find a way in ElasticSearch to have unique indexes.
+		// When the local cache is set, remove the "refresh"=>true
 		
 		// Before inserting itemName, let's make sure it is not ALREADY in the index.
 		$oldSource = $this->checkItemNameExists($itemName);
@@ -136,15 +136,17 @@ class ElasticSearchService
 				// We can update the type with the new type
 				
 				$this->elasticSearchClient->update(array(
-					'id'=>$oldSource['id'],
+					'id'=>$oldSource['_id'],
 					'index'=>'packanalyst',
 					'type'=>'itemname',
 					'body'=>[
-						'type'=>$type
-					]
+						'doc'=>[
+							'type'=>$type
+						]
+					],
+					'refresh' => true
 				));
-			}
-						
+			}				
 			return;
 		}
 		
@@ -164,7 +166,19 @@ class ElasticSearchService
 		);
 		$params['index'] = 'packanalyst';
 		$params['type']  = 'itemname';
+		$params['refresh']  = true;
 		$ret = $this->elasticSearchClient->index($params);
+	}
+	
+	public function deleteItemName($itemName) {
+		$source = $this->checkItemNameExists($itemName);
+		if ($source != false) {
+			$this->elasticSearchClient->delete(array(
+						'id'=>$source['_id'],
+						'index'=>'packanalyst',
+						'type'=>'itemname'
+			));
+		}
 	}
 	
 	/**
@@ -296,5 +310,6 @@ class ElasticSearchService
 		$this->packageDao = $packageDao;
 		return $this;
 	}
+	
 	
 }
