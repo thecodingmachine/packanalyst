@@ -193,7 +193,8 @@ class FetchDataService
 				continue;
 			}
 			
-			$indexedByVersion[$package->getPrettyVersion()] = $package;
+			// Let's index by version, but let's first remove the first 'v' (like v1.0.0)
+			$indexedByVersion[ltrim($package->getPrettyVersion(), 'v')] = $package;
 		}
 
 		uksort($indexedByVersion, "version_compare");
