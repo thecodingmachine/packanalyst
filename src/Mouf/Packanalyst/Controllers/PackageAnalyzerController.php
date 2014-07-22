@@ -11,7 +11,7 @@ use Mouf\Packanalyst\Dao\ItemDao;
 use Mouf\Packanalyst\Dao\PackageDao;
 
 /**
- * TODO: write controller comment
+ * Controller displaying package page.
  */
 class PackageAnalyzerController extends Controller {
 
@@ -83,9 +83,9 @@ class PackageAnalyzerController extends Controller {
 		
 		$allPackages = $this->packageDao->getPackagesByName($name);
 		$otherVersions = [];
-		foreach ($allPackages as $package) {
-			if ($package['packageVersion'] != $version) {
-				$otherVersions[] = $package['packageVersion'];
+		foreach ($allPackages as $package2) {
+			if ($package2['packageVersion'] != $version) {
+				$otherVersions[] = $package2['packageVersion'];
 			}
 		}
 		
@@ -94,6 +94,7 @@ class PackageAnalyzerController extends Controller {
 		// Let's sort alphabetically.
 		$itemsList->sort(['name'=>1]);
 		
+		$this->template->setTitle('Packanalyst | Package '.$name.' ('.$version.')');
 		// Let's add the twig file to the template.
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/packageAnalyzer/index.twig', array("package"=>$package, "itemsList"=>$itemsList, "otherVersions"=>$otherVersions)));
 		$this->template->toHtml();

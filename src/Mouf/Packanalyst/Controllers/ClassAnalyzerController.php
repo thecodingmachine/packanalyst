@@ -125,6 +125,7 @@ class ClassAnalyzerController extends Controller {
 		$inheritNodes = $this->getNode($q);
 		
 		// Let's add the twig file to the template.
+		$this->template->setTitle('Packanalyst | '.ucfirst($type).' '.$q);
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig', array("class"=>$q, "graph"=>$graph, "description"=>$description, "type"=>$type, "inheritNodes"=>$inheritNodes)));
 		$this->template->toHtml();
 	}

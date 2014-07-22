@@ -49,6 +49,8 @@ class RootController extends Controller {
 	 * @URL /
 	 */
 	public function index() {
+		$this->template->setTitle('Packanalyst | Explore PHP classes from Packagist');
+		
 		$this->content->addFile(ROOT_PATH."src/views/root/index.php", $this);
 		$this->template->toHtml();
 	}
@@ -58,7 +60,16 @@ class RootController extends Controller {
 	 */
 	public function suggest($q) {
 		header('Content-type: application/json');
-		echo json_encode($this->elasticSearchService->suggestItemName($q));
+		
+		$results = $this->elasticSearchService->suggestItemName2($q);
+		
+		$jsonArr = array_map(function($item) {
+			return [
+				'value' => $item['_source']['name']
+			];
+		}, $results['hits']);
+		
+		echo json_encode($jsonArr);
 	}
 	
 	/**
@@ -85,6 +96,7 @@ class RootController extends Controller {
 		$hits = $searchResults['hits'];
 		$nbPages = floor($totalCount/50);
 		
+		$this->template->setTitle('Packanalyst | Search results for '.$q);
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/root/search.twig', 
 				array(
 						"searchResults"=>$hits,

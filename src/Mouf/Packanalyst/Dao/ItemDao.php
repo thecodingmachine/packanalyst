@@ -88,7 +88,7 @@ class ItemDao
 	 * @param array $item
 	 * @param array $antiLoopList A list of already visited item names.
 	 */
-	protected function recomputeGlobalInherits(array $item, array $antiLoopList = array()) {
+	protected function recomputeGlobalInherits(array $item, array &$antiLoopList = array()) {
 		
 		// Let's prevent any infinite loops.
 		if (isset($antiLoopList[$item['name']." ".$item['packageName']." ".$item['packageVersion']])) {
@@ -114,8 +114,6 @@ class ItemDao
 		$antiLoopList[$item['name']." ".$item['packageName']." ".$item['packageVersion']] = true;
 		
 		// Now, let's find the list of all items directly implementing this item
-		// TODO: there COULD be an infinite loop!
-		// FIXME: do something about it!!!!
 		$children = $this->collection->find([ "inherits" => $item['name'] ]);
 		foreach ($children as $child) {
 			$this->recomputeGlobalInherits($child, $antiLoopList);
