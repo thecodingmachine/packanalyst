@@ -13,6 +13,7 @@ use Mouf\Packanalyst\Dao\ItemDao;
 use Mouf\Reflection\MoufPhpDocComment;
 use Michelf\MarkdownExtra;
 use Mouf\Packanalyst\Widgets\Node;
+use Mouf\Packanalyst\Dao\PackageDao;
 
 /**
  * TODO: write controller comment
@@ -48,6 +49,12 @@ class ClassAnalyzerController extends Controller {
 	 * @var ItemDao
 	 */
 	private $itemDao;
+	
+	/**
+	 * 
+	 * @var PackageDao
+	 */
+	private $packageDao;
 
 	/**
 	 * Controller's constructor.
@@ -56,13 +63,15 @@ class ClassAnalyzerController extends Controller {
 	 * @param HtmlBlock $content The main content block of the page
 	 * @param Twig_Environment $twig The Twig environment (used to render Twig templates)
 	 * @param ItemDao $itemDao
+	 * @param PackageDao $packageDao
 	 */
-	public function __construct(LoggerInterface $logger, TemplateInterface $template, HtmlBlock $content, Twig_Environment $twig, ItemDao $itemDao) {
+	public function __construct(LoggerInterface $logger, TemplateInterface $template, HtmlBlock $content, Twig_Environment $twig, ItemDao $itemDao, PackageDao $packageDao) {
 		$this->logger = $logger;
 		$this->template = $template;
 		$this->content = $content;
 		$this->twig = $twig;
 		$this->itemDao = $itemDao;
+		$this->packageDao = $packageDao;
 	}
 	
 	/**
@@ -121,12 +130,41 @@ class ClassAnalyzerController extends Controller {
 			$type = "class";
 		}
 		
+		// TODO: compute link to Github class from fileName in item and sourceUrl in Github
+		// TODO: compute link to Github class from fileName in item and sourceUrl in Github
+		// TODO: compute link to Github class from fileName in item and sourceUrl in Github
+		// TODO: compute link to Github class from fileName in item and sourceUrl in Github
+		// TODO: compute link to Github class from fileName in item and sourceUrl in Github
+
+		// Let's compute the pointer to the source.
+		$package = $this->packageDao->get($rootNode['packageName'], $rootNode['packageVersion']);
+		$sourceUrl = null;
+		if (isset($package['sourceUrl']) && strpos($package['sourceUrl'], 'https://github.com') === 0) {
+			if (strpos($package['sourceUrl'], '.git') === strlen($package['sourceUrl'])-4) {
+				if (isset($rootNode['fileName']) && $rootNode['fileName']) {
+					$sourceUrl = substr($package['sourceUrl'], 0, strlen($package['sourceUrl'])-4);
+					$sourceUrl .= '/blob/'.$package['realVersion'].$rootNode['fileName'];
+				}
+			}
+		}
+		
+		
+		
+		//if (strpos($, $needle))
+		
 		// Now, let's find all the classes/interfaces we extend from (recursively...)
 		$inheritNodes = $this->getNode($q);
 		
 		// Let's add the twig file to the template.
 		$this->template->setTitle('Packanalyst | '.ucfirst($type).' '.$q);
-		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig', array("class"=>$q, "graph"=>$graph, "description"=>$description, "type"=>$type, "inheritNodes"=>$inheritNodes)));
+		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig', 
+				array(
+						"class"=>$q, 
+						"graph"=>$graph, 
+						"description"=>$description, 
+						"type"=>$type, 
+						"inheritNodes"=>$inheritNodes,
+						"sourceUrl"=>$sourceUrl)));
 		$this->template->toHtml();
 	}
 	

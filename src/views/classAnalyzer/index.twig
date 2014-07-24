@@ -9,6 +9,10 @@
 </div>
 {% endif %}
 
+{% if sourceUrl %}
+<a href="{{ sourceUrl }}">View source on Github</a>
+{% endif %}
+
 <h2>Known implementations</h2>
 
 {{ toHtml(graph) }}

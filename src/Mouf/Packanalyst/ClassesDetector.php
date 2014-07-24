@@ -42,8 +42,10 @@ class ClassesDetector extends NodeVisitorAbstract
 		
 		$this->traverser     = new NodeTraverser();
 		
+		$storeInDbNodeVisitor = new StoreInDbNodeVisitor($packageVersion, $this->itemDao);
+		
 		$this->traverser->addVisitor(new NameResolver()); // we will need resolved names
-		$this->traverser->addVisitor(new StoreInDbNodeVisitor($packageVersion, $this->itemDao));     // our own node visitor
+		$this->traverser->addVisitor($storeInDbNodeVisitor);     // our own node visitor
 		
 		
 		$files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($basePath));
@@ -56,6 +58,9 @@ class ClassesDetector extends NodeVisitorAbstract
 		
 		foreach ($files as $file) {
 			try {
+				$relativeFileName = substr($file, strlen($basePath));
+				$storeInDbNodeVisitor->setFileName($relativeFileName);
+				
 				// read the file that should be converted
 				$code = file_get_contents($file);
 		

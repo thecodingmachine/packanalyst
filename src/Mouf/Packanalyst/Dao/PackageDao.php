@@ -84,7 +84,7 @@ class PackageDao
 		}
 		
 		$latestVersion = "0.0.0";
-		$selectedPackage = $package[0];
+		$selectedPackage = $packages->next();
 		
 		foreach ($packages as $package) {
 			if (version_compare($package['packageVersion'], $latestVersion) > 0) {
@@ -113,6 +113,9 @@ class PackageDao
 		
 		$packageVersion['releaseDate'] = new \MongoDate($package->getReleaseDate()->getTimestamp());
 		$packageVersion['type'] = $package->getType();
+		$packageVersion['sourceUrl'] = $package->getSourceUrl();
+		$packageVersion['realVersion'] = $package->getVersion();
+		
 		if ($package instanceof CompletePackage) {
 			$packageVersion['description'] = $package->getDescription();
 		}

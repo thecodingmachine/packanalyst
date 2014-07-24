@@ -19,10 +19,15 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
 {
 	private $package;
 	private $itemDao;
+	private $fileName;
 	
 	public function __construct($package, ItemDao $itemDao) {
 		$this->package = $package;
 		$this->itemDao = $itemDao;
+	}
+	
+	public function setFileName($fileName) {
+		$this->fileName = $fileName;
 	}
 	
 	public function leaveNode(Node $node) {
@@ -43,7 +48,7 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
 			
 			$item['packageName'] = $this->package['packageName'];
 			$item['packageVersion'] = $this->package['packageVersion'];
-			
+			$item['fileName'] = $this->fileName;
 				
 			if ($node instanceof Stmt\Class_) {
 				$item['type'] = ItemDao::TYPE_CLASS;
