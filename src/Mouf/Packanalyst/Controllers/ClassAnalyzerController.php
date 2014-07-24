@@ -143,7 +143,7 @@ class ClassAnalyzerController extends Controller {
 			if (strpos($package['sourceUrl'], '.git') === strlen($package['sourceUrl'])-4) {
 				if (isset($rootNode['fileName']) && $rootNode['fileName']) {
 					$sourceUrl = substr($package['sourceUrl'], 0, strlen($package['sourceUrl'])-4);
-					$sourceUrl .= '/blob/'.$package['realVersion'].$rootNode['fileName'];
+					$sourceUrl .= '/blob/'.str_replace('-dev', '', $package['packageVersion']).$rootNode['fileName'];
 				}
 			}
 		}
