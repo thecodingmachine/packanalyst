@@ -130,12 +130,6 @@ class ClassAnalyzerController extends Controller {
 			$type = "class";
 		}
 		
-		// TODO: compute link to Github class from fileName in item and sourceUrl in Github
-		// TODO: compute link to Github class from fileName in item and sourceUrl in Github
-		// TODO: compute link to Github class from fileName in item and sourceUrl in Github
-		// TODO: compute link to Github class from fileName in item and sourceUrl in Github
-		// TODO: compute link to Github class from fileName in item and sourceUrl in Github
-
 		// Let's compute the pointer to the source.
 		$package = $this->packageDao->get($rootNode['packageName'], $rootNode['packageVersion']);
 		$sourceUrl = null;
@@ -143,7 +137,7 @@ class ClassAnalyzerController extends Controller {
 			if (strpos($package['sourceUrl'], '.git') === strlen($package['sourceUrl'])-4) {
 				if (isset($rootNode['fileName']) && $rootNode['fileName']) {
 					$sourceUrl = substr($package['sourceUrl'], 0, strlen($package['sourceUrl'])-4);
-					$sourceUrl .= '/blob/'.str_replace('-dev', '', $package['packageVersion']).$rootNode['fileName'];
+					$sourceUrl .= '/blob/'.str_replace('dev-', '', $package['packageVersion']).$rootNode['fileName'];
 				}
 			}
 		}
