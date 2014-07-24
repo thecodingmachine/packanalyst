@@ -6,9 +6,11 @@ use Mouf\Packanalyst\Command\RunCommand;
 use Symfony\Component\Console\Application;
 use Mouf\Packanalyst\Command\ReindexCommand;
 use Mouf\Packanalyst\Command\ResetCommand;
+use Mouf\Packanalyst\Command\GetPackagistScoresCommand;
 
 $application = new Application();
 $application->add(new RunCommand());
 $application->add(new ReindexCommand());
 $application->add(new ResetCommand());
+$application->add(new GetPackagistScoresCommand());
 $application->run();

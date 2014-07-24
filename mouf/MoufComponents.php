@@ -460,6 +460,24 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\DefaultWebLibraryRenderer',
     'external' => false,
   ),
+  'downloadLock' => 
+  array (
+    'class' => 'Mouf\\Utils\\Common\\Lock',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'packanalystDownload.lock',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
   'elasticSearchClient' => 
   array (
     'class' => 'Elasticsearch\\Client',
@@ -1015,6 +1033,51 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
     ),
   ),
+  'packagistScoreService' => 
+  array (
+    'class' => 'Mouf\\Packanalyst\\Services\\PackagistScoreService',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'packageDao',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'colorLogger',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'packagistStatsLock' => 
+  array (
+    'class' => 'Mouf\\Utils\\Common\\Lock',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'packagistStats.lock',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
   'psr.errorLogLogger' => 
   array (
     'class' => 'Mouf\\Utils\\Log\\Psr\\ErrorLogLogger',
@@ -1533,6 +1596,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 }
 
 	/**
+	 * @return Mouf\Utils\Common\Lock
+	 */
+	 public static function getDownloadLock() {
+	 	return MoufManager::getMoufManager()->getInstance('downloadLock');
+	 }
+
+	/**
 	 * @return Elasticsearch\Client
 	 */
 	 public static function getElasticSearchClient() {
@@ -1691,6 +1761,20 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 */
 	 public static function getPackageRenderer_moufhtml_widgets_messageservice() {
 	 	return MoufManager::getMoufManager()->getInstance('packageRenderer_mouf/html.widgets.messageservice');
+	 }
+
+	/**
+	 * @return Mouf\Packanalyst\Services\PackagistScoreService
+	 */
+	 public static function getPackagistScoreService() {
+	 	return MoufManager::getMoufManager()->getInstance('packagistScoreService');
+	 }
+
+	/**
+	 * @return Mouf\Utils\Common\Lock
+	 */
+	 public static function getPackagistStatsLock() {
+	 	return MoufManager::getMoufManager()->getInstance('packagistStatsLock');
 	 }
 
 	/**

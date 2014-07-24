@@ -54,6 +54,8 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+    	\Mouf::getDownloadLock()->acquireLock();
+    	
     	$fetchDataService = \Mouf::getFetchDataService();
     	$fetchDataService->setDownloadManager($this->getDownloadManager());
     	$fetchDataService->setPackagistRepository($this->getPackagistRepository());

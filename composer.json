@@ -9,7 +9,9 @@
 		"components/typeahead.js" : "<2.0",
 		"geoffroy-aubry/logger" : "1.*",
 		"michelf/php-markdown" : "~1.4",
-		"ezyang/htmlpurifier" : "~4.6"
+		"ezyang/htmlpurifier" : "~4.6",
+		"guzzlehttp/guzzle" : "~4.1",
+		"mouf/utils.common.lock" : "dev-master"
 	},
 	"autoload" : {
 		"psr-0" : {

@@ -2,6 +2,19 @@
 <h1><small>Package</small> {{ package.packageName }} <small>({{ package.packageVersion }})</small></h1>
 </div>
 
+{% if package.downloads %}
+<p>
+	<b>Downloads:</b> {{ package.downloads }}
+</p>
+{% endif %}
+
+{% if package.favers %}
+<p>
+	<b>Favorites:</b> {{ package.favers }}
+</p>
+{% endif %}
+
+
 <div class="description">{{ package.description }}</div>
 
 {% if otherVersions %}

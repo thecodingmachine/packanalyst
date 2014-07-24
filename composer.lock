@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6e4e94c0efcf8f28da87dc118582ff35",
+    "hash": "27c22ce40d5e9c9e44a0e42df71e2c40",
     "packages": [
         {
             "name": "components/typeahead.js",
@@ -51,12 +51,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "360c23606736dc94ea99e7dfca25213b0f0c2b7f"
+                "reference": "0ce0cf42e80d68f5cf5c766457536e2894e32ffc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/360c23606736dc94ea99e7dfca25213b0f0c2b7f",
-                "reference": "360c23606736dc94ea99e7dfca25213b0f0c2b7f",
+                "url": "https://api.github.com/repos/composer/composer/zipball/0ce0cf42e80d68f5cf5c766457536e2894e32ffc",
+                "reference": "0ce0cf42e80d68f5cf5c766457536e2894e32ffc",
                 "shasum": ""
             },
             "require": {
@@ -68,7 +68,7 @@
                 "symfony/process": "~2.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "~3.7.10"
+                "phpunit/phpunit": "~3.7"
             },
             "suggest": {
                 "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
@@ -111,7 +111,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2014-07-20 15:06:45"
+            "time": "2014-07-23 17:19:39"
         },
         {
             "name": "container-interop/container-interop",
@@ -563,6 +563,124 @@
                 "web service"
             ],
             "time": "2014-05-07 17:04:22"
+        },
+        {
+            "name": "guzzlehttp/guzzle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "8e90e67c65b0dc08ef608c8993d6cb08b94b4b1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8e90e67c65b0dc08ef608c8993d6cb08b94b4b1a",
+                "reference": "8e90e67c65b0dc08ef608c8993d6cb08b94b4b1a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/streams": "~1.4",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "~4.0",
+                "psr/log": "~1.0"
+            },
+            "suggest": {
+                "ext-curl": "Guzzle will use specific adapters if cURL is present"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "rest",
+                "web service"
+            ],
+            "time": "2014-07-23 19:40:03"
+        },
+        {
+            "name": "guzzlehttp/streams",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/streams.git",
+                "reference": "3b761a328e5ed6ed519e960aded95d7acbe77894"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/streams/zipball/3b761a328e5ed6ed519e960aded95d7acbe77894",
+                "reference": "3b761a328e5ed6ed519e960aded95d7acbe77894",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Stream\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Provides a simple abstraction over streams of data (Guzzle 4+)",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "stream"
+            ],
+            "time": "2014-07-19 18:43:42"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -2320,6 +2438,58 @@
             "time": "2014-06-11 18:00:23"
         },
         {
+            "name": "mouf/utils.common.lock",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thecodingmachine/utils.common.lock.git",
+                "reference": "639ab671191ed65c812d26c41093ae9767ca8800"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thecodingmachine/utils.common.lock/zipball/639ab671191ed65c812d26c41093ae9767ca8800",
+                "reference": "639ab671191ed65c812d26c41093ae9767ca8800",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "mouf-library",
+            "extra": {
+                "mouf": {
+                    "logo": "lock.png"
+                },
+                "extra": {
+                    "branch-alias": {
+                        "dev-master": "2.0.x-dev"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mouf\\Utils\\Common\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Négrier",
+                    "email": "d.negrier@thecodingmachine.com",
+                    "homepage": "http://mouf-php.com"
+                }
+            ],
+            "description": "A simple package that provides functions to get a lock. Typically, you want to use locks when you want to be sure that 2 actions do not happen at the same time. For instance, if you regularly schedule cron tasks, you might want to be sure the last cron task finished before running the new one. A lock can help you do that.",
+            "homepage": "http://mouf-php.com/packages/mouf/utils.common.lock",
+            "keywords": [
+                "lock",
+                "mouf"
+            ],
+            "time": "2014-04-10 09:36:26"
+        },
+        {
             "name": "mouf/utils.common.url-interface",
             "version": "1.0.x-dev",
             "source": {
@@ -2835,12 +3005,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "2e195d7cb2deebfd2f31e63bdd442bb235bd0149"
+                "reference": "22c76a3da442429e6af6140e3630bd85656ed85e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/2e195d7cb2deebfd2f31e63bdd442bb235bd0149",
-                "reference": "2e195d7cb2deebfd2f31e63bdd442bb235bd0149",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/22c76a3da442429e6af6140e3630bd85656ed85e",
+                "reference": "22c76a3da442429e6af6140e3630bd85656ed85e",
                 "shasum": ""
             },
             "require": {
@@ -2872,20 +3042,20 @@
                 "parser",
                 "php"
             ],
-            "time": "2014-04-21 09:15:33"
+            "time": "2014-07-23 19:35:24"
         },
         {
             "name": "pimple/pimple",
-            "version": "dev-master",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Pimple.git",
-                "reference": "8ac98abd7513dac79bed367c709658fe77b9e5c2"
+                "reference": "ea22fb2880faf7b7b0e17c9809c6fe25b071fd76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/8ac98abd7513dac79bed367c709658fe77b9e5c2",
-                "reference": "8ac98abd7513dac79bed367c709658fe77b9e5c2",
+                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/ea22fb2880faf7b7b0e17c9809c6fe25b071fd76",
+                "reference": "ea22fb2880faf7b7b0e17c9809c6fe25b071fd76",
                 "shasum": ""
             },
             "require": {
@@ -2909,9 +3079,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -2920,7 +3088,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2014-07-15 06:25:58"
+            "time": "2014-07-24 07:10:08"
         },
         {
             "name": "psr/log",
@@ -3007,16 +3175,16 @@
         },
         {
             "name": "seld/jsonlint",
-            "version": "1.1.2",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/jsonlint.git",
-                "reference": "7cd4c4965e17e6e4c07f26d566619a4c76f8c672"
+                "reference": "9cae56dbe34f4392e7d0f559474df33749a39f8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/jsonlint/zipball/7cd4c4965e17e6e4c07f26d566619a4c76f8c672",
-                "reference": "7cd4c4965e17e6e4c07f26d566619a4c76f8c672",
+                "url": "https://api.github.com/repos/Seldaek/jsonlint/zipball/9cae56dbe34f4392e7d0f559474df33749a39f8d",
+                "reference": "9cae56dbe34f4392e7d0f559474df33749a39f8d",
                 "shasum": ""
             },
             "require": {
@@ -3027,8 +3195,8 @@
             ],
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Seld\\JsonLint": "src/"
+                "psr-4": {
+                    "Seld\\JsonLint\\": "src/Seld/JsonLint/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3039,8 +3207,7 @@
                 {
                     "name": "Jordi Boggiano",
                     "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be",
-                    "role": "Developer"
+                    "homepage": "http://seld.be"
                 }
             ],
             "description": "JSON Linter",
@@ -3050,7 +3217,7 @@
                 "parser",
                 "validator"
             ],
-            "time": "2013-11-04 15:41:11"
+            "time": "2014-07-20 17:36:11"
         },
         {
             "name": "symfony/console",
@@ -3059,12 +3226,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "06d8f2a22d4801cc2d80d5697d35860e073077bb"
+                "reference": "a61d4fb086e33c3b45c80b638fb915c62eac58a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/06d8f2a22d4801cc2d80d5697d35860e073077bb",
-                "reference": "06d8f2a22d4801cc2d80d5697d35860e073077bb",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/a61d4fb086e33c3b45c80b638fb915c62eac58a3",
+                "reference": "a61d4fb086e33c3b45c80b638fb915c62eac58a3",
                 "shasum": ""
             },
             "require": {
@@ -3097,19 +3264,17 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-15 14:15:21"
+            "time": "2014-07-20 19:24:23"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3226,12 +3391,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "b3bb3b0e31de92bfe994389a841564aae73b1d23"
+                "reference": "c34ccf171135afc4d212accce2e09132bb3437a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/b3bb3b0e31de92bfe994389a841564aae73b1d23",
-                "reference": "b3bb3b0e31de92bfe994389a841564aae73b1d23",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/c34ccf171135afc4d212accce2e09132bb3437a4",
+                "reference": "c34ccf171135afc4d212accce2e09132bb3437a4",
                 "shasum": ""
             },
             "require": {
@@ -3254,19 +3419,17 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-09 09:06:26"
+            "time": "2014-07-16 13:48:12"
         },
         {
             "name": "twig/twig",
@@ -3331,12 +3494,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "a035ee59ae73510ebdb1064e59b4b16f1da9fc66"
+                "reference": "98d693ba7bff3b14f92fea198f8ad49ac44b4872"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a035ee59ae73510ebdb1064e59b4b16f1da9fc66",
-                "reference": "a035ee59ae73510ebdb1064e59b4b16f1da9fc66",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/98d693ba7bff3b14f92fea198f8ad49ac44b4872",
+                "reference": "98d693ba7bff3b14f92fea198f8ad49ac44b4872",
                 "shasum": ""
             },
             "replace": {
@@ -3374,7 +3537,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2014-07-20 05:11:07"
+            "time": "2014-07-24 04:03:46"
         }
     ],
     "packages-dev": [
@@ -3745,12 +3908,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "37d46264b81e518a215f21263aeb82491c7d4768"
+                "reference": "e243de0b5264da8454105455bda0881f5b2ac972"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/37d46264b81e518a215f21263aeb82491c7d4768",
-                "reference": "37d46264b81e518a215f21263aeb82491c7d4768",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e243de0b5264da8454105455bda0881f5b2ac972",
+                "reference": "e243de0b5264da8454105455bda0881f5b2ac972",
                 "shasum": ""
             },
             "require": {
@@ -3811,7 +3974,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-07-20 06:33:12"
+            "time": "2014-07-22 22:57:02"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -4195,7 +4358,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "composer/composer": 20,
-        "nikic/php-parser": 20
+        "nikic/php-parser": 20,
+        "mouf/utils.common.lock": 20
     },
     "platform": [
 
