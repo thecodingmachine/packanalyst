@@ -18,6 +18,7 @@ class ItemDao
 	
 	private $elasticSearchService;
 	
+	
 	public function __construct(\MongoCollection $collection, ElasticSearchService $elasticSearchService) {
 		$this->collection = $collection;
 		$this->elasticSearchService = $elasticSearchService;
@@ -141,6 +142,29 @@ class ItemDao
 	public function applyOnAllItemName(callable $callback) {
 		foreach ($this->collection->find() as $item) {
 			$callback($item);
+		}
+	}
+	
+	/**
+	 *
+	 * @param string $packageName
+	 */
+	public function findItemsByPackage($packageName) {
+		return $this->collection->find([ "packageName" => $packageName ]);
+	}
+	
+	public function applyScore($packageName, $score) {
+		
+		$items = $this->findItemsByPackage($packageName);
+		
+		foreach ($items as $item) {
+			$this->collection->update(array(
+				'id'=>$item['_id'],
+				'body'=>[
+					'boost'=>$score
+				],
+				//'refresh' => true
+			));
 		}
 	}
 }

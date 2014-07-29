@@ -941,6 +941,15 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
         array (
         ),
       ),
+      2 => 
+      array (
+        'value' => 'itemDao',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
     ),
   ),
   'packageRenderer_mouf/html.widgets.menu' => 

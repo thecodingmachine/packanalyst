@@ -144,9 +144,6 @@ class ClassAnalyzerController extends Controller {
 		}
 		
 		
-		
-		//if (strpos($, $needle))
-		
 		// Now, let's find all the classes/interfaces we extend from (recursively...)
 		$inheritNodes = $this->getNode($q);
 		

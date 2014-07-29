@@ -108,6 +108,10 @@ class ElasticSearchService
 			                "index_analyzer" => "simple",
 			                "search_analyzer" => "simple",
 			                //"payloads" => true
+			            ],
+			            "boost" => [
+							"type" => "float",
+							"index" => "not_analyzed"
 			            ]
 				)
 		);
@@ -123,7 +127,7 @@ class ElasticSearchService
 	 * 
 	 * @param string $item
 	 */
-	public function storeItemName($itemName, $type = null) {
+	public function storeItemName($itemName, $type = null, $boost = null) {
 		
 		// TODO: a local "cache" array that contain all the classes we know that exist in ElasticSearch.
 		// When the local cache is set, remove the "refresh"=>true
@@ -134,15 +138,20 @@ class ElasticSearchService
 			// item exists.
 			if ($type != null && $oldSource['_source']['type'] != $type) {
 				// We can update the type with the new type
+				$doc = [];
+				if ($type) {
+					$doc['type'] = $type;
+				}
+				if ($boost) {
+					$doc['boost'] = $boost;
+				}
 				
 				$this->elasticSearchClient->update(array(
 					'id'=>$oldSource['_id'],
 					'index'=>'packanalyst',
 					'type'=>'itemname',
 					'body'=>[
-						'doc'=>[
-							'type'=>$type
-						]
+						'doc'=>$doc
 					],
 					'refresh' => true
 				));
@@ -155,6 +164,10 @@ class ElasticSearchService
 			$store[] = $itemName;
 		}
 		
+		if ($boost == null) {
+			$boost = 1.0;
+		}
+		
 		$params = array();
 		$params['body']  = array(
 				'name' => $itemName,
@@ -162,7 +175,8 @@ class ElasticSearchService
 				'suggest' => [
 					"input" => $store,
 					"output" => $itemName,
-				]
+				],
+				'boost' => $boost
 		);
 		$params['index'] = 'packanalyst';
 		$params['type']  = 'itemname';
@@ -253,25 +267,37 @@ class ElasticSearchService
 		$params = 
 		[
 		"body"=>
-			["query"=>
-				[
-					"bool"=>[
-						"should"=> [ 
-							"query_string"=> [
-								"fields"=> [
-									"nameAuto"
+			[
+				"query"=> [
+					"function_score" => [
+						"query" => [
+							"bool"=>[
+								"should"=> [ 
+									"query_string"=> [
+										"fields"=> [
+											"nameAuto"
+										],
+										"query"=> "*".$input."*"
+									],
 								],
-								"query"=> "*".$input."*"
-							],
+								"should"=> [ 
+									"fuzzy_like_this"=> [
+										"fields"=> [
+											"nameAuto"
+										],
+										"like_text"=> $input
+									],
+								]
+							]
 						],
-						"should"=> [ 
-							"fuzzy_like_this"=> [
-								"fields"=> [
-									"nameAuto"
-								],
-								"like_text"=> $input
-							],
-						]
+			            "functions" => [
+			            	[
+			                	"field_value_factor" => [ 
+			                    	"field" => "boost"
+				                ]
+				            ]
+						],
+						"score_mode" => "multiply"
 					]
 				]
 			],

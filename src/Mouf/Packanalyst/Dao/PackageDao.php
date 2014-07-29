@@ -14,9 +14,12 @@ class PackageDao
 	
 	private $elasticSearchService;
 	
-	public function __construct(\MongoCollection $collection, ElasticSearchService $elasticSearchService) {
+	private $itemDao;
+	
+	public function __construct(\MongoCollection $collection, ElasticSearchService $elasticSearchService, ItemDao $itemDao) {
 		$this->collection = $collection;
 		$this->elasticSearchService = $elasticSearchService;
+		$this->itemDao = $itemDao;
 	}
 	
 	public function createIndex() {
@@ -122,7 +125,19 @@ class PackageDao
 		
 		$this->collection->save($packageVersion);
 		
-		$this->elasticSearchService->storeItemName($package->getName(), 'package');
+		// Boost = 1 + download/10 + favers
+		// TODO: we could improve the score of packages by the number of times they are referred by other packages.
+		$score = 1;
+		if (isset($packageVersion['downloads'])) {
+			$score += $packageVersion['downloads'] / 10;
+		}
+		if (isset($packageVersion['favers'])) {
+			$score += $packageVersion['favers'];
+		}
+		
+		$this->itemDao->applyScore($package->getName(), $score);
+		
+		$this->elasticSearchService->storeItemName($package->getName(), 'package', $score);
 		
 		return $packageVersion;
 	}
