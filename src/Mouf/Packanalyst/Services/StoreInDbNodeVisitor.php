@@ -40,7 +40,7 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
 			$item = [];
 			$itemName = $node->namespacedName->toString();
 
-			$item['name'] = $itemName;
+			$item['name'] = $this->ensureUtf8($itemName);
 			$comment = $node->getDocComment();
 			if ($comment) {
 				$item['phpDoc'] = $this->ensureUtf8($node->getDocComment()->getText());
@@ -55,11 +55,11 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
 				
 				$inherits = [];
 				if ($node->extends) {
-					$inherits[] = $node->extends->toString();
+					$inherits[] = $this->ensureUtf8($node->extends->toString());
 				}
 				
 				foreach ($node->implements as $implement) {
-					$inherits[] = $implement->toString();
+					$inherits[] = $this->ensureUtf8($implement->toString());
 				}
 				$item['inherits'] = $inherits;
 			} elseif ($node instanceof Stmt\Interface_) {
@@ -68,7 +68,7 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
 				$inherits = [];
 				
 				foreach ($node->extends as $extend) {
-					$inherits[] = $extend->toString();
+					$inherits[] = $this->ensureUtf8($extend->toString());
 				}
 				$item['inherits'] = $inherits;
 			} elseif ($node instanceof Stmt\Trait_) {
