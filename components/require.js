@@ -2018,6 +2018,12 @@ var requirejs, require, define;
     req(cfg);
 }(this));
 var components = {
+    "packages": [
+        {
+            "name": "typeaheadjs",
+            "main": "typeaheadjs-built.js"
+        }
+    ],
     "baseUrl": "components"
 };
 if (typeof require !== "undefined" && require.config) {
