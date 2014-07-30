@@ -155,7 +155,11 @@ class ItemDao
 	
 	public function applyScore($packageName, $score) {
 		
-		$items = $this->findItemsByPackage($packageName);
+		$this->collection->update([ "packageName" => $packageName ],
+				[ '$set' => [ 'boost'=>$score ]
+				]);
+		
+		/*$items = $this->findItemsByPackage($packageName);
 		
 		foreach ($items as $item) {
 			$this->collection->update(array(
@@ -165,6 +169,6 @@ class ItemDao
 				],
 				//'refresh' => true
 			));
-		}
+		}*/
 	}
 }
