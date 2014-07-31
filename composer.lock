@@ -565,12 +565,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "8e90e67c65b0dc08ef608c8993d6cb08b94b4b1a"
+                "reference": "119e11a7503d92dc5624a0e833d11a9ebba6d832"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8e90e67c65b0dc08ef608c8993d6cb08b94b4b1a",
-                "reference": "8e90e67c65b0dc08ef608c8993d6cb08b94b4b1a",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/119e11a7503d92dc5624a0e833d11a9ebba6d832",
+                "reference": "119e11a7503d92dc5624a0e833d11a9ebba6d832",
                 "shasum": ""
             },
             "require": {
@@ -622,7 +622,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-07-23 19:40:03"
+            "time": "2014-07-30 19:45:04"
         },
         {
             "name": "guzzlehttp/streams",
@@ -1578,12 +1578,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/mouf.git",
-                "reference": "8c046980d46226fe1d063753897d5f5d04ba6e66"
+                "reference": "c38fb7be0542a67a19607a5adfb9ff5fe46e4c6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/mouf/zipball/8c046980d46226fe1d063753897d5f5d04ba6e66",
-                "reference": "8c046980d46226fe1d063753897d5f5d04ba6e66",
+                "url": "https://api.github.com/repos/thecodingmachine/mouf/zipball/c38fb7be0542a67a19607a5adfb9ff5fe46e4c6b",
+                "reference": "c38fb7be0542a67a19607a5adfb9ff5fe46e4c6b",
                 "shasum": ""
             },
             "require": {
@@ -1713,7 +1713,7 @@
                 "ioc",
                 "mouf"
             ],
-            "time": "2014-07-14 16:57:54"
+            "time": "2014-07-31 14:39:12"
         },
         {
             "name": "mouf/mouf-installer",
@@ -3430,12 +3430,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "4134169b67e692107b385af857b526e6013361ce"
+                "reference": "72aa82b9a260b823325eec9b37bf6106a0137fb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/4134169b67e692107b385af857b526e6013361ce",
-                "reference": "4134169b67e692107b385af857b526e6013361ce",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/72aa82b9a260b823325eec9b37bf6106a0137fb2",
+                "reference": "72aa82b9a260b823325eec9b37bf6106a0137fb2",
                 "shasum": ""
             },
             "require": {
@@ -3479,7 +3479,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-07-29 11:54:16"
+            "time": "2014-07-31 13:21:40"
         },
         {
             "name": "twitter/bootstrap",
@@ -3487,12 +3487,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "fc1db2e74b16b355656512eafd39f667f383a8a9"
+                "reference": "d38fd028d620d7861e067b87526a773cd4b7dc1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/fc1db2e74b16b355656512eafd39f667f383a8a9",
-                "reference": "fc1db2e74b16b355656512eafd39f667f383a8a9",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/d38fd028d620d7861e067b87526a773cd4b7dc1b",
+                "reference": "d38fd028d620d7861e067b87526a773cd4b7dc1b",
                 "shasum": ""
             },
             "replace": {
@@ -3530,7 +3530,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2014-07-29 00:47:51"
+            "time": "2014-07-31 03:07:27"
         }
     ],
     "packages-dev": [
@@ -3901,12 +3901,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "89c425e246f68de767078abcea03d616a3991db2"
+                "reference": "ce9e9afbd53283288a5f40fcf4789b7cc1ca5632"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/89c425e246f68de767078abcea03d616a3991db2",
-                "reference": "89c425e246f68de767078abcea03d616a3991db2",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ce9e9afbd53283288a5f40fcf4789b7cc1ca5632",
+                "reference": "ce9e9afbd53283288a5f40fcf4789b7cc1ca5632",
                 "shasum": ""
             },
             "require": {
@@ -3967,7 +3967,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-07-30 11:44:04"
+            "time": "2014-07-30 20:01:24"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
