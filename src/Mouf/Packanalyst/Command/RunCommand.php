@@ -34,6 +34,9 @@ class RunCommand extends Command
         $this
             ->setName('run')
             ->setDescription('Runs Packanalyst update.')
+            ->setDefinition(array(
+            		new InputOption('package', null, InputOption::VALUE_OPTIONAL, 'Name of the package to analyze'),
+            ))
             /*->setDefinition(array(
                 new InputOption('name', null, InputOption::VALUE_REQUIRED, 'Name of the package'),
                 new InputOption('description', null, InputOption::VALUE_REQUIRED, 'Description of package'),
@@ -54,11 +57,17 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+    	
     	\Mouf::getDownloadLock()->acquireLock();
     	
     	$fetchDataService = \Mouf::getFetchDataService();
     	$fetchDataService->setDownloadManager($this->getDownloadManager());
     	$fetchDataService->setPackagistRepository($this->getPackagistRepository());
+    	
+    	$package = $input->getOption('package');
+    	if ($package) {
+    		$fetchDataService->setForcedPackage($package);
+    	}
     	
     	$fetchDataService->run();
     }

@@ -32,6 +32,12 @@ class FetchDataService
 	private $packageDao;
 	
 	/**
+	 * If set, this is the only package that will be forced.
+	 * @var string
+	 */
+	private $forcedPackage;
+	
+	/**
 	 * @var DownloadManager
 	 */
 	private $downloadManager;
@@ -62,6 +68,15 @@ class FetchDataService
 	}
 	
 	/**
+	 * Forces to download only one package.
+	 * 
+	 * @param string $forcedPackage
+	 */
+	public function setForcedPackage($forcedPackage) {
+		$this->forcedPackage = $forcedPackage;
+	}
+	
+	/**
 	 * Runs the script: connect to packagist, download everything it can!
 	 */
 	public function run() {		
@@ -87,6 +102,10 @@ class FetchDataService
 				continue;
 			}
 			
+			if ($this->forcedPackage && $this->forcedPackage != $packageName) {
+				continue;
+			}
+			
 			//if ($packageName != '10up/wp_mock') continue;
 			//var_dump($packagistRepo->findPackages($packageName));
 			$packages = $this->packagistRepository->findPackages($packageName);
@@ -98,16 +117,18 @@ class FetchDataService
 			// Only delete packages that are not important anymore.
 			$notImportantPackages = array_diff($packages, $importantPackages);
 			foreach ($notImportantPackages as $notImportantPackage) {
-				$this->logger->info("Removing {packageName} {version}. A newer package is available.", array(
-						"packageName"=>$notImportantPackage->getPrettyName(),
-						"version"=>$notImportantPackage->getPrettyVersion()
-				));
-				
-				$this->itemDao->deletePackage($notImportantPackage->getName(), $notImportantPackage->getPrettyVersion());
-				$this->packageDao->deletePackage($notImportantPackage->getName(), $notImportantPackage->getPrettyVersion());
-				
-				$downloadPath = DOWNLOAD_DIR."/".$notImportantPackage->getName()."/".$notImportantPackage->getPrettyVersion();
-				$filesystem->removeDirectory($downloadPath);
+				if ($this->packageDao->get($notImportantPackage->getName(), $notImportantPackage->getPrettyVersion())) {
+					$this->logger->info("Removing {packageName} {version}. A newer package is available.", array(
+							"packageName"=>$notImportantPackage->getPrettyName(),
+							"version"=>$notImportantPackage->getPrettyVersion()
+					));
+					
+					$this->itemDao->deletePackage($notImportantPackage->getName(), $notImportantPackage->getPrettyVersion());
+					$this->packageDao->deletePackage($notImportantPackage->getName(), $notImportantPackage->getPrettyVersion());
+					
+					$downloadPath = DOWNLOAD_DIR."/".$notImportantPackage->getName()."/".$notImportantPackage->getPrettyVersion();
+					$filesystem->removeDirectory($downloadPath);
+				}
 			}
 			
 			
