@@ -180,12 +180,14 @@ class FetchDataService
 					
 					if (!$this->force) {
 						if ($packageVersion && $packageVersion['releaseDate']->sec == $package->getReleaseDate()->getTimestamp()) {
-							if ($packageVersion['onError'] == false || ($packageVersion['onError'] == true && !$this->retryOnError)) {
-								$this->logger->debug("{packageName} {version} has not moved since last run. Ignoring.", array(
-										"packageName"=>$package->getPrettyName(),
-										"version"=>$package->getPrettyVersion()
-								));
-								continue;
+							if (isset($packageVersion['onError'])) {
+								if ($packageVersion['onError'] == false || ($packageVersion['onError'] == true && !$this->retryOnError)) {
+									$this->logger->debug("{packageName} {version} has not moved since last run. Ignoring.", array(
+											"packageName"=>$package->getPrettyName(),
+											"version"=>$package->getPrettyVersion()
+									));
+									continue;
+								}
 							}
 						}
 					}
