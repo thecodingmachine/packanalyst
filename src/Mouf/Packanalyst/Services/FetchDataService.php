@@ -229,7 +229,9 @@ class FetchDataService
 			
 			// Let's write the name of the last package we analyzed/
 			// We will use it to start again from next package.
-			file_put_contents(DOWNLOAD_DIR."/last_analyzed_package", $packageName);
+			if (!$this->forcedPackage) {
+				file_put_contents(DOWNLOAD_DIR."/last_analyzed_package", $packageName);
+			}
 		}
 		 
 		if ($this->forcedPackage && !$found) {
