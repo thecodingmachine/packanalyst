@@ -117,18 +117,25 @@ class FetchDataService
 			$lastAnalyzedPackage = '';
 		}
 		
+		$this->logger->debug("Starting script.");
+		$found = false;
+		
 		foreach ($providerNames as $packageName) {
-			
-			if ($packageName <= $lastAnalyzedPackage) {
-				continue;
-			}
 			
 			if ($this->forcedPackage && $this->forcedPackage != $packageName) {
 				continue;
+			} else {
+				$found = true;
 			}
 			
+			if (!$this->forcedPackage && $packageName <= $lastAnalyzedPackage) {
+				continue;
+			}
+			
+			
+			
 			$this->logger->debug("Analyzing {packageName}.", array(
-					"packageName"=>$package->getPrettyName()
+					"packageName"=>$packageName
 			));
 			
 			//if ($packageName != '10up/wp_mock') continue;
@@ -220,6 +227,9 @@ class FetchDataService
 			file_put_contents(DOWNLOAD_DIR."/last_analyzed_package", $packageName);
 		}
 		 
+		if ($this->forcedPackage && !$found) {
+			$this->logger->error("Unable to find package '{packageName}'", ['packageName'=>$this->forcedPackage]);
+		}
 		 
 		
 		//var_dump("Nb packages: ".count($repositories->getPackages()));
