@@ -35,7 +35,9 @@ class RunCommand extends Command
             ->setName('run')
             ->setDescription('Runs Packanalyst update.')
             ->setDefinition(array(
-            		new InputOption('package', null, InputOption::VALUE_OPTIONAL, 'Name of the package to analyze'),
+            		new InputOption('package', null, InputOption::VALUE_REQUIRED, 'Name of the package to analyze'),
+            		new InputOption('retry', null, InputOption::VALUE_NONE, 'Retry packages previously in error'),
+            		new InputOption('force', null, InputOption::VALUE_NONE, 'Forces packages to update even if the package has not been updated'),
             ))
             /*->setDefinition(array(
                 new InputOption('name', null, InputOption::VALUE_REQUIRED, 'Name of the package'),
@@ -65,8 +67,17 @@ EOT
     	$fetchDataService->setPackagistRepository($this->getPackagistRepository());
     	
     	$package = $input->getOption('package');
+    	$retry = $input->getOption('retry');
+    	$force = $input->getOption('force');
+    	
     	if ($package) {
     		$fetchDataService->setForcedPackage($package);
+    	}
+    	if ($retry) {
+    		$fetchDataService->setRetryOnError(true);
+    	}
+    	if ($force) {
+    		$fetchDataService->setForce(true);
     	}
     	
     	$fetchDataService->run();
