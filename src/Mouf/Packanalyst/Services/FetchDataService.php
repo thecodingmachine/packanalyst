@@ -127,6 +127,10 @@ class FetchDataService
 				continue;
 			}
 			
+			$this->logger->debug("Analyzing {packageName}.", array(
+					"packageName"=>$package->getPrettyName()
+			));
+			
 			//if ($packageName != '10up/wp_mock') continue;
 			//var_dump($packagistRepo->findPackages($packageName));
 			$packages = $this->packagistRepository->findPackages($packageName);
