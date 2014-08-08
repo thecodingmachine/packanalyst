@@ -43,6 +43,11 @@ class FetchDataService
 	private $retryOnError;
 	
 	/**
+	 * @var bool
+	 */
+	private $force;
+	
+	/**
 	 * @var DownloadManager
 	 */
 	private $downloadManager;
