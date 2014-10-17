@@ -7,7 +7,6 @@ use Mouf\Html\HtmlElement\HtmlBlock;
 use Psr\Log\LoggerInterface;
 use \Twig_Environment;
 use Mouf\Html\Renderer\Twig\TwigTemplate;
-use Mouf\Packanalyst\Repositories\ItemNameRepository;
 use Mouf\Packanalyst\Widgets\Graph;
 use Mouf\Packanalyst\Dao\ItemDao;
 use Mouf\Reflection\MoufPhpDocComment;

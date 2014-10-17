@@ -1,13 +1,10 @@
 <?php
 namespace Mouf\Packanalyst\Services;
 
-use HireVoice\Neo4j\EntityManager;
 use Composer\Repository\ComposerRepository;
 use Composer\Downloader\DownloadManager;
 use Mouf\Packanalyst\ClassesDetector;
 use Composer\Package\Package;
-use Mouf\Packanalyst\Repositories\PackageRepository;
-use Mouf\Packanalyst\Repositories\PackageVersionRepository;
 use Psr\Log\LoggerInterface;
 use Composer\Package\AliasPackage;
 use Composer\Util\Filesystem;
