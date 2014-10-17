@@ -137,6 +137,11 @@ class FetchDataService
 				continue;
 			}
 			
+			// Let's write the name of the last package we are going to analyze
+			// We will use it to start again from next package in case this package fails.
+			if (!$this->forcedPackage) {
+				file_put_contents(DOWNLOAD_DIR."/last_analyzed_package", $packageName);
+			}
 			
 			
 			$this->logger->debug("Analyzing {packageName}.", array(
@@ -229,11 +234,6 @@ class FetchDataService
 				$this->packageDao->save($packageVersion);
 			}
 			
-			// Let's write the name of the last package we analyzed/
-			// We will use it to start again from next package.
-			if (!$this->forcedPackage) {
-				file_put_contents(DOWNLOAD_DIR."/last_analyzed_package", $packageName);
-			}
 		}
 		 
 		if ($this->forcedPackage && !$found) {
