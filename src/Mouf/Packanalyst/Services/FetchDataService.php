@@ -123,6 +123,9 @@ class FetchDataService
 		$found = false;
 		
 		foreach ($providerNames as $packageName) {
+			$this->logger->debug("Pre-analyze {packageName}.", array(
+					"packageName"=>$packageName
+			));
 			
 			if ($this->forcedPackage && $this->forcedPackage != $packageName) {
 				continue;
