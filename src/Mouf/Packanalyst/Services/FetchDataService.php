@@ -125,10 +125,6 @@ class FetchDataService
 		sort($providerNames);
 		
 		foreach ($providerNames as $packageName) {
-			$this->logger->debug("Pre-analyze {packageName}.", array(
-					"packageName"=>$packageName
-			));
-			
 			if ($this->forcedPackage && $this->forcedPackage != $packageName) {
 				continue;
 			} else {
@@ -152,8 +148,14 @@ class FetchDataService
 			
 			//if ($packageName != '10up/wp_mock') continue;
 			//var_dump($packagistRepo->findPackages($packageName));
+			
 			$packages = $this->packagistRepository->findPackages($packageName);
 			
+			$packages = array_filter($packages, function($package) use ($packageName) { return $package->getName() == $packageName; });
+			
+			// Warning: findPackages uses "whatProvides". For instance: symfony/symonfy provides symfony/finder.
+			// When a new version of finder is released, we don't want to remove symfony. Therefore, we need to restrict
+			// the packages returned by "findPackages"
 			$importantPackages = $this->getImportantVersions($packages);
 			
 			// DELETE PACKAGES VERSION BEFORE REINSERTION!
