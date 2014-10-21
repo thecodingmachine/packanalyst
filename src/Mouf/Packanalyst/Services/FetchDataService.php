@@ -122,6 +122,8 @@ class FetchDataService
 		$this->logger->debug("Starting script.");
 		$found = false;
 		
+		sort($providerNames);
+		
 		foreach ($providerNames as $packageName) {
 			$this->logger->debug("Pre-analyze {packageName}.", array(
 					"packageName"=>$packageName
