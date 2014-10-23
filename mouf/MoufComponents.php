@@ -94,6 +94,14 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
         array (
         ),
       ),
+      'prefix' => 
+      array (
+        'value' => 'SECRET',
+        'type' => 'config',
+        'metadata' => 
+        array (
+        ),
+      ),
     ),
     'fieldBinds' => 
     array (
@@ -603,6 +611,14 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       array (
         'value' => 3600,
         'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      'prefix' => 
+      array (
+        'value' => 'SECRET',
+        'type' => 'config',
         'metadata' => 
         array (
         ),
@@ -1475,441 +1491,441 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 * @return Doctrine\Common\Annotations\CachedReader
 	 */
 	 public static function getAnnotationReader() {
-	 	return MoufManager::getMoufManager()->getInstance('annotationReader');
+	 	return MoufManager::getMoufManager()->get('annotationReader');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Cache\ApcCache
 	 */
 	 public static function getApcCacheService() {
-	 	return MoufManager::getMoufManager()->getInstance('apcCacheService');
+	 	return MoufManager::getMoufManager()->get('apcCacheService');
 	 }
 
 	/**
 	 * @return Mouf\Html\HtmlElement\HtmlBlock
 	 */
 	 public static function getBlock_content() {
-	 	return MoufManager::getMoufManager()->getInstance('block.content');
+	 	return MoufManager::getMoufManager()->get('block.content');
 	 }
 
 	/**
 	 * @return Mouf\Html\HtmlElement\HtmlBlock
 	 */
 	 public static function getBlock_footer() {
-	 	return MoufManager::getMoufManager()->getInstance('block.footer');
+	 	return MoufManager::getMoufManager()->get('block.footer');
 	 }
 
 	/**
 	 * @return Mouf\Html\HtmlElement\HtmlBlock
 	 */
 	 public static function getBlock_header() {
-	 	return MoufManager::getMoufManager()->getInstance('block.header');
+	 	return MoufManager::getMoufManager()->get('block.header');
 	 }
 
 	/**
 	 * @return Mouf\Html\HtmlElement\HtmlBlock
 	 */
 	 public static function getBlock_left() {
-	 	return MoufManager::getMoufManager()->getInstance('block.left');
+	 	return MoufManager::getMoufManager()->get('block.left');
 	 }
 
 	/**
 	 * @return Mouf\Html\HtmlElement\HtmlBlock
 	 */
 	 public static function getBlock_right() {
-	 	return MoufManager::getMoufManager()->getInstance('block.right');
+	 	return MoufManager::getMoufManager()->get('block.right');
 	 }
 
 	/**
 	 * @return Mouf\Html\Renderer\FileBasedRenderer
 	 */
 	 public static function getBootstrapRenderer() {
-	 	return MoufManager::getMoufManager()->getInstance('bootstrapRenderer');
+	 	return MoufManager::getMoufManager()->get('bootstrapRenderer');
 	 }
 
 	/**
 	 * @return Mouf\Html\Template\BootstrapTemplate
 	 */
 	 public static function getBootstrapTemplate() {
-	 	return MoufManager::getMoufManager()->getInstance('bootstrapTemplate');
+	 	return MoufManager::getMoufManager()->get('bootstrapTemplate');
 	 }
 
 	/**
 	 * @return Mouf\Packanalyst\Controllers\ClassAnalyzerController
 	 */
 	 public static function getClassAnalyzerController() {
-	 	return MoufManager::getMoufManager()->getInstance('classAnalyzerController');
+	 	return MoufManager::getMoufManager()->get('classAnalyzerController');
 	 }
 
 	/**
 	 * @return Mouf\Packanalyst\ClassesDetector
 	 */
 	 public static function getClassesDetector() {
-	 	return MoufManager::getMoufManager()->getInstance('classesDetector');
+	 	return MoufManager::getMoufManager()->get('classesDetector');
 	 }
 
 	/**
 	 * @return GAubry\Logger\ColoredIndentedLogger
 	 */
 	 public static function getColorLogger() {
-	 	return MoufManager::getMoufManager()->getInstance('colorLogger');
+	 	return MoufManager::getMoufManager()->get('colorLogger');
 	 }
 
 	/**
 	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
 	 */
 	 public static function getComponent_typeaheadjs() {
-	 	return MoufManager::getMoufManager()->getInstance('component.typeaheadjs');
+	 	return MoufManager::getMoufManager()->get('component.typeaheadjs');
 	 }
 
 	/**
 	 * @return Mouf\Html\Renderer\FileBasedRenderer
 	 */
 	 public static function getCustomRenderer() {
-	 	return MoufManager::getMoufManager()->getInstance('customRenderer');
+	 	return MoufManager::getMoufManager()->get('customRenderer');
 	 }
 
 	/**
 	 * @return Mouf\Utils\I18n\Fine\Language\BrowserLanguageDetection
 	 */
 	 public static function getDefaultLanguageDetection() {
-	 	return MoufManager::getMoufManager()->getInstance('defaultLanguageDetection');
+	 	return MoufManager::getMoufManager()->get('defaultLanguageDetection');
 	 }
 
 	/**
 	 * @return Mouf\Html\Renderer\AutoChainRenderer
 	 */
 	 public static function getDefaultRenderer() {
-	 	return MoufManager::getMoufManager()->getInstance('defaultRenderer');
+	 	return MoufManager::getMoufManager()->get('defaultRenderer');
 	 }
 
 	/**
 	 * @return Mouf\Utils\I18n\Fine\Translate\FinePHPArrayTranslationService
 	 */
 	 public static function getDefaultTranslationService() {
-	 	return MoufManager::getMoufManager()->getInstance('defaultTranslationService');
+	 	return MoufManager::getMoufManager()->get('defaultTranslationService');
 	 }
 
 	/**
 	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibraryManager
 	 */
 	 public static function getDefaultWebLibraryManager() {
-	 	return MoufManager::getMoufManager()->getInstance('defaultWebLibraryManager');
+	 	return MoufManager::getMoufManager()->get('defaultWebLibraryManager');
 	 }
 
 	/**
 	 * @return Mouf\Html\Utils\WebLibraryManager\DefaultWebLibraryRenderer
 	 */
 	 public static function getDefaultWebLibraryRenderer() {
-	 	return MoufManager::getMoufManager()->getInstance('defaultWebLibraryRenderer');
+	 	return MoufManager::getMoufManager()->get('defaultWebLibraryRenderer');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Common\Lock
 	 */
 	 public static function getDownloadLock() {
-	 	return MoufManager::getMoufManager()->getInstance('downloadLock');
+	 	return MoufManager::getMoufManager()->get('downloadLock');
 	 }
 
 	/**
 	 * @return Elasticsearch\Client
 	 */
 	 public static function getElasticSearchClient() {
-	 	return MoufManager::getMoufManager()->getInstance('elasticSearchClient');
+	 	return MoufManager::getMoufManager()->get('elasticSearchClient');
 	 }
 
 	/**
 	 * @return Mouf\Packanalyst\Services\ElasticSearchService
 	 */
 	 public static function getElasticSearchService() {
-	 	return MoufManager::getMoufManager()->getInstance('elasticSearchService');
+	 	return MoufManager::getMoufManager()->get('elasticSearchService');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Common\Validators\EmailValidator
 	 */
 	 public static function getEmailValidator() {
-	 	return MoufManager::getMoufManager()->getInstance('emailValidator');
+	 	return MoufManager::getMoufManager()->get('emailValidator');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Log\ErrorLogLogger
 	 */
 	 public static function getErrorLogLogger() {
-	 	return MoufManager::getMoufManager()->getInstance('errorLogLogger');
+	 	return MoufManager::getMoufManager()->get('errorLogLogger');
 	 }
 
 	/**
 	 * @return Mouf\Packanalyst\Services\FetchDataService
 	 */
 	 public static function getFetchDataService() {
-	 	return MoufManager::getMoufManager()->getInstance('fetchDataService');
+	 	return MoufManager::getMoufManager()->get('fetchDataService');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Cache\FileCache
 	 */
 	 public static function getFileCacheService() {
-	 	return MoufManager::getMoufManager()->getInstance('fileCacheService');
+	 	return MoufManager::getMoufManager()->get('fileCacheService');
 	 }
 
 	/**
 	 * @return Mouf\Utils\I18n\Fine\Translate\FinePHPArrayTranslationService
 	 */
 	 public static function getFineCommonTranslationService() {
-	 	return MoufManager::getMoufManager()->getInstance('fineCommonTranslationService');
+	 	return MoufManager::getMoufManager()->get('fineCommonTranslationService');
 	 }
 
 	/**
 	 * @return Mouf\Mvc\Splash\Controllers\HttpErrorsController
 	 */
 	 public static function getHttpErrorsController() {
-	 	return MoufManager::getMoufManager()->getInstance('httpErrorsController');
+	 	return MoufManager::getMoufManager()->get('httpErrorsController');
 	 }
 
 	/**
 	 * @return Mouf\Packanalyst\Dao\ItemDao
 	 */
 	 public static function getItemDao() {
-	 	return MoufManager::getMoufManager()->getInstance('itemDao');
+	 	return MoufManager::getMoufManager()->get('itemDao');
 	 }
 
 	/**
 	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
 	 */
 	 public static function getJQueryLibrary() {
-	 	return MoufManager::getMoufManager()->getInstance('jQueryLibrary');
+	 	return MoufManager::getMoufManager()->get('jQueryLibrary');
 	 }
 
 	/**
 	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
 	 */
 	 public static function getJavascript_bootstrap() {
-	 	return MoufManager::getMoufManager()->getInstance('javascript.bootstrap');
+	 	return MoufManager::getMoufManager()->get('javascript.bootstrap');
 	 }
 
 	/**
 	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
 	 */
 	 public static function getMessageServiceLibrary() {
-	 	return MoufManager::getMoufManager()->getInstance('messageServiceLibrary');
+	 	return MoufManager::getMoufManager()->get('messageServiceLibrary');
 	 }
 
 	/**
 	 * @return Mouf\Html\Widgets\MessageService\Widget\MessageWidget
 	 */
 	 public static function getMessageWidget() {
-	 	return MoufManager::getMoufManager()->getInstance('messageWidget');
+	 	return MoufManager::getMoufManager()->get('messageWidget');
 	 }
 
 	/**
 	 * @return MongoClient
 	 */
 	 public static function getMongoClient() {
-	 	return MoufManager::getMoufManager()->getInstance('mongoClient');
+	 	return MoufManager::getMoufManager()->get('mongoClient');
 	 }
 
 	/**
 	 * @return MongoCollection
 	 */
 	 public static function getMongoItemsCollection() {
-	 	return MoufManager::getMoufManager()->getInstance('mongoItemsCollection');
+	 	return MoufManager::getMoufManager()->get('mongoItemsCollection');
 	 }
 
 	/**
 	 * @return MongoCollection
 	 */
 	 public static function getMongoPackagesCollection() {
-	 	return MoufManager::getMoufManager()->getInstance('mongoPackagesCollection');
+	 	return MoufManager::getMoufManager()->get('mongoPackagesCollection');
 	 }
 
 	/**
 	 * @return MongoDB
 	 */
 	 public static function getMongoPackanalystDb() {
-	 	return MoufManager::getMoufManager()->getInstance('mongoPackanalystDb');
+	 	return MoufManager::getMoufManager()->get('mongoPackanalystDb');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Cache\NoCache
 	 */
 	 public static function getNoCacheService() {
-	 	return MoufManager::getMoufManager()->getInstance('noCacheService');
+	 	return MoufManager::getMoufManager()->get('noCacheService');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Common\Validators\NumericValidator
 	 */
 	 public static function getNumericValidatorDecimals() {
-	 	return MoufManager::getMoufManager()->getInstance('numericValidatorDecimals');
+	 	return MoufManager::getMoufManager()->get('numericValidatorDecimals');
 	 }
 
 	/**
 	 * @return Mouf\Packanalyst\Controllers\PackageAnalyzerController
 	 */
 	 public static function getPackageAnalyzerController() {
-	 	return MoufManager::getMoufManager()->getInstance('packageAnalyzerController');
+	 	return MoufManager::getMoufManager()->get('packageAnalyzerController');
 	 }
 
 	/**
 	 * @return Mouf\Packanalyst\Dao\PackageDao
 	 */
 	 public static function getPackageDao() {
-	 	return MoufManager::getMoufManager()->getInstance('packageDao');
+	 	return MoufManager::getMoufManager()->get('packageDao');
 	 }
 
 	/**
 	 * @return Mouf\Html\Renderer\FileBasedRenderer
 	 */
 	 public static function getPackageRenderer_moufhtml_widgets_menu() {
-	 	return MoufManager::getMoufManager()->getInstance('packageRenderer_mouf/html.widgets.menu');
+	 	return MoufManager::getMoufManager()->get('packageRenderer_mouf/html.widgets.menu');
 	 }
 
 	/**
 	 * @return Mouf\Html\Renderer\FileBasedRenderer
 	 */
 	 public static function getPackageRenderer_moufhtml_widgets_messageservice() {
-	 	return MoufManager::getMoufManager()->getInstance('packageRenderer_mouf/html.widgets.messageservice');
+	 	return MoufManager::getMoufManager()->get('packageRenderer_mouf/html.widgets.messageservice');
 	 }
 
 	/**
 	 * @return Mouf\Packanalyst\Services\PackagistScoreService
 	 */
 	 public static function getPackagistScoreService() {
-	 	return MoufManager::getMoufManager()->getInstance('packagistScoreService');
+	 	return MoufManager::getMoufManager()->get('packagistScoreService');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Common\Lock
 	 */
 	 public static function getPackagistStatsLock() {
-	 	return MoufManager::getMoufManager()->getInstance('packagistStatsLock');
+	 	return MoufManager::getMoufManager()->get('packagistStatsLock');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Log\Psr\ErrorLogLogger
 	 */
 	 public static function getPsr_errorLogLogger() {
-	 	return MoufManager::getMoufManager()->getInstance('psr.errorLogLogger');
+	 	return MoufManager::getMoufManager()->get('psr.errorLogLogger');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Cache\InMemoryCache
 	 */
 	 public static function getRendererCacheService() {
-	 	return MoufManager::getMoufManager()->getInstance('rendererCacheService');
+	 	return MoufManager::getMoufManager()->get('rendererCacheService');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Common\Validators\RequiredValidator
 	 */
 	 public static function getRequiredValidator() {
-	 	return MoufManager::getMoufManager()->getInstance('requiredValidator');
+	 	return MoufManager::getMoufManager()->get('requiredValidator');
 	 }
 
 	/**
 	 * @return Mouf\Packanalyst\Controllers\RootController
 	 */
 	 public static function getRootController() {
-	 	return MoufManager::getMoufManager()->getInstance('rootController');
+	 	return MoufManager::getMoufManager()->get('rootController');
 	 }
 
 	/**
 	 * @return Mouf\Html\Utils\WebLibraryManager\InlineWebLibrary
 	 */
 	 public static function getRootUrlInlineWebLibrary() {
-	 	return MoufManager::getMoufManager()->getInstance('rootUrlInlineWebLibrary');
+	 	return MoufManager::getMoufManager()->get('rootUrlInlineWebLibrary');
 	 }
 
 	/**
 	 * @return Mouf\Html\HtmlElement\HtmlFromFile
 	 */
 	 public static function getRootUrlJsFile() {
-	 	return MoufManager::getMoufManager()->getInstance('rootUrlJsFile');
+	 	return MoufManager::getMoufManager()->get('rootUrlJsFile');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Session\SessionManager\DefaultSessionManager
 	 */
 	 public static function getSessionManager() {
-	 	return MoufManager::getMoufManager()->getInstance('sessionManager');
+	 	return MoufManager::getMoufManager()->get('sessionManager');
 	 }
 
 	/**
 	 * @return Mouf\Mvc\Splash\Splash
 	 */
 	 public static function getSplash() {
-	 	return MoufManager::getMoufManager()->getInstance('splash');
+	 	return MoufManager::getMoufManager()->get('splash');
 	 }
 
 	/**
 	 * @return Mouf\Utils\I18n\Fine\Language\BrowserLanguageDetection
 	 */
 	 public static function getSplashBrowserLanguageDetection() {
-	 	return MoufManager::getMoufManager()->getInstance('splashBrowserLanguageDetection');
+	 	return MoufManager::getMoufManager()->get('splashBrowserLanguageDetection');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Cache\ApcCache
 	 */
 	 public static function getSplashCacheApc() {
-	 	return MoufManager::getMoufManager()->getInstance('splashCacheApc');
+	 	return MoufManager::getMoufManager()->get('splashCacheApc');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Cache\FileCache
 	 */
 	 public static function getSplashCacheFile() {
-	 	return MoufManager::getMoufManager()->getInstance('splashCacheFile');
+	 	return MoufManager::getMoufManager()->get('splashCacheFile');
 	 }
 
 	/**
 	 * @return Mouf\Utils\I18n\Fine\Translate\FinePHPArrayTranslationService
 	 */
 	 public static function getSplashTranslateService() {
-	 	return MoufManager::getMoufManager()->getInstance('splashTranslateService');
+	 	return MoufManager::getMoufManager()->get('splashTranslateService');
 	 }
 
 	/**
 	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
 	 */
 	 public static function getStylesWebLibrary() {
-	 	return MoufManager::getMoufManager()->getInstance('stylesWebLibrary');
+	 	return MoufManager::getMoufManager()->get('stylesWebLibrary');
 	 }
 
 	/**
 	 * @return Mouf\Html\Renderer\Twig\MoufTwigEnvironment
 	 */
 	 public static function getTwigEnvironment() {
-	 	return MoufManager::getMoufManager()->getInstance('twigEnvironment');
+	 	return MoufManager::getMoufManager()->get('twigEnvironment');
 	 }
 
 	/**
 	 * @return Mouf\Utils\Common\Validators\URLValidator
 	 */
 	 public static function getURLValidatorFtpHttps() {
-	 	return MoufManager::getMoufManager()->getInstance('uRLValidatorFtpHttps');
+	 	return MoufManager::getMoufManager()->get('uRLValidatorFtpHttps');
 	 }
 
 	/**
 	 * @return Mouf\Html\Widgets\MessageService\Service\SessionMessageService
 	 */
 	 public static function getUserMessageService() {
-	 	return MoufManager::getMoufManager()->getInstance('userMessageService');
+	 	return MoufManager::getMoufManager()->get('userMessageService');
 	 }
 
 	/**
 	 * @return Mouf\Utils\I18n\Fine\Language\BrowserLanguageDetection
 	 */
 	 public static function getValidatorsBrowserLanguageDetection() {
-	 	return MoufManager::getMoufManager()->getInstance('validatorsBrowserLanguageDetection');
+	 	return MoufManager::getMoufManager()->get('validatorsBrowserLanguageDetection');
 	 }
 
 	/**
 	 * @return Mouf\Utils\I18n\Fine\Translate\FinePHPArrayTranslationService
 	 */
 	 public static function getValidatorsTranslateService() {
-	 	return MoufManager::getMoufManager()->getInstance('validatorsTranslateService');
+	 	return MoufManager::getMoufManager()->get('validatorsTranslateService');
 	 }
 
 }
