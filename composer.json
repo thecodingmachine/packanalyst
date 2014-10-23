@@ -11,7 +11,8 @@
 		"michelf/php-markdown" : "~1.4",
 		"ezyang/htmlpurifier" : "~4.6",
 		"guzzlehttp/guzzle" : "~4.1",
-		"mouf/utils.common.lock" : "dev-master"
+		"mouf/utils.common.lock" : "dev-master",
+		"mouf/modules.google-analytics": "~3.0"
 	},
 	"autoload" : {
 		"psr-0" : {

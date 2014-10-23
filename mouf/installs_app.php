@@ -149,6 +149,13 @@ return array (
   array (
     'status' => 'done',
     'type' => 'file',
+    'file' => 'install.php',
+    'package' => 'mouf/modules.google-analytics',
+  ),
+  21 => 
+  array (
+    'status' => 'done',
+    'type' => 'file',
     'file' => 'src/install.php',
     'package' => 'mouf/utils.log.errorlog_logger',
   ),
