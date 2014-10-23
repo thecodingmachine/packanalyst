@@ -28,7 +28,7 @@ $(function() {
 });
 </script>
 
-<h1>Packanalyst: explore PHP classes from Packagist</h1>
+<h1>Packanalyst (beta): explore PHP classes from Packagist</h1>
 
 <h3 class="text-center">Search in PHP open-source code</h3>
 
@@ -58,7 +58,16 @@ $(function() {
 		    </p>
 		  </div>
 		</div>
-	</div>
+		<div class="panel panel-default">
+		  <!-- Default panel contents -->
+		  <div class="panel-heading">Feedback needed!</div>
+		  <div class="panel-body">
+		    <p>Packanalyst is a service in beta. Do not hesitate to send feedback! 
+		    <a href="https://twitter.com/david_negrier">@david_negrier</a>. 
+		    </p>
+		  </div>
+		</div>
+		</div>
 	<div class="col-xs-12 col-md-6">
 		<div class="panel panel-default">
 		  <!-- Default panel contents -->
