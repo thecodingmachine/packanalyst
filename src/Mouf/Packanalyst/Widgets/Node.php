@@ -14,6 +14,11 @@ class Node implements HtmlElementInterface
 	
 	private $name;
 	private $type;
+	/**
+	 * The score of a node is the sum of the score of the packages implementing it.
+	 * @var int
+	 */
+	private $score = 0;
 	
 	/**
 	 * 
@@ -43,6 +48,7 @@ class Node implements HtmlElementInterface
 		if (!isset($this->packages[$packageName])) {
 			$this->packages[$packageName] = [];
 			$this->packagesScores[$packageName] = 1 + $downloads + $favers * 100;
+			$this->score += $this->packagesScores[$packageName];
 		}
 		
 		if (array_search($version, $this->packages[$packageName]) === false) {
@@ -112,6 +118,24 @@ class Node implements HtmlElementInterface
 		if (array_search($node, $this->children) === false) {
 			$this->children[] = $node;
 		}
+	}
+	
+	/**
+	 * The score of a node is the sum of the score of the packages implementing it.
+	 * @return int
+	 */
+	public function getScore() {
+		return $this->score;
+	}
+	
+	/**
+	 * Returns the list of children, sorted by reverse score order.
+	 */
+	public function getChildrenSortedByScore() {
+		usort($this->children, function($a, $b) {
+			return $b->getScore() - $a->getScore();
+		});
+		return $this->children;
 	}
 	
 }

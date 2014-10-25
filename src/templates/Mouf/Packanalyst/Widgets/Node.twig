@@ -34,7 +34,7 @@
 	</div>
 	{% if children %}
 	<ul>
-	{% for child in children  %}
+	{% for child in this.getChildrenSortedByScore()  %}
 		{{ toHtml(child) }}
 	{% endfor %}
 	</ul>
