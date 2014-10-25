@@ -144,6 +144,7 @@ class ClassAnalyzerController extends Controller {
 		
 		// Let's compute the pointer to the source.
 		if (isset($rootNode['packageName'])) {
+			// TODO: improve to get the link to the best package
 			$package = $this->packageDao->get($rootNode['packageName'], $rootNode['packageVersion']);
 			$sourceUrl = null;
 			if (isset($package['sourceUrl']) && strpos($package['sourceUrl'], 'https://github.com') === 0) {

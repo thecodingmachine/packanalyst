@@ -87,11 +87,13 @@ class PackageDao
 		}
 		
 		$latestVersion = "0.0.0";
-		$selectedPackage = $packages->next();
+		$packages->reset();
+		$selectedPackage = $packages->getNext();
 		
 		foreach ($packages as $package) {
-			if (version_compare($package['packageVersion'], $latestVersion) > 0) {
-				$latestVersion = $package['packageVersion'];
+			$version = ltrim($package['packageVersion'], 'v');
+			if (version_compare($version, $latestVersion) > 0) {
+				$latestVersion = $version;
 				$selectedPackage = $package;
 			}
 		}
