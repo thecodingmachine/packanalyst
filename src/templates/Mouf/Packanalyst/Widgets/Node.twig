@@ -1,6 +1,16 @@
 <li>
 	<div class='item {{ type }}'>
-		<div class='className'><a href="class?q={{ name | url_encode }}">{{ name }}</a></div>
+		<div class='className'><a href="class?q={{ name | url_encode }}">{{ name }}</a>
+		{% spaceless %}
+		<div class="stars-container">
+		{% if this.getNbStars() %}
+		{% for i in 1..this.getNbStars() %}
+		<span class="glyphicon glyphicon-star"></span>
+		{% endfor %}
+		{% endif %}
+		</div>
+		{% endspaceless %}
+		</div>
 		{% for packageName, versions in this.getImportantPackages() %}
 		<div class='package small'>
 		{{ packageName }}

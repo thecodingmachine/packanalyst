@@ -137,5 +137,20 @@ class Node implements HtmlElementInterface
 		});
 		return $this->children;
 	}
-	
+
+	public function getNbStars() {
+		if ($this->score >= 1000000) {
+			return 5;
+		} elseif ($this->score >= 100000) {
+			return 4;
+		} elseif ($this->score >= 10000) {
+			return 3;
+		} elseif ($this->score >= 1000) {
+			return 2;
+		} elseif ($this->score >= 100) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 }

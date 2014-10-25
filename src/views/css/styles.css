@@ -93,3 +93,8 @@ div.description {
 .item .otherpackages {
 	display: none;
 }
+
+.item .stars-container {
+	float: right;
+	padding: 3px;
+}
