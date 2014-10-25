@@ -85,3 +85,11 @@
 div.description {
 	font-style: italic;	
 }
+
+.item a.otherpackageslink {
+	font-size: 85%;
+}
+
+.item .otherpackages {
+	display: none;
+}

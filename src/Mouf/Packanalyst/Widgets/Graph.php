@@ -48,7 +48,7 @@ class Graph implements HtmlElementInterface
 			$this->nodesList[$className] = new Node($className, isset($item['type'])?$item['type']:null);
 		}
 		if (isset($item['packageName'])) {
-			$this->nodesList[$className]->registerPackage($item['packageName'], $item['packageVersion'], isset($item['downloads'])?$item['downloads']:null, isset($item['favers'])?$item['favers']:null);
+			$this->nodesList[$className]->registerPackage($item['packageName'], $item['packageVersion'], isset($item['package']['downloads'])?$item['package']['downloads']:null, isset($item['package']['favers'])?$item['package']['favers']:null);
 		}
 		return $this->nodesList[$className];
 	}

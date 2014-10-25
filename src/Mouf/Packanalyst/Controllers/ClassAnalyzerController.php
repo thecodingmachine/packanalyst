@@ -13,6 +13,7 @@ use Mouf\Reflection\MoufPhpDocComment;
 use Michelf\MarkdownExtra;
 use Mouf\Packanalyst\Widgets\Node;
 use Mouf\Packanalyst\Dao\PackageDao;
+use Mouf\Html\Utils\WebLibraryManager\WebLibrary;
 
 /**
  * TODO: write controller comment
@@ -87,9 +88,9 @@ class ClassAnalyzerController extends Controller {
 		
 		$graphItems = $this->findItemsInheriting($q);
 		
-		$rootNodes = $this->itemDao->getItemsByName($q);
+		$rootNodesCollection = $this->itemDao->getItemsByName($q);
 		// If there is no root node (for instance if the class is "Exception")
-		if ($rootNodes->count() == 0) {
+		if ($rootNodesCollection->count() == 0) {
 			
 			// If this class has never been used, we might want to wonder if the class exists at all.
 			if (count($graphItems) == 0) {
@@ -103,6 +104,16 @@ class ClassAnalyzerController extends Controller {
 			$rootNodes = [[
 				"name"=>$q
 			]];
+		} else {
+			$rootNodes = [];
+			foreach ($rootNodesCollection as $key=>$item) {
+				$rootNodes[$key] = $item;
+				$packageName = $item['packageName'];
+				if (!isset($this->packagesCache[$packageName])) {
+					$this->packagesCache[$packageName] = $this->packageDao->getPackagesByName($packageName)->getNext();
+				}
+				$rootNodes[$key]['package'] = $this->packagesCache[$packageName];
+			}
 		}
 		$graph = new Graph($rootNodes, $graphItems);
 		
@@ -154,6 +165,7 @@ class ClassAnalyzerController extends Controller {
 		
 		// Let's add the twig file to the template.
 		$this->template->setTitle('Packanalyst | '.ucfirst($type).' '.$q);
+		$this->template->getWebLibraryManager()->addLibrary(new WebLibrary([ROOT_URL.'src/views/classAnalyzer/classAnalyzer.js']));
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig', 
 				array(
 						"class"=>$q, 
