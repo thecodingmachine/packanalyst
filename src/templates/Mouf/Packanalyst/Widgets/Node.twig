@@ -1,7 +1,7 @@
 <li>
 	<div class='item {{ type }}'>
 		<div class='className'><a href="class?q={{ name | url_encode }}">{{ name }}</a></div>
-		{% for packageName, versions in packages  %}
+		{% for packageName, versions in this.getImportantPackages() %}
 		<div class='package small'>
 		{{ packageName }}
 		<span class="versions">
@@ -11,6 +11,26 @@
 		</span>
 		</div>
 		{% endfor %}
+		
+		{% if this.getNotImportantPackages()  %}
+		<div class="otherpackagescontainer">
+			<a class="otherpackageslink" href="#">View more packages</a>
+			<div class="otherpackages"> 
+				{% for packageName, versions in this.getNotImportantPackages() %}
+				<div class='package small'>
+				{{ packageName }}
+				<span class="versions">
+				{% for version in versions%}
+				<span class="version badge"><a href="{{ constant("ROOT_URL") }}package?name={{ packageName }}&version={{ version }}">{{ version }}</a></span>
+				{% endfor %}
+				</span>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+		
+		
 	</div>
 	{% if children %}
 	<ul>

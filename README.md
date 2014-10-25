@@ -40,4 +40,6 @@ MongoDB package collection:
 	version: ""
 	type: ""
 	releaseDate: date
+	downloads: int
+	favers: int
 }

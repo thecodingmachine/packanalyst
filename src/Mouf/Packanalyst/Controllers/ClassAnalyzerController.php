@@ -13,6 +13,7 @@ use Mouf\Reflection\MoufPhpDocComment;
 use Michelf\MarkdownExtra;
 use Mouf\Packanalyst\Widgets\Node;
 use Mouf\Packanalyst\Dao\PackageDao;
+use Mouf\Html\Utils\WebLibraryManager\WebLibrary;
 
 /**
  * TODO: write controller comment
@@ -54,6 +55,8 @@ class ClassAnalyzerController extends Controller {
 	 * @var PackageDao
 	 */
 	private $packageDao;
+	
+	private $packagesCache = array();
 
 	/**
 	 * Controller's constructor.
@@ -83,14 +86,14 @@ class ClassAnalyzerController extends Controller {
 		// Remove front \
 		$q = ltrim($q, '\\');
 		
-		$graphItems = $this->itemDao->findItemsInheriting($q);
+		$graphItems = $this->findItemsInheriting($q);
 		
-		$rootNodes = $this->itemDao->getItemsByName($q);
+		$rootNodesCollection = $this->itemDao->getItemsByName($q);
 		// If there is no root node (for instance if the class is "Exception")
-		if ($rootNodes->count() == 0) {
+		if ($rootNodesCollection->count() == 0) {
 			
 			// If this class has never been used, we might want to wonder if the class exists at all.
-			if ($graphItems->count() == 0) {
+			if (count($graphItems) == 0) {
 				// Let's go on a 404.
 				header("HTTP/1.0 404 Not Found");
 				$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/404.twig', array("class"=>$q)));
@@ -101,6 +104,16 @@ class ClassAnalyzerController extends Controller {
 			$rootNodes = [[
 				"name"=>$q
 			]];
+		} else {
+			$rootNodes = [];
+			foreach ($rootNodesCollection as $key=>$item) {
+				$rootNodes[$key] = $item;
+				$packageName = $item['packageName'];
+				if (!isset($this->packagesCache[$packageName])) {
+					$this->packagesCache[$packageName] = $this->packageDao->getPackagesByName($packageName)->getNext();
+				}
+				$rootNodes[$key]['package'] = $this->packagesCache[$packageName];
+			}
 		}
 		$graph = new Graph($rootNodes, $graphItems);
 		
@@ -130,16 +143,20 @@ class ClassAnalyzerController extends Controller {
 		}
 		
 		// Let's compute the pointer to the source.
-		$package = $this->packageDao->get($rootNode['packageName'], $rootNode['packageVersion']);
-		$sourceUrl = null;
-		if (isset($package['sourceUrl']) && strpos($package['sourceUrl'], 'https://github.com') === 0) {
-			if (strpos($package['sourceUrl'], '.git') === strlen($package['sourceUrl'])-4) {
-				if (isset($rootNode['fileName']) && $rootNode['fileName']) {
-					$sourceUrl = substr($package['sourceUrl'], 0, strlen($package['sourceUrl'])-4);
-					$version = str_replace(['dev-', '.x-dev'], ['', ''], $package['packageVersion']);
-					$sourceUrl .= '/blob/'.$version.$rootNode['fileName'];
+		if (isset($rootNode['packageName'])) {
+			$package = $this->packageDao->get($rootNode['packageName'], $rootNode['packageVersion']);
+			$sourceUrl = null;
+			if (isset($package['sourceUrl']) && strpos($package['sourceUrl'], 'https://github.com') === 0) {
+				if (strpos($package['sourceUrl'], '.git') === strlen($package['sourceUrl'])-4) {
+					if (isset($rootNode['fileName']) && $rootNode['fileName']) {
+						$sourceUrl = substr($package['sourceUrl'], 0, strlen($package['sourceUrl'])-4);
+						$version = str_replace(['dev-', '.x-dev'], ['', ''], $package['packageVersion']);
+						$sourceUrl .= '/blob/'.$version.$rootNode['fileName'];
+					}
 				}
 			}
+		} else {
+			$sourceUrl = null;
 		}
 		
 		
@@ -148,6 +165,7 @@ class ClassAnalyzerController extends Controller {
 		
 		// Let's add the twig file to the template.
 		$this->template->setTitle('Packanalyst | '.ucfirst($type).' '.$q);
+		$this->template->getWebLibraryManager()->addLibrary(new WebLibrary([ROOT_URL.'src/views/classAnalyzer/classAnalyzer.js']));
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig', 
 				array(
 						"class"=>$q, 
@@ -157,6 +175,29 @@ class ClassAnalyzerController extends Controller {
 						"inheritNodes"=>$inheritNodes,
 						"sourceUrl"=>$sourceUrl)));
 		$this->template->toHtml();
+	}
+	
+	/**
+	 * Finds a list of classes/interfaces inheriting the passed interface.
+	 * The items returned will contain a special "package" key pointing to the package array.
+	 * @param string $className
+	 */
+	private function findItemsInheriting($className) {
+		$graphItems = $this->itemDao->findItemsInheriting($className);
+		
+		
+		$items = [];
+		
+		foreach ($graphItems as $item) {
+			$packageName = $item['packageName'];
+			if (!isset($this->packagesCache[$packageName])) {
+				$this->packagesCache[$packageName] = $this->packageDao->getPackagesByName($packageName)->getNext();
+			}
+			$item['package'] = $this->packagesCache[$packageName];
+			$items[] = $item;
+		}
+		
+		return $items;
 	}
 	
 	private $inheritedNodes = array();
@@ -179,7 +220,11 @@ class ClassAnalyzerController extends Controller {
 		$inherits = array();
 		foreach ($nodes as $node) {
 			if (isset($node['packageName'])) {
-				$htmlNode->registerPackage($node['packageName'], $node['packageVersion']);
+				$packageName = $node['packageName'];
+				if (!isset($this->packagesCache[$packageName])) {
+					$this->packagesCache[$packageName] = $this->packageDao->getPackagesByName($packageName)->getNext();
+				}
+				$htmlNode->registerPackage($node['packageName'], $node['packageVersion'], isset($this->packagesCache[$packageName]['downloads'])?$this->packagesCache[$packageName]['downloads']:null, isset($this->packagesCache[$packageName]['favers'])?$this->packagesCache[$packageName]['favers']:null);
 			}
 			if (isset($node['inherits'])) {
 				$inherits = array_merge($inherits, $node['inherits']);

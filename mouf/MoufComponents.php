@@ -106,6 +106,14 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
         array (
         ),
       ),
+      'prefix' => 
+      array (
+        'value' => 'SECRET',
+        'type' => 'config',
+        'metadata' => 
+        array (
+        ),
+      ),
     ),
     'fieldBinds' => 
     array (
@@ -622,6 +630,14 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       array (
         'value' => 3600,
         'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      'prefix' => 
+      array (
+        'value' => 'SECRET',
+        'type' => 'config',
         'metadata' => 
         array (
         ),
