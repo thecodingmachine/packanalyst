@@ -115,7 +115,7 @@ class FetchDataService
 		$providerNames = $this->packagistRepository->getProviderNames();
 		
 		// If analyzis is over, let's start from the beginning again.
-		if ($lastAnalyzedPackage == $providerNames[count($providerNames)-1]) {
+		if ($lastAnalyzedPackage >= $providerNames[count($providerNames)-1]) {
 			$lastAnalyzedPackage = '';
 		}
 		
