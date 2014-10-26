@@ -153,4 +153,15 @@ class PackageDao
 			$callback($item);
 		}
 	}
+	
+	/**
+	 * Marks all packages for refresh
+	 */
+	public function refreshAllPackages() {
+		$this->collection->update(
+				array(),
+				array('$set' => array("refresh" => true)),
+				array("multiple" => true)
+		);
+	}
 }

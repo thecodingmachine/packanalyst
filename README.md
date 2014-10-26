@@ -25,7 +25,8 @@ MongoDB item collection:
 	"type": "class",
 	"packageName": "packagename",
 	"packageVersion": "version",
-	"phpDoc": "doc class"
+	"phpDoc": "doc class",
+	"refresh": bool // Set to true to force refresh
 }
 
 index on: packageName + packageVersion

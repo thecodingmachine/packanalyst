@@ -164,6 +164,9 @@ class ClassAnalyzerController extends Controller {
 		// Now, let's find all the classes/interfaces we extend from (recursively...)
 		$inheritNodes = $this->getNode($q);
 		
+		// Finally, let's get the list of classes/interfaces/traits/functions using this item
+		$usedInItems = $this->itemDao->findItemsUsing($q)->limit(1000);
+		
 		// Let's add the twig file to the template.
 		$this->template->setTitle('Packanalyst | '.ucfirst($type).' '.$q);
 		$this->template->getWebLibraryManager()->addLibrary(new WebLibrary([ROOT_URL.'src/views/classAnalyzer/classAnalyzer.js']));
@@ -174,7 +177,8 @@ class ClassAnalyzerController extends Controller {
 						"description"=>$description, 
 						"type"=>$type, 
 						"inheritNodes"=>$inheritNodes,
-						"sourceUrl"=>$sourceUrl)));
+						"sourceUrl"=>$sourceUrl,
+						"usedInItems"=>$usedInItems)));
 		$this->template->toHtml();
 	}
 	

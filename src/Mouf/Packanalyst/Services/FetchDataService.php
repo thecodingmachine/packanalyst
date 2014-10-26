@@ -187,7 +187,7 @@ class FetchDataService
 					// Let's get the update date of each version and let's compare it with the one we stored.
 					$packageVersion = $this->packageDao->get($package->getName(), $package->getPrettyVersion());
 					
-					if (!$this->force) {
+					if (!$this->force && ((!isset($packageVersion['refresh']) || !$packageVersion['refresh']))) {
 						if ($packageVersion && $packageVersion['releaseDate']->sec == $package->getReleaseDate()->getTimestamp()) {
 							if (isset($packageVersion['onError'])) {
 								if ($packageVersion['onError'] == false || ($packageVersion['onError'] == true && !$this->retryOnError)) {
@@ -204,9 +204,10 @@ class FetchDataService
 					$this->itemDao->deletePackage($package->getName(), $package->getPrettyVersion());
 					$this->packageDao->deletePackage($package->getName(), $package->getPrettyVersion());
 				
-					$this->logger->info("Downloading {packageName} {version}", array(
+					$this->logger->info("Downloading {packageName} {version}{additional}", array(
 								"packageName"=>$package->getPrettyName(),
-								"version"=>$package->getPrettyVersion()
+								"version"=>$package->getPrettyVersion(),
+								"additional"=>((isset($packageVersion['refresh']) && $packageVersion['refresh'])?" (forced via force-refresh)":"")
 						));
 					//var_dump($package->getDistUrls());
 					//var_dump($package->getSourceUrls());
@@ -219,6 +220,7 @@ class FetchDataService
 	    			$this->classesDetector->storePackage($downloadPath, $packageVersion);
 	    			$packageVersion['onError'] = false;
 	    			$packageVersion['errorMsg'] = '';
+	    			unset($packageVersion['refresh']);
 				} catch (\Exception $e) {
 					if (!$packageVersion) {
 						$packageVersion = $this->packageDao->createOrUpdatePackage($package);

@@ -35,6 +35,9 @@ class ItemDao
 			"name" => 1
 		]);
 		$this->collection->createIndex([
+			"uses" => 1
+		]);
+		$this->collection->createIndex([
 			"packageName" => 1,
 			"packageVersion" => 1
 		]);
@@ -128,6 +131,15 @@ class ItemDao
 	 */
 	public function findItemsInheriting($itemName) {
 		return $this->collection->find([ "globalInherits" => $itemName ]);
+	}
+	
+	/**
+	 * Find the list of items that use $itemName
+	 *
+	 * @param string $itemName
+	 */
+	public function findItemsUsing($itemName) {
+		return $this->collection->find([ "uses" => $itemName ]);
 	}
 	
 	/**

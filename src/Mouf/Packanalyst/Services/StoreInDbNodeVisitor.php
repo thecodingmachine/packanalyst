@@ -2,7 +2,9 @@
 namespace Mouf\Packanalyst\Services;
 
 use PhpParser\Node;
+use PhpParser\Node\Name;
 use PhpParser\Node\Stmt;
+use PhpParser\Node\Expr;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Parser;
 use PhpParser\Lexer;
@@ -21,6 +23,13 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
 	private $itemDao;
 	private $fileName;
 	
+	/**
+	 * Classes/interfaces/traits being used in currently parsed class/interface/trait/function.
+	 * The key is the class name.
+	 * @var array<string, bool>
+	 */
+	private $uses;
+	
 	public function __construct($package, ItemDao $itemDao) {
 		$this->package = $package;
 		$this->itemDao = $itemDao;
@@ -28,6 +37,14 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
 	
 	public function setFileName($fileName) {
 		$this->fileName = $fileName;
+	}
+	
+	public function enterNode(Node $node) {
+		// Each time we enter in a class or interface or trait or function, we reset the "uses" array.
+		if ($node instanceof Stmt\Class_ || $node instanceof Stmt\Interface_
+				|| $node instanceof Stmt\Trait_ || $node instanceof Stmt\Function_) {
+			$this->uses = [];
+		}
 	}
 	
 	public function leaveNode(Node $node) {
@@ -49,6 +66,8 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
 			$item['packageName'] = $this->package['packageName'];
 			$item['packageVersion'] = $this->package['packageVersion'];
 			$item['fileName'] = $this->fileName;
+			unset($this->uses[$itemName]);
+			$item['uses'] = array_keys($this->uses); 
 				
 			if ($node instanceof Stmt\Class_) {
 				$item['type'] = ItemDao::TYPE_CLASS;
@@ -78,7 +97,43 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
 			}
 			
 			$this->itemDao->save($item);
-		}
+		/*} elseif ($node instanceof Node\Name) {
+			$this->uses[$node->toString()] = true;*/
+		} elseif ($node instanceof Stmt\Const_) {
+            foreach ($node->consts as $const) {
+            	$this->uses[$const->namespacedName->toString()] = true;
+            }
+        } elseif ($node instanceof Expr\StaticCall
+                  || $node instanceof Expr\StaticPropertyFetch
+                  || $node instanceof Expr\ClassConstFetch
+                  || $node instanceof Expr\New_
+                  || $node instanceof Expr\Instanceof_
+        ) {
+            if ($node->class instanceof Name) {
+            	$className = $node->class->toString();
+            	$lowerClassName = strtolower($className);
+            	if ($lowerClassName != "self" && $lowerClassName != "parent" && $lowerClassName != "parent") {
+            		$this->uses[$className] = true;
+            	}
+            }
+        } elseif ($node instanceof Stmt\Catch_) {
+        	$this->uses[$node->type->toString()] = true;
+        } /*elseif ($node instanceof Expr\FuncCall) {
+            if ($node->name instanceof Name) {
+        	echo $node->name->toString()."\n";
+            	$this->uses[$node->name->toString()] = true;
+            }
+        }*/ /* elseif ($node instanceof Expr\ConstFetch) {
+        	$this->uses[$node->name->toString()] = true;
+        }*/ elseif ($node instanceof Stmt\TraitUse) {
+            foreach ($node->traits as $trait) {
+            	$this->uses[$trait->toString()] = true;
+            }
+        } elseif ($node instanceof Node\Param
+                  && $node->type instanceof Name
+        ) {
+        	$this->uses[$node->type->toString()] = true;
+        }
 	}
 	
 	private function ensureUtf8($str) {

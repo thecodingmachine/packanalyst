@@ -22,3 +22,32 @@
 <ul class='classgraph'>
 {{ toHtml(inheritNodes) }}
 </ul>
+
+<h2>This {{ type }} is used in:</h2>
+
+<table class="table table-striped table-condensed">
+	<tr>
+		<th>Class</th>
+		<th>Package</th>
+	</tr>
+	{% for item in usedInItems %}
+	<tr>
+		<td class="className"><a href="class?q={{ item.name | url_encode }}">{{ item.name }}</a></td>
+		<td>
+		<div class='package small'>
+		{{ item.packageName }}
+		<span class="versions">
+		<span class="version badge"><a href="{{ constant("ROOT_URL") }}package?name={{ item.packageName }}&version={{ item.packageVersion }}">{{ item.packageVersion }}</a></span>
+		</span>
+		</div>
+		
+		</td>
+	</tr>
+	{% endfor %}
+	{% if usedInItems.count() == 1000  %}
+	<tr>
+		<td>And many more....</td>
+		<td></td>
+	</tr>
+	{% endif %}
+</table>
