@@ -98,3 +98,25 @@ div.description {
 	float: right;
 	padding: 3px;
 }
+
+.pad {
+	padding-left: 40px;
+}
+
+.pad.arrow {
+	background: url("images/arrow.png") no-repeat;
+	background-position: 20px 0px;  
+}
+
+.highlight {
+	background-color: #ffff99;
+}
+
+ul.classgraph {
+	padding-left: 0px;
+	list-style-type: none;
+}
+
+ul.classgraph ul {
+		list-style-image: url("images/arrow.png");
+}

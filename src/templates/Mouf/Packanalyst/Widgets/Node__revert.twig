@@ -1,5 +1,17 @@
-<li>
-	<div class='item {{ type }} {{ highlight?"highlight":"" }}'>
+{% if children %}
+{% for child in this.getChildrenSortedByScore()  %}
+	{{ child.getHtmlRevert() | raw }}
+{% endfor %}
+{% endif %}
+
+{% if children %}
+{% for i in 1..this.getDepth() %}
+<div class="pad {{ loop.last?"arrow":"" }}">
+{% endfor %}
+{% endif %}
+
+{% if not replacementNode %}
+	<div class='item {{ type }}'>
 		<div class='className'><a href="class?q={{ name | url_encode }}">{{ name }}</a>
 		{% spaceless %}
 		<div class="stars-container">
@@ -42,11 +54,12 @@
 		
 		
 	</div>
-	{% if children %}
-	<ul>
-	{% for child in this.getChildrenSortedByScore()  %}
-		{{ toHtml(child) }}
-	{% endfor %}
-	</ul>
-	{% endif %}
-</li>
+{% else %}
+	{{ toHtml(replacementNode) }}
+{% endif %}
+
+{% if children %}
+{% for i in 1..this.getDepth() %}
+</div>
+{% endfor %}
+{% endif %}

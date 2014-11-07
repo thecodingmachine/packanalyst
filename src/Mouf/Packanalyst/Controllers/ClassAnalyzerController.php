@@ -163,9 +163,14 @@ class ClassAnalyzerController extends Controller {
 		
 		// Now, let's find all the classes/interfaces we extend from (recursively...)
 		$inheritNodes = $this->getNode($q);
+
+		// We put the graph of the extending classes INTO the revert graph of the classes we extend from.
+		$inheritNodes->replaceNodeRenderingWith($graph);
+		
 		
 		// Finally, let's get the list of classes/interfaces/traits/functions using this item
 		$usedInItems = $this->itemDao->findItemsUsing($q)->limit(1000);
+		
 		
 		// Let's add the twig file to the template.
 		$this->template->setTitle('Packanalyst | '.ucfirst($type).' '.$q);
@@ -173,10 +178,11 @@ class ClassAnalyzerController extends Controller {
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig', 
 				array(
 						"class"=>$q, 
-						"graph"=>$graph, 
+						//"graph"=>$graph, 
 						"description"=>$description, 
 						"type"=>$type, 
-						"inheritNodes"=>$inheritNodes,
+						//"inheritNodes"=>$inheritNodes,
+						"inheritNodesHtml"=>$inheritNodes->getHtmlRevert(),
 						"sourceUrl"=>$sourceUrl,
 						"usedInItems"=>$usedInItems)));
 		$this->template->toHtml();

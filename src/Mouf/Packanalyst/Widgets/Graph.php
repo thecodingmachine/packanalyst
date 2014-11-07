@@ -39,6 +39,7 @@ class Graph implements HtmlElementInterface
 			}
 		}
 		
+		$this->rootNode->setHighlight(true);
 	}
 
 	

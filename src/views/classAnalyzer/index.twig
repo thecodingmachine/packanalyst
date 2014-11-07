@@ -13,15 +13,9 @@
 <a href="{{ sourceUrl }}" target="_blank">View source on Github</a>
 {% endif %}
 
-<h2>Known implementations</h2>
+<h2>Type hierarchy</h2>
 
-{{ toHtml(graph) }}
-
-<h2>Implement / Extends</h2>
-
-<ul class='classgraph'>
-{{ toHtml(inheritNodes) }}
-</ul>
+{{ inheritNodesHtml|raw }}
 
 <h2>{{ type | capitalize }} usage:</h2>
 

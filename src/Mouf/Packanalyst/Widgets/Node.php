@@ -153,4 +153,55 @@ class Node implements HtmlElementInterface
 			return 0;
 		}
 	}
+	
+	/**
+	 * Returns the depth of the node (0 if the node has no child).
+	 * 
+	 * @return int
+	 */
+	public function getDepth() {
+		if (empty($this->children)) {
+			return 0;
+		} else {
+			return max(array_map(function($item) { return $item->getDepth()+1; }, $this->children));
+		}
+	}
+	
+	/**
+	 * Renders the tree, in reverse order!
+	 */
+	public function getHtmlRevert() {
+		ob_start();
+		\Mouf::getDefaultRenderer()->render($this, "revert");
+		return ob_get_clean();
+	}
+	
+	protected $replacementNode;
+	
+	/**
+	 * Replaces this node rendering with another HtmlElementInterface.
+	 * Used for the root node in htmlrevert mode. 
+	 * 
+	 * @param HtmlElementInterface $node
+	 */
+	public function replaceNodeRenderingWith(HtmlElementInterface $node) {
+		$this->replacementNode = $node;
+	}
+	
+	/**
+	 * @var bool
+	 */
+	protected $highlight = false;
+	
+	/**
+	 * Sets whether we should highlight or not the class (in yellow).
+	 * 
+	 * @param bool $highlight        	
+	 */
+	public function setHighlight($highlight) {
+		$this->highlight = $highlight;
+	}
+	
+	
+	
 }
