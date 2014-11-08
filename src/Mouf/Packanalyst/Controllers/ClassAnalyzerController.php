@@ -164,9 +164,11 @@ class ClassAnalyzerController extends Controller {
 		// Now, let's find all the classes/interfaces we extend from (recursively...)
 		$inheritNodes = $this->getNode($q);
 
+		// Compute the revert depth of all elements.
+		$inheritNodes->getRevertDepth();
+		
 		// We put the graph of the extending classes INTO the revert graph of the classes we extend from.
 		$inheritNodes->replaceNodeRenderingWith($graph);
-		
 		
 		// Finally, let's get the list of classes/interfaces/traits/functions using this item
 		$usedInItems = $this->itemDao->findItemsUsing($q)->limit(1000);

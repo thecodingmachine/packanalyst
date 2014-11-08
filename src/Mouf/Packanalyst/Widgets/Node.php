@@ -167,6 +167,26 @@ class Node implements HtmlElementInterface
 		}
 	}
 	
+	private $reverseDepth = null;
+	
+	/**
+	 * Returns the depth of the node compared to the max depth of the parent (for reverse display).
+	 */
+	public function getRevertDepth() {
+		if ($this->reverseDepth !== null) {
+			return $this->reverseDepth;
+		}
+		$this->setReverseDepth($this->getDepth());
+		return $this->reverseDepth;
+	}
+	
+	private function setReverseDepth($depth) {
+		$this->reverseDepth = $depth;
+		foreach ($this->children as $child) {
+			$child->setReverseDepth($depth-1);
+		}
+	}
+	
 	/**
 	 * Renders the tree, in reverse order!
 	 */
@@ -184,8 +204,8 @@ class Node implements HtmlElementInterface
 	 * 
 	 * @param HtmlElementInterface $node
 	 */
-	public function replaceNodeRenderingWith(HtmlElementInterface $node) {
-		$this->replacementNode = $node;
+	public function replaceNodeRenderingWith(HtmlElementInterface $graph) {
+		$this->replacementNode = $graph;
 	}
 	
 	/**

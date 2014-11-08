@@ -5,7 +5,8 @@
 {% endif %}
 
 {% if children %}
-{% for i in 1..this.getDepth() %}
+{# FIXME: getDepth doit etre fait par rapport au max de l'arbre global, pas de l'arbre courant! #}
+{% for i in 1..this.getRevertDepth() %}
 <div class="pad {{ loop.last?"arrow":"" }}">
 {% endfor %}
 {% endif %}
