@@ -4,10 +4,10 @@
 {% endfor %}
 {% endif %}
 
-{% if children %}
+{% if this.getRevertDepth() != 0 %}
 {# FIXME: getDepth doit etre fait par rapport au max de l'arbre global, pas de l'arbre courant! #}
 {% for i in 1..this.getRevertDepth() %}
-<div class="pad {{ loop.last?"arrow":"" }}">
+<div class="pad {{ (loop.last and children)?"arrow":"" }}">
 {% endfor %}
 {% endif %}
 
@@ -59,7 +59,7 @@
 	{{ toHtml(replacementNode) }}
 {% endif %}
 
-{% if children %}
+{% if this.getRevertDepth() != 0 %}
 {% for i in 1..this.getRevertDepth() %}
 </div>
 {% endfor %}
