@@ -2,6 +2,7 @@ Packanalyst
 ===========
 
 A PHP package analyzer for Composer/Packagist.
+This is the code of the http://packanalyst.mouf-php.com website.
 
 Install
 -------
@@ -13,8 +14,11 @@ Packanalyst requires a MongoDB database and an ElasticSearch database.
 - Configure the application in Mouf: `http://[yourserver]/[yourapp]/vendor/mouf/mouf`
 - Init the databases: `./console.php reset`
 
-Implementation details
-----------------------
+Packanalyst is an application based on [Mouf 2](http://mouf-php.com). After installing, you can
+configure the application by opening http://[yourserver]/[app_path]/vendor/mouf/mouf.
+
+MongoDB implementation details
+------------------------------
 
 MongoDB item collection:
 
