@@ -1,5 +1,9 @@
 <div class="page-header">
+{% if sourceUrl %}
+<a href="{{ sourceUrl }}" target="_blank" class="btn btn-default githublink pull-right">View source on Github</a>
+{% endif %}
 <h1><small>Analyzing {{ type }}</small> {{ class }}</h1>
+
 </div>
 
 {% if description %}
@@ -9,9 +13,6 @@
 </div>
 {% endif %}
 
-{% if sourceUrl %}
-<a href="{{ sourceUrl }}" target="_blank">View source on Github</a>
-{% endif %}
 
 <h2>Type hierarchy</h2>
 

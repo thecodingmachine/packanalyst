@@ -77,6 +77,296 @@ $moufManager->setAllVariables(array (
 ));
 
 $moufManager->addComponentInstances(array (
+  '__anonymous__3f09_123574_1415963578543' => 
+  array (
+    'class' => 'Mouf\\Html\\Widgets\\Menu\\MenuItem',
+    'external' => false,
+    'weak' => true,
+    'anonymous' => true,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'About',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'if ($_SERVER[\'REQUEST_URI\'] == ROOT_URL) {
+    return "#about";
+} else {
+    return ROOT_URL."#about";
+}',
+        'parametertype' => 'primitive',
+        'type' => 'php',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+    'setterProperties' => 
+    array (
+      'setActivateBasedOnUrl' => 
+      array (
+        'value' => false,
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  '__anonymous__3f09_272375_1415897126932' => 
+  array (
+    'class' => 'Mouf\\Html\\Template\\Menus\\BootstrapNavBar',
+    'external' => false,
+    'weak' => true,
+    'anonymous' => true,
+    'fieldProperties' => 
+    array (
+      'fixed' => 
+      array (
+        'value' => 'top',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      'title' => 
+      array (
+        'value' => 'Packanalyst <small>(beta)</small>',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 
+        array (
+          0 => '__anonymous__3f09_770655_1415899075814',
+        ),
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  '__anonymous__3f09_325259_1415963587939' => 
+  array (
+    'class' => 'Mouf\\Html\\Widgets\\Menu\\MenuItem',
+    'external' => false,
+    'weak' => true,
+    'anonymous' => true,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'Team',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'if ($_SERVER[\'REQUEST_URI\'] == ROOT_URL) {
+    return "#team";
+} else {
+    return ROOT_URL."#team";
+}',
+        'parametertype' => 'primitive',
+        'type' => 'php',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+    'setterProperties' => 
+    array (
+      'setActivateBasedOnUrl' => 
+      array (
+        'value' => false,
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  '__anonymous__3f09_447968_1415963567295' => 
+  array (
+    'class' => 'Mouf\\Html\\Widgets\\Menu\\MenuItem',
+    'external' => false,
+    'weak' => true,
+    'anonymous' => true,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'Feedback',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'if ($_SERVER[\'REQUEST_URI\'] == ROOT_URL) {
+    return "#feedback";
+} else {
+    return ROOT_URL."#feedback";
+}',
+        'parametertype' => 'primitive',
+        'type' => 'php',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+    'setterProperties' => 
+    array (
+      'setActivateBasedOnUrl' => 
+      array (
+        'value' => false,
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  '__anonymous__3f09_770655_1415899075814' => 
+  array (
+    'class' => 'Mouf\\Html\\Template\\Menus\\BootstrapMenu',
+    'external' => false,
+    'weak' => true,
+    'anonymous' => true,
+    'fieldProperties' => 
+    array (
+      'pullRight' => 
+      array (
+        'value' => true,
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      'navbar' => 
+      array (
+        'value' => true,
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 
+        array (
+          0 => '__anonymous__3f09_867472_1415899120049',
+          1 => '__anonymous__3f09_447968_1415963567295',
+          2 => '__anonymous__3f09_123574_1415963578543',
+          3 => '__anonymous__3f09_796349_1416051015274',
+          4 => '__anonymous__3f09_325259_1415963587939',
+        ),
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  '__anonymous__3f09_796349_1416051015274' => 
+  array (
+    'class' => 'Mouf\\Html\\Widgets\\Menu\\MenuItem',
+    'external' => false,
+    'weak' => true,
+    'anonymous' => true,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'API',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'if ($_SERVER[\'REQUEST_URI\'] == ROOT_URL) {
+    return "#api";
+} else {
+    return ROOT_URL."#api";
+}',
+        'parametertype' => 'primitive',
+        'type' => 'php',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  '__anonymous__3f09_867472_1415899120049' => 
+  array (
+    'class' => 'Mouf\\Html\\Widgets\\Menu\\MenuItem',
+    'external' => false,
+    'weak' => true,
+    'anonymous' => true,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'Search',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'if ($_SERVER[\'REQUEST_URI\'] == ROOT_URL) {
+    return "#search";
+} else {
+    return ROOT_URL."#search";
+}',
+        'parametertype' => 'primitive',
+        'type' => 'php',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+    'setterProperties' => 
+    array (
+      'setActivateBasedOnUrl' => 
+      array (
+        'value' => false,
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
   'annotationReader' => 
   array (
     'weak' => false,
@@ -143,6 +433,16 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     'class' => 'Mouf\\Html\\HtmlElement\\HtmlBlock',
     'external' => false,
     'weak' => false,
+    'fieldProperties' => 
+    array (
+    ),
+    'fieldBinds' => 
+    array (
+      'children' => 
+      array (
+        0 => '__anonymous__3f09_272375_1415897126932',
+      ),
+    ),
   ),
   'block.left' => 
   array (
@@ -216,6 +516,9 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       'setWebLibraryManager' => 'defaultWebLibraryManager',
       'setTemplateRenderer' => 'bootstrapRenderer',
       'setDefaultRenderer' => 'defaultRenderer',
+    ),
+    'setterProperties' => 
+    array (
     ),
   ),
   'classAnalyzerController' => 
@@ -1486,6 +1789,61 @@ unset($moufManager);
 class Mouf {
 	public function getClosures() {
 		return [
+			'__anonymous__3f09_123574_1415963578543' => [
+				'constructor' => [
+					1 => function(ContainerInterface $container) {
+						if ($_SERVER['REQUEST_URI'] == ROOT_URL) {
+    return "#about";
+} else {
+    return ROOT_URL."#about";
+}
+					},
+				],
+			],
+			'__anonymous__3f09_325259_1415963587939' => [
+				'constructor' => [
+					1 => function(ContainerInterface $container) {
+						if ($_SERVER['REQUEST_URI'] == ROOT_URL) {
+    return "#team";
+} else {
+    return ROOT_URL."#team";
+}
+					},
+				],
+			],
+			'__anonymous__3f09_447968_1415963567295' => [
+				'constructor' => [
+					1 => function(ContainerInterface $container) {
+						if ($_SERVER['REQUEST_URI'] == ROOT_URL) {
+    return "#feedback";
+} else {
+    return ROOT_URL."#feedback";
+}
+					},
+				],
+			],
+			'__anonymous__3f09_796349_1416051015274' => [
+				'constructor' => [
+					1 => function(ContainerInterface $container) {
+						if ($_SERVER['REQUEST_URI'] == ROOT_URL) {
+    return "#api";
+} else {
+    return ROOT_URL."#api";
+}
+					},
+				],
+			],
+			'__anonymous__3f09_867472_1415899120049' => [
+				'constructor' => [
+					1 => function(ContainerInterface $container) {
+						if ($_SERVER['REQUEST_URI'] == ROOT_URL) {
+    return "#search";
+} else {
+    return ROOT_URL."#search";
+}
+					},
+				],
+			],
 			'annotationReader' => function(ContainerInterface $container) {
 				// Using composer autoloader
 $loader = require ROOT_PATH . 'vendor/autoload.php';
@@ -1720,6 +2078,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 */
 	 public static function getFineCommonTranslationService() {
 	 	return MoufManager::getMoufManager()->get('fineCommonTranslationService');
+	 }
+
+	/**
+	 * @return Mouf\Modules\GoogleAnalytics\GoogleAnalyticsWebLibrary
+	 */
+	 public static function getGoogleAnalyticsWebLibrary() {
+	 	return MoufManager::getMoufManager()->get('googleAnalyticsWebLibrary');
 	 }
 
 	/**
@@ -1972,13 +2337,6 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 */
 	 public static function getValidatorsTranslateService() {
 	 	return MoufManager::getMoufManager()->get('validatorsTranslateService');
-	 }
-
-	/**
-	 * @return Mouf\Modules\GoogleAnalytics\GoogleAnalyticsWebLibrary
-	 */
-	 public static function getGoogleAnalyticsWebLibrary() {
-	 	return MoufManager::getMoufManager()->get('googleAnalyticsWebLibrary');
 	 }
 
 }

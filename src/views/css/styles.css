@@ -1,3 +1,12 @@
+body { 
+	padding-top: 70px;
+	position: relative;
+}
+
+.navbar-right {
+	margin-right: 0px;
+}
+
 /* Typeahead Bootstrap 3 styling */
 .tt-dropdown-menu {
   position: absolute;
@@ -119,4 +128,13 @@ ul.classgraph {
 
 ul.classgraph ul {
 		list-style-image: url("images/arrow.png");
+}
+
+.githublink {
+	padding-left: 30px;
+	background-image: url("images/github-small.png");
+	background-position: 5px center;
+	background-repeat: no-repeat;
+	min-height: 20px;
+	display: inline-block;
 }
