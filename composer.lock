@@ -1132,21 +1132,21 @@
         },
         {
             "name": "mouf/html.template.bootstrap",
-            "version": "3.2.x-dev",
+            "version": "3.3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/html.template.bootstrap.git",
-                "reference": "1e9accc2b16a19d07b76fa309122c1a08bd6f357"
+                "reference": "2c8c1cade13e71b9cf43fce7787deb81bd7524e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/html.template.bootstrap/zipball/1e9accc2b16a19d07b76fa309122c1a08bd6f357",
-                "reference": "1e9accc2b16a19d07b76fa309122c1a08bd6f357",
+                "url": "https://api.github.com/repos/thecodingmachine/html.template.bootstrap/zipball/2c8c1cade13e71b9cf43fce7787deb81bd7524e7",
+                "reference": "2c8c1cade13e71b9cf43fce7787deb81bd7524e7",
                 "shasum": ""
             },
             "require": {
                 "mouf/html.template.templateinterface": "~2.1",
-                "mouf/html.utils.bootstrap": "3.2.*",
+                "mouf/html.utils.bootstrap": "3.3.*",
                 "mouf/html.utils.weblibrarymanager": "~2.0",
                 "mouf/html.widgets.menu": "~3.0",
                 "mouf/html.widgets.messageservice": "~3.0",
@@ -1188,7 +1188,7 @@
                 "mouf",
                 "template"
             ],
-            "time": "2014-07-18 21:56:41"
+            "time": "2014-11-15 14:54:12"
         },
         {
             "name": "mouf/html.template.templateinterface",
@@ -1237,22 +1237,22 @@
         },
         {
             "name": "mouf/html.utils.bootstrap",
-            "version": "3.2.x-dev",
+            "version": "3.3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/html.utils.bootstrap.git",
-                "reference": "794af9764c82ad37b34941d288f6afdc65d8efe0"
+                "reference": "4d65a14f69df792806be63f2c197007007181662"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/html.utils.bootstrap/zipball/794af9764c82ad37b34941d288f6afdc65d8efe0",
-                "reference": "794af9764c82ad37b34941d288f6afdc65d8efe0",
+                "url": "https://api.github.com/repos/thecodingmachine/html.utils.bootstrap/zipball/4d65a14f69df792806be63f2c197007007181662",
+                "reference": "4d65a14f69df792806be63f2c197007007181662",
                 "shasum": ""
             },
             "require": {
                 "mouf/javascript.jquery.jquery": "~1.7",
                 "php": ">=5.3.0",
-                "twitter/bootstrap": "3.2.*@stable"
+                "twitter/bootstrap": "3.3.*@stable"
             },
             "type": "mouf-library",
             "extra": {
@@ -1278,14 +1278,14 @@
                     "name": "Billy Gates"
                 }
             ],
-            "description": "This package contains the Bootstrap HTML/CSS/JS library, along a Mouf installer file to add Bootstrap easily in your Mouf project.",
+            "description": "This package contains an installer for the Bootstrap HTML/CSS/JS library in the Mouf framework to add Bootstrap easily in your Mouf project.",
             "homepage": "http://twitter.github.com/bootstrap/",
             "keywords": [
                 "bootstrap",
                 "javascript",
                 "mouf"
             ],
-            "time": "2014-07-18 21:52:37"
+            "time": "2014-11-15 14:40:00"
         },
         {
             "name": "mouf/html.utils.weblibrarymanager",
@@ -3534,16 +3534,16 @@
         },
         {
             "name": "twitter/bootstrap",
-            "version": "v3.2.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "c068162161154a4b85110ea1e7dd3d7897ce2b72"
+                "reference": "0c1527010893065635b8af7df221db9edb3e8971"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/c068162161154a4b85110ea1e7dd3d7897ce2b72",
-                "reference": "c068162161154a4b85110ea1e7dd3d7897ce2b72",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/0c1527010893065635b8af7df221db9edb3e8971",
+                "reference": "0c1527010893065635b8af7df221db9edb3e8971",
                 "shasum": ""
             },
             "replace": {
@@ -3552,7 +3552,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2.x-dev"
+                    "dev-master": "3.3.x-dev"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3581,7 +3581,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2014-06-26 16:36:48"
+            "time": "2014-11-15 00:16:08"
         }
     ],
     "packages-dev": [
