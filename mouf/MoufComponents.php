@@ -96,7 +96,7 @@ $moufManager->addComponentInstances(array (
       ),
       1 => 
       array (
-        'value' => 'if ($_SERVER[\'REQUEST_URI\'] == ROOT_URL) {
+        'value' => 'if (trim($_SERVER[\'REQUEST_URI\'], \'/\') == trim(ROOT_URL, \'/\')) {
     return "#about";
 } else {
     return ROOT_URL."#about";
@@ -180,7 +180,7 @@ $moufManager->addComponentInstances(array (
       ),
       1 => 
       array (
-        'value' => 'if ($_SERVER[\'REQUEST_URI\'] == ROOT_URL) {
+        'value' => 'if (trim($_SERVER[\'REQUEST_URI\'], \'/\') == trim(ROOT_URL, \'/\')) {
     return "#team";
 } else {
     return ROOT_URL."#team";
@@ -223,7 +223,7 @@ $moufManager->addComponentInstances(array (
       ),
       1 => 
       array (
-        'value' => 'if ($_SERVER[\'REQUEST_URI\'] == ROOT_URL) {
+        'value' => 'if (trim($_SERVER[\'REQUEST_URI\'], \'/\') == trim(ROOT_URL, \'/\')) {
     return "#feedback";
 } else {
     return ROOT_URL."#feedback";
@@ -311,13 +311,24 @@ $moufManager->addComponentInstances(array (
       ),
       1 => 
       array (
-        'value' => 'if ($_SERVER[\'REQUEST_URI\'] == ROOT_URL) {
+        'value' => 'if (trim($_SERVER[\'REQUEST_URI\'], \'/\') == trim(ROOT_URL, \'/\')) {
     return "#api";
 } else {
     return ROOT_URL."#api";
 }',
         'parametertype' => 'primitive',
         'type' => 'php',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+    'setterProperties' => 
+    array (
+      'setActivateBasedOnUrl' => 
+      array (
+        'value' => false,
+        'type' => 'string',
         'metadata' => 
         array (
         ),
@@ -343,7 +354,7 @@ $moufManager->addComponentInstances(array (
       ),
       1 => 
       array (
-        'value' => 'if ($_SERVER[\'REQUEST_URI\'] == ROOT_URL) {
+        'value' => 'if (trim($_SERVER[\'REQUEST_URI\'], \'/\') == trim(ROOT_URL, \'/\')) {
     return "#search";
 } else {
     return ROOT_URL."#search";
@@ -1792,7 +1803,7 @@ class Mouf {
 			'__anonymous__3f09_123574_1415963578543' => [
 				'constructor' => [
 					1 => function(ContainerInterface $container) {
-						if ($_SERVER['REQUEST_URI'] == ROOT_URL) {
+						if (trim($_SERVER['REQUEST_URI'], '/') == trim(ROOT_URL, '/')) {
     return "#about";
 } else {
     return ROOT_URL."#about";
@@ -1803,7 +1814,7 @@ class Mouf {
 			'__anonymous__3f09_325259_1415963587939' => [
 				'constructor' => [
 					1 => function(ContainerInterface $container) {
-						if ($_SERVER['REQUEST_URI'] == ROOT_URL) {
+						if (trim($_SERVER['REQUEST_URI'], '/') == trim(ROOT_URL, '/')) {
     return "#team";
 } else {
     return ROOT_URL."#team";
@@ -1814,7 +1825,7 @@ class Mouf {
 			'__anonymous__3f09_447968_1415963567295' => [
 				'constructor' => [
 					1 => function(ContainerInterface $container) {
-						if ($_SERVER['REQUEST_URI'] == ROOT_URL) {
+						if (trim($_SERVER['REQUEST_URI'], '/') == trim(ROOT_URL, '/')) {
     return "#feedback";
 } else {
     return ROOT_URL."#feedback";
@@ -1825,7 +1836,7 @@ class Mouf {
 			'__anonymous__3f09_796349_1416051015274' => [
 				'constructor' => [
 					1 => function(ContainerInterface $container) {
-						if ($_SERVER['REQUEST_URI'] == ROOT_URL) {
+						if (trim($_SERVER['REQUEST_URI'], '/') == trim(ROOT_URL, '/')) {
     return "#api";
 } else {
     return ROOT_URL."#api";
@@ -1836,7 +1847,7 @@ class Mouf {
 			'__anonymous__3f09_867472_1415899120049' => [
 				'constructor' => [
 					1 => function(ContainerInterface $container) {
-						if ($_SERVER['REQUEST_URI'] == ROOT_URL) {
+						if (trim($_SERVER['REQUEST_URI'], '/') == trim(ROOT_URL, '/')) {
     return "#search";
 } else {
     return ROOT_URL."#search";
