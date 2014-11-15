@@ -28,6 +28,9 @@ $(function() {
 });
 </script>
 
+<?php echo $_SERVER['REQUEST_URI']; ?>
+<hr/>
+<?php echo ROOT_URL; ?>
 
 <a name="search"></a>
 <div class="jumbotron" id="search">
