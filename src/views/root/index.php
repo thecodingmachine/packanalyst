@@ -61,7 +61,8 @@ defined in <a href="http://packagist.org/">Packagist</a>.</p>
     classes that implement/extend or simply use your classes/interfaces. 
     </p>
     <p>Therefore, this is an absolutely unique tool to <strong>know who is using and implementing
-    your interfaces / abstract classes / traits</strong>.</p>
+    your interfaces / abstract classes / traits</strong>. For instance, have a look at all the classes
+    that implement the PSR3 <a href="class?q=Psr\Log\LoggerInterface">LoggerInterface</a>.</p>
     </div>
   </div>
 </div>

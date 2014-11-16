@@ -9,6 +9,7 @@ use \Twig_Environment;
 use Mouf\Html\Renderer\Twig\TwigTemplate;
 use Mouf\Packanalyst\Dao\ItemDao;
 use Mouf\Packanalyst\Dao\PackageDao;
+use Mouf\Packanalyst\Widgets\SearchBlock;
 
 /**
  * Controller displaying package page.
@@ -95,6 +96,9 @@ class PackageAnalyzerController extends Controller {
 		$itemsList->sort(['name'=>1]);
 		
 		$this->template->setTitle('Packanalyst | Package '.$name.' ('.$version.')');
+		
+		array_unshift(\Mouf::getBootstrapNavBar()->children, new SearchBlock($name));
+		
 		// Let's add the twig file to the template.
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/packageAnalyzer/index.twig', array("package"=>$package, "itemsList"=>$itemsList, "otherVersions"=>$otherVersions)));
 		$this->template->toHtml();

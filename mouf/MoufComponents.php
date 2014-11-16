@@ -120,47 +120,6 @@ $moufManager->addComponentInstances(array (
       ),
     ),
   ),
-  '__anonymous__3f09_272375_1415897126932' => 
-  array (
-    'class' => 'Mouf\\Html\\Template\\Menus\\BootstrapNavBar',
-    'external' => false,
-    'weak' => true,
-    'anonymous' => true,
-    'fieldProperties' => 
-    array (
-      'fixed' => 
-      array (
-        'value' => 'top',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      'title' => 
-      array (
-        'value' => 'Packanalyst <small>(beta)</small>',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-    ),
-    'constructor' => 
-    array (
-      0 => 
-      array (
-        'value' => 
-        array (
-          0 => '__anonymous__3f09_770655_1415899075814',
-        ),
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-    ),
-  ),
   '__anonymous__3f09_325259_1415963587939' => 
   array (
     'class' => 'Mouf\\Html\\Widgets\\Menu\\MenuItem',
@@ -451,7 +410,7 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     array (
       'children' => 
       array (
-        0 => '__anonymous__3f09_272375_1415897126932',
+        0 => 'bootstrapNavBar',
       ),
     ),
   ),
@@ -466,6 +425,46 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     'class' => 'Mouf\\Html\\HtmlElement\\HtmlBlock',
     'external' => false,
     'weak' => false,
+  ),
+  'bootstrapNavBar' => 
+  array (
+    'class' => 'Mouf\\Html\\Template\\Menus\\BootstrapNavBar',
+    'external' => false,
+    'weak' => false,
+    'fieldProperties' => 
+    array (
+      'fixed' => 
+      array (
+        'value' => 'top',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      'title' => 
+      array (
+        'value' => 'Packanalyst <small>(beta)</small>',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 
+        array (
+          0 => '__anonymous__3f09_770655_1415899075814',
+        ),
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'bootstrapRenderer' => 
   array (
@@ -2348,6 +2347,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 */
 	 public static function getValidatorsTranslateService() {
 	 	return MoufManager::getMoufManager()->get('validatorsTranslateService');
+	 }
+
+	/**
+	 * @return Mouf\Html\Template\Menus\BootstrapNavBar
+	 */
+	 public static function getBootstrapNavBar() {
+	 	return MoufManager::getMoufManager()->get('bootstrapNavBar');
 	 }
 
 }

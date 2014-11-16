@@ -14,6 +14,7 @@ use Michelf\MarkdownExtra;
 use Mouf\Packanalyst\Widgets\Node;
 use Mouf\Packanalyst\Dao\PackageDao;
 use Mouf\Html\Utils\WebLibraryManager\WebLibrary;
+use Mouf\Packanalyst\Widgets\SearchBlock;
 
 /**
  * TODO: write controller comment
@@ -177,6 +178,9 @@ class ClassAnalyzerController extends Controller {
 		// Let's add the twig file to the template.
 		$this->template->setTitle('Packanalyst | '.ucfirst($type).' '.$q);
 		$this->template->getWebLibraryManager()->addLibrary(new WebLibrary([ROOT_URL.'src/views/classAnalyzer/classAnalyzer.js']));
+
+		array_unshift(\Mouf::getBootstrapNavBar()->children, new SearchBlock($q));
+		
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig', 
 				array(
 						"class"=>$q, 
