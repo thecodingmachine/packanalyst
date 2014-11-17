@@ -14,6 +14,7 @@ use Michelf\MarkdownExtra;
 use Mouf\Packanalyst\Widgets\Node;
 use Mouf\Packanalyst\Dao\PackageDao;
 use Mouf\Html\Utils\WebLibraryManager\WebLibrary;
+use Mouf\Packanalyst\Widgets\SearchBlock;
 
 /**
  * TODO: write controller comment
@@ -163,20 +164,31 @@ class ClassAnalyzerController extends Controller {
 		
 		// Now, let's find all the classes/interfaces we extend from (recursively...)
 		$inheritNodes = $this->getNode($q);
+
+		// Compute the revert depth of all elements.
+		$inheritNodes->getRevertDepth();
+		
+		// We put the graph of the extending classes INTO the revert graph of the classes we extend from.
+		$inheritNodes->replaceNodeRenderingWith($graph);
 		
 		// Finally, let's get the list of classes/interfaces/traits/functions using this item
 		$usedInItems = $this->itemDao->findItemsUsing($q)->limit(1000);
 		
+		
 		// Let's add the twig file to the template.
 		$this->template->setTitle('Packanalyst | '.ucfirst($type).' '.$q);
 		$this->template->getWebLibraryManager()->addLibrary(new WebLibrary([ROOT_URL.'src/views/classAnalyzer/classAnalyzer.js']));
+
+		array_unshift(\Mouf::getBootstrapNavBar()->children, new SearchBlock($q));
+		
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig', 
 				array(
 						"class"=>$q, 
-						"graph"=>$graph, 
+						//"graph"=>$graph, 
 						"description"=>$description, 
 						"type"=>$type, 
-						"inheritNodes"=>$inheritNodes,
+						//"inheritNodes"=>$inheritNodes,
+						"inheritNodesHtml"=>$inheritNodes->getHtmlRevert(),
 						"sourceUrl"=>$sourceUrl,
 						"usedInItems"=>$usedInItems)));
 		$this->template->toHtml();

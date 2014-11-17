@@ -39,6 +39,7 @@ class Graph implements HtmlElementInterface
 			}
 		}
 		
+		$this->rootNode->setHighlight(true);
 	}
 
 	
@@ -54,9 +55,12 @@ class Graph implements HtmlElementInterface
 	}
 	
 	
+	
+	
 	public function toHtml() {
 		echo "<ul class='classgraph'>";
 		$this->rootNode->toHtml();
 		echo "</ul>";
 	}
+	
 }

@@ -1,0 +1,35 @@
+<script type="text/javascript">
+$(function() {
+
+	var classesAutocomplete = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		remote: window.rootUrl+'suggest?q=%QUERY',
+		limit: 10
+	});
+
+	classesAutocomplete.initialize();
+	
+	$('#searchInput').typeahead({
+		minLength: 3,
+		highlight: true
+	},
+	{
+		name: 'classesDataset',
+		displayKey: 'value',
+		source: classesAutocomplete.ttAdapter()
+	});
+
+	$('#searchInput').on('typeahead:selected', function() {
+		$('#smallSearchForm').submit();
+	});
+
+});
+</script>
+
+<form class="navbar-form navbar-left" role="search" id="smallSearchForm" action="{{ constant('ROOT_URL') }}search">
+  <div class="form-group">
+    <input style="width:400px" name="q" type="text" class="form-control " id="searchInput" placeholder="Search any PHP class / interface / trait / function or package" value="{{ search }}">
+  </div>
+  <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i> Search</button>
+</form>

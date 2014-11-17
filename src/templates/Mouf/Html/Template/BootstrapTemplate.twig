@@ -10,6 +10,11 @@
 		{% if this.webLibraryManager %}
 			{{ toHtml(this.webLibraryManager) }}
 		{% endif %}
+		<script>
+		$(function() {
+			$('body').scrollspy({ target: '.navbar-ex1-collapse', offset: 70 });
+		});
+		</script>
 	</head>
 	{% set contentSize = 12 %}
 	{% if this.left %}
@@ -25,7 +30,7 @@
 			{% set contentSize = contentSize - this.rightColumnSize %}
 		{% endif %}
 	{% endif %}
-
+	
 	{% if this.footer %}
 		{% set footerHtml %}{{ toHtml(this.footer) }}{% endset %}
 	{% endif %}
@@ -69,13 +74,7 @@
 					</div>
 				{% endif %}
 			</div>
-			<div class="row">
-				{% if footerHtml %}
-					<div id="footer" class="col-md-{{ contentSize }}">
-						{{ footerHtml }}
-					</div>
-				{% endif %}
-			</div>
 		</div>
+		{{ footerHtml }}
 	</body>
 </html>

@@ -5,7 +5,12 @@ body {
   position: relative;
 }
 body {
+  padding-top: 70px;
+  position: relative;
   font-family: 'Roboto', sans-serif;
+}
+.navbar-right {
+  margin-right: 0px;
 }
 .homeContainer {
   background: #ffffff url('images/bg-head.jpg') repeat-x top right;
@@ -30,6 +35,35 @@ h1.logo span.medium {
 }
 .medium {
   font-weight: 500;
+}
+.item .stars-container {
+  float: right;
+  padding: 3px;
+}
+.pad {
+  padding-left: 40px;
+}
+.pad.arrow {
+  background: url("images/arrow.png") no-repeat;
+  background-position: 20px 0px;
+}
+.highlight {
+  background-color: #ffff99;
+}
+ul.classgraph {
+  padding-left: 0px;
+  list-style-type: none;
+}
+ul.classgraph ul {
+  list-style-image: url("images/arrow.png");
+}
+.githublink {
+  padding-left: 30px;
+  background-image: url("images/github-small.png");
+  background-position: 5px center;
+  background-repeat: no-repeat;
+  min-height: 20px;
+  display: inline-block;
 }
 /* Typeahead Bootstrap 3 styling */
 .tt-dropdown-menu {

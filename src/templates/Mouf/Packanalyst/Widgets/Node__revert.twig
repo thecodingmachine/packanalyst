@@ -1,5 +1,18 @@
-<li>
-	<div class='item {{ type }} {{ highlight?"highlight":"" }}'>
+{% if children %}
+{% for child in this.getChildrenSortedByScore()  %}
+	{{ child.getHtmlRevert() | raw }}
+{% endfor %}
+{% endif %}
+
+{% if this.getRevertDepth() != 0 %}
+{# FIXME: getDepth doit etre fait par rapport au max de l'arbre global, pas de l'arbre courant! #}
+{% for i in 1..this.getRevertDepth() %}
+<div class="pad {{ (loop.last and children)?"arrow":"" }}">
+{% endfor %}
+{% endif %}
+
+{% if not replacementNode %}
+	<div class='item {{ type }}'>
 		<div class='className'><a href="class?q={{ name | url_encode }}">{{ name }}</a>
 		{% spaceless %}
 		<div class="stars-container">
@@ -42,11 +55,12 @@
 		
 		
 	</div>
-	{% if children %}
-	<ul>
-	{% for child in this.getChildrenSortedByScore()  %}
-		{{ toHtml(child) }}
-	{% endfor %}
-	</ul>
-	{% endif %}
-</li>
+{% else %}
+	{{ toHtml(replacementNode) }}
+{% endif %}
+
+{% if this.getRevertDepth() != 0 %}
+{% for i in 1..this.getRevertDepth() %}
+</div>
+{% endfor %}
+{% endif %}

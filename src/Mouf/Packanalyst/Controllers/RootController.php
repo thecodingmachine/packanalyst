@@ -8,6 +8,7 @@ use Mouf\Packanalyst\Services\ElasticSearchService;
 use Mouf\Packanalyst\Dao\PackageDao;
 use Mouf\Packanalyst\Dao\ItemDao;
 use Mouf\Html\Renderer\Twig\TwigTemplate;
+use Mouf\Packanalyst\Widgets\SearchBlock;
 				
 /**
  * This is the controller in charge of managing the first page of the application.
@@ -97,6 +98,9 @@ class RootController extends Controller {
 		$nbPages = floor($totalCount/50);
 		
 		$this->template->setTitle('Packanalyst | Search results for '.$q);
+		
+		array_unshift(\Mouf::getBootstrapNavBar()->children, new SearchBlock($q));
+		
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/root/search.twig', 
 				array(
 						"searchResults"=>$hits,
