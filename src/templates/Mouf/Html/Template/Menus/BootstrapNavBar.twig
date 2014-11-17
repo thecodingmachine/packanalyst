@@ -1,0 +1,31 @@
+{% if not this.allWidth %}
+<div class="container">
+{% endif %}
+	<nav class="navbar {% if this.allWidth %}navbar-static-top{% endif %} {{ this.fixed?('navbar-fixed-'~this.fixed):'' }} {{ this.inverted?'navbar-inverse':'navbar-default' }}" role="navigation">
+{% if this.allWidth %}
+		<div class="container">
+{% endif %}
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+			
+				{% if this.title %}
+				<a class="navbar-brand" href="{{constant('ROOT_URL')}}{{ this.titleLink|raw }}">{{ this.title|raw }}</a>
+				{% endif %}
+		</div>
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			{% for child in this.children %}
+				{{ toHtml(child) }}
+			{% endfor %}
+		</div>
+		{% if this.allWidth %}
+		</div>
+		{% endif %}
+	</nav>
+{% if not this.allWidth %}
+</div>
+{% endif %}

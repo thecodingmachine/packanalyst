@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{% if favIconUrl %}
+			<link rel="icon" type="image/png" href="{{ constant('ROOT_URL') ~ favIconUrl }}" />
+		{% endif %}
+		<title>{{ this.title }}</title>
+		{% if this.webLibraryManager %}
+			{{ toHtml(this.webLibraryManager) }}
+		{% endif %}
+	</head>
+	{% set contentSize = 12 %}
+	{% if this.left %}
+		{% set leftHtml %}{{ toHtml(this.left) }}{% endset %}
+		{% if leftHtml %}
+			{% set contentSize = contentSize - this.leftColumnSize %}
+		{% endif %}
+	{% endif %}
+
+	{% if this.right %}
+		{% set rightHtml %}{{ toHtml(this.right) }}{% endset %}
+		{% if rightHtml %}
+			{% set contentSize = contentSize - this.rightColumnSize %}
+		{% endif %}
+	{% endif %}
+
+	{% if this.footer %}
+		{% set footerHtml %}{{ toHtml(this.footer) }}{% endset %}
+	{% endif %}
+	<body>
+		{% if this.logoUrl %}
+			<div id="header">
+				<div id="logo">
+					<a href="{{ constant('ROOT_URL') }}">
+						<img src="{{ constant('ROOT_URL') ~ this.logoUrl }}>" alt="" />
+					</a>
+				</div>
+			</div>
+		{% endif %}
+		{{ toHtml(this.header) }}
+
+		<div class="{{ containerClass }}">
+			<div class="row">
+				{% if leftHtml %}
+					<div id="sidebar-left" class="sidebar col-md-{{ this.leftColumnSize }}">
+						{% if this.wrapLeftSideBarInWell %}
+							<div class="well">
+						{% endif %}
+						{{ leftHtml }}
+						{% if this.wrapLeftSideBarInWell %}
+							</div>
+						{% endif %}
+					</div>
+				{% endif %}
+				<div id="content" class="col-md-{{ contentSize }}">
+					{{ toHtml(this.content) }}
+				</div>
+				{% if rightHtml %}
+					<div id="sidebar-right" class="sidebar col-md-{{ this.rightColumnSize }}">
+						{% if this.wrapRightSideBarInWell %}
+							<div class="well">
+						{% endif %}
+						{{ rightHtml }}
+						{% if this.wrapRightSideBarInWell %}
+							</div>
+						{% endif %}
+					</div>
+				{% endif %}
+			</div>
+			<div class="row">
+				{% if footerHtml %}
+					<div id="footer" class="col-md-{{ contentSize }}">
+						{{ footerHtml }}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,7 @@
+{% if (not this.hidden) and children %}
+<ul class="nav {% if (navbar) %}navbar-nav{% endif %} {% if (tabs) %}nav-tabs{% endif %} {% if (pills) %}nav-pills{% endif %}{% if (justified) %}nav-justified{% endif %}  {% if (stacked) %}nav-stacked{% endif %} {% if (pullRight) %}navbar-right{% endif %} {{ cssClass }}">
+	{% for child in children %}
+		{{ toHtml(child) }}
+	{% endfor %}
+</ul>
+{% endif %}

@@ -1,0 +1,197 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,500,400italic);
+html,
+body {
+  min-height: 100%;
+  position: relative;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+}
+.homeContainer {
+  background: #ffffff url('images/bg-head.jpg') repeat-x top right;
+}
+h1.logo {
+  font-size: 35px;
+  color: #333333;
+  background: url('images/logo.png') no-repeat top left;
+  margin: 40px 0 45px;
+}
+h1.logo small {
+  clear: both;
+  display: block;
+  font-size: 16px;
+  margin-top: 10px;
+}
+h1.logo span.medium {
+  margin-left: 65px;
+}
+.light {
+  font-weight: 300;
+}
+.medium {
+  font-weight: 500;
+}
+/* Typeahead Bootstrap 3 styling */
+.tt-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 6px 12px #b9b9b9;
+  box-shadow: none;
+  background-clip: padding-box;
+  width: 100%;
+  border-radius: 0;
+}
+.tt-suggestion > p {
+  display: block;
+  padding: 5px 20px;
+  clear: both;
+  font-weight: normal;
+  color: #333333;
+  white-space: nowrap;
+  font-size: 18px;
+  line-height: normal;
+}
+.tt-suggestion > p:hover,
+.tt-suggestion > p:focus,
+.tt-suggestion.tt-cursor p {
+  position: relative;
+  background-color: #4181b7;
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  cursor: pointer;
+  -moz-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+.twitter-typeahead {
+  width: 100%;
+}
+.item {
+  border: 1px solid #999;
+  border-radius: 5px;
+  margin-bottom: 3px;
+  padding-left: 20px;
+  background-repeat: no-repeat;
+  background-position: 3px 3px;
+}
+.item.class {
+  background-image: url(images/class_obj.png);
+}
+.item.interface {
+  background-image: url(images/int_obj.png);
+}
+.item.trait {
+  background-image: url(images/trait_obj.png);
+}
+.item.package {
+  background-image: url(images/package_obj.png);
+}
+.item a {
+  color: #333333;
+}
+.item a.otherpackageslink {
+  font-size: 85%;
+}
+.item .otherpackages {
+  display: none;
+}
+.item .stars-container {
+  float: right;
+  padding: 3px;
+}
+.className {
+  font-family: "Lucida Console", monospace;
+}
+.badge a {
+  color: #ffffff;
+}
+.versions .badge {
+  font-size: 10px;
+}
+div.description {
+  font-style: italic;
+}
+.search-field {
+  font-size: 18px;
+  color: #000;
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid #b9b9b9;
+  height: auto;
+  padding: 10px 15px;
+}
+.search-field:active,
+.search-field:hover,
+.search-field:focus {
+  border-color: #000;
+  box-shadow: none;
+}
+.button-search {
+  height: auto;
+  padding: 10px 15px;
+  color: #FFF;
+  border-radius: 0;
+  background: #629935;
+  box-shadow: inset 0px 1px 0 #5e9fd7;
+  font-size: 18px;
+  border: 1px solid #21527c;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+  background: #2d6697;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #2d6697), color-stop(1, #4181b7));
+  background: -ms-linear-gradient(bottom, #2d6697, #4181b7);
+  background: -moz-linear-gradient(center bottom, #2d6697 0%, #4181b7 100%);
+  background: -o-linear-gradient(#4181b7, #2d6697);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4181b7', endColorstr='#2d6697', GradientType=0);
+  -moz-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+.button-search:hover,
+.button-search:active,
+.button-search:focus {
+  color: #FFF;
+  border: 1px solid #21527c;
+  box-shadow: inset 0px 1px 0 #5e9fd7;
+  opacity: 0.95;
+  outline: none;
+}
+.button-search:focus {
+  background: #214b70;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #214b70), color-stop(1, #346691));
+  background: -ms-linear-gradient(bottom, #214b70, #346691);
+  background: -moz-linear-gradient(center bottom, #214b70 0%, #346691 100%);
+  background: -o-linear-gradient(#346691, #214b70);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#346691', endColorstr='#214b70', GradientType=0);
+  border: 1px solid #163754;
+  box-shadow: inset 0px 1px 0 #3587cd;
+  outline: none;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.panel-default,
+.panel {
+  background: none;
+  border: none;
+}
+.panel-default > .panel-heading {
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+}
