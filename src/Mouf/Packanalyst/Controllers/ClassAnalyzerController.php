@@ -257,4 +257,131 @@ class ClassAnalyzerController extends Controller {
 		return $htmlNode;
 	}
 	
+	
+	/**
+	 * Returns the list of classes/interfaces/traits that inherits/extends the class/interface/trait passed
+	 * in parameter.
+	 * Result is returned as a JSON result.
+	 * 
+	 * @URL api/v1/inherits
+	 * @Get
+	 * @param string $q
+	 */
+	public function inherits($q) {
+	
+		// Remove front \
+		$q = ltrim($q, '\\');
+	
+		$graphItems = $this->findItemsInheriting($q);
+	
+		$rootNodesCollection = $this->itemDao->getItemsByName($q);
+		// If there is no root node (for instance if the class is "Exception")
+		if ($rootNodesCollection->count() == 0) {
+				
+			// If this class has never been used, we might want to wonder if the class exists at all.
+			if (count($graphItems) == 0) {
+				// Let's go on a 404.
+				header("HTTP/1.0 404 Not Found");
+				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
+				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
+				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
+				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
+				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
+				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
+				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
+				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
+				//return new JsonResponse
+			}
+				
+			$rootNodes = [[
+			"name"=>$q
+			]];
+		} else {
+			$rootNodes = [];
+			foreach ($rootNodesCollection as $key=>$item) {
+				$rootNodes[$key] = $item;
+				$packageName = $item['packageName'];
+				if (!isset($this->packagesCache[$packageName])) {
+					$this->packagesCache[$packageName] = $this->packageDao->getPackagesByName($packageName)->getNext();
+				}
+				$rootNodes[$key]['package'] = $this->packagesCache[$packageName];
+			}
+		}
+		$graph = new Graph($rootNodes, $graphItems);
+	
+		// Let's extract the PHPDoc from the latest version (dev version):
+		foreach ($rootNodes as $rootNode) {
+			if (isset($rootNode['packageVersion']) && strpos($rootNode['packageVersion'], "-dev") !== false) {
+				break;
+			}
+		}
+		if ($rootNode && isset($rootNode['phpDoc'])) {
+			$docBlock = new MoufPhpDocComment($rootNode['phpDoc']);
+			$md = $docBlock->getComment();
+			$description = MarkdownExtra::defaultTransform($md)	;
+				
+			// Let's purify HTML to avoid any attack:
+			$config = \HTMLPurifier_Config::createDefault();
+			$purifier = new \HTMLPurifier($config);
+			$description = $purifier->purify($description);
+				
+		} else {
+			$description = '';
+		}
+		if ($rootNode && isset($rootNode['type'])) {
+			$type = $rootNode['type'];
+		} else {
+			$type = "class";
+		}
+	
+		// Let's compute the pointer to the source.
+		if (isset($rootNode['packageName'])) {
+			// TODO: improve to get the link to the best package
+			$package = $this->packageDao->get($rootNode['packageName'], $rootNode['packageVersion']);
+			$sourceUrl = null;
+			if (isset($package['sourceUrl']) && strpos($package['sourceUrl'], 'https://github.com') === 0) {
+				if (strpos($package['sourceUrl'], '.git') === strlen($package['sourceUrl'])-4) {
+					if (isset($rootNode['fileName']) && $rootNode['fileName']) {
+						$sourceUrl = substr($package['sourceUrl'], 0, strlen($package['sourceUrl'])-4);
+						$version = str_replace(['dev-', '.x-dev'], ['', ''], $package['packageVersion']);
+						$sourceUrl .= '/blob/'.$version.$rootNode['fileName'];
+					}
+				}
+			}
+		} else {
+			$sourceUrl = null;
+		}
+	
+	
+		// Now, let's find all the classes/interfaces we extend from (recursively...)
+		$inheritNodes = $this->getNode($q);
+	
+		// Compute the revert depth of all elements.
+		$inheritNodes->getRevertDepth();
+	
+		// We put the graph of the extending classes INTO the revert graph of the classes we extend from.
+		$inheritNodes->replaceNodeRenderingWith($graph);
+	
+		// Finally, let's get the list of classes/interfaces/traits/functions using this item
+		$usedInItems = $this->itemDao->findItemsUsing($q)->limit(1000);
+	
+	
+		// Let's add the twig file to the template.
+		$this->template->setTitle('Packanalyst | '.ucfirst($type).' '.$q);
+		$this->template->getWebLibraryManager()->addLibrary(new WebLibrary([ROOT_URL.'src/views/classAnalyzer/classAnalyzer.js']));
+	
+		array_unshift(\Mouf::getBootstrapNavBar()->children, new SearchBlock($q));
+	
+		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig',
+				array(
+						"class"=>$q,
+						//"graph"=>$graph,
+						"description"=>$description,
+						"type"=>$type,
+						//"inheritNodes"=>$inheritNodes,
+						"inheritNodesHtml"=>$inheritNodes->getHtmlRevert(),
+						"sourceUrl"=>$sourceUrl,
+						"usedInItems"=>$usedInItems)));
+		$this->template->toHtml();
+	}
 }
