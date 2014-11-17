@@ -1,0 +1,47 @@
+//---------------------------
+// Generic styles
+
+html, body {
+  min-height: 100%;
+  position: relative;
+}
+body {
+  padding-top: 70px;
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar-right {
+  margin-right: 0px;
+}
+
+.homeContainer {
+  background: @whiteColor url('@{imagePath}bg-head.jpg') repeat-x top right;
+}
+
+h1.logo {
+  font-size: 35px;
+  color: #333333;
+  background: url('@{imagePath}logo.png') no-repeat top left;
+  margin: 40px 0 45px;
+  small {
+    clear: both;
+    display: block;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  span.medium {
+    margin-left: 65px;
+  }
+}
+
+
+//---------------------------
+// Useful classes
+.light {
+  font-weight: 300;
+}
+
+.medium {
+  font-weight: 500;
+}

@@ -647,6 +647,42 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
     ),
   ),
+  'component.typeahead.js' => 
+  array (
+    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 
+        array (
+          0 => 'components/typeahead.js/typeahead.bundle.min.js',
+        ),
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 
+        array (
+        ),
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+    'setterBinds' => 
+    array (
+      'setRenderer' => 'defaultWebLibraryRenderer',
+    ),
+  ),
   'component.typeaheadjs' => 
   array (
     'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
@@ -789,6 +825,7 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
         4 => 'component.typeaheadjs',
         5 => 'stylesWebLibrary',
         6 => 'googleAnalyticsWebLibrary',
+        7 => 'component.typeahead.js',
       ),
     ),
     'setterProperties' => 
@@ -1951,6 +1988,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 }
 
 	/**
+	 * @return Mouf\Html\Template\Menus\BootstrapNavBar
+	 */
+	 public static function getBootstrapNavBar() {
+	 	return MoufManager::getMoufManager()->get('bootstrapNavBar');
+	 }
+
+	/**
 	 * @return Mouf\Html\Renderer\FileBasedRenderer
 	 */
 	 public static function getBootstrapRenderer() {
@@ -2350,10 +2394,10 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 }
 
 	/**
-	 * @return Mouf\Html\Template\Menus\BootstrapNavBar
+	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
 	 */
-	 public static function getBootstrapNavBar() {
-	 	return MoufManager::getMoufManager()->get('bootstrapNavBar');
+	 public static function getComponent_typeahead_js() {
+	 	return MoufManager::getMoufManager()->get('component.typeahead.js');
 	 }
 
 }

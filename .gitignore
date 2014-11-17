@@ -7,3 +7,5 @@ config.php
 .project
 .settings
 mouf/no_commit/*
+src/views/node_modules/*
+.idea/*
