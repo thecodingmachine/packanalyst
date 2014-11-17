@@ -27,27 +27,33 @@ $(function() {
 
 });
 </script>
+<div class="search-wrapper">
+    <h1 class="logo">
+        <span class="medium">Pack</span><span class="light">analyst</span>
+        <small class="light">Explore PHP classes from Packagist</small>
+    </h1>
 
-<h1>Packanalyst (beta): explore PHP classes from Packagist</h1>
-
-<h3 class="text-center">Search in PHP open-source code</h3>
-
-<form role="form" id="searchForm" action="search">
-<div class="row">
-	<div class="col-xs-12 col-md-10">
-		<input type="text" name="q" class="form-control typeahead inputlg " placeholder="Search any PHP class / interface / trait / function or package">
-	</div>
-	<div class="col-xs-12 col-md-2">
-    	<button type="submit" class="btn btn-default inputlg btn-block"><i class="glyphicon glyphicon-search"></i> Search</button>
-    </div>
+    <?php // <h3 class="text-center">Search in PHP open-source code</h3> ?>
+    <form role="form" id="searchForm" action="search">
+        <div class="row">
+            <div class="col-xs-12 col-md-10">
+                <input type="text" name="q" class="form-control typeahead inputlg search-field light" placeholder="Search any PHP class / interface / trait / function or package">
+            </div>
+            <div class="col-xs-12 col-md-2">
+                <button type="submit" class="btn btn-default inputlg btn-block button-search">
+                    <i class="glyphicon glyphicon-search"></i>
+                    Search
+                </button>
+            </div>
+        </div>
+    </form>
 </div>
-    
-</form>
 
-<h3 class="text-center">What is this?</h3>
+
+<h3 class="text-center"><?php // What is this? ?></h3>
 
 <div class="row">
-	<div class="col-xs-12 col-md-6">
+	<div class="col-xs-12 col-md-12">
 		<div class="panel panel-default">
 		  <!-- Default panel contents -->
 		  <div class="panel-heading">A PHP class analyzer</div>
@@ -67,8 +73,6 @@ $(function() {
 		    </p>
 		  </div>
 		</div>
-		</div>
-	<div class="col-xs-12 col-md-6">
 		<div class="panel panel-default">
 		  <!-- Default panel contents -->
 		  <div class="panel-heading">Find any class implementing your interface</div>
@@ -81,5 +85,11 @@ $(function() {
 		    your interfaces / abstract classes / traits.</p>
 		  </div>
 		</div>
-	</div>
+    </div>
+</div>
+
+<div class="row footer text-center">
+    <div class="col-md-12">
+        All Rights Reserved to Packanalyst © - Developed by <a href="">David Négrier</a> & designed by <a href="">Hugo Averty</a>
+    </div>
 </div>

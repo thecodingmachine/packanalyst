@@ -1723,6 +1723,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 }
 
 	/**
+	 * @return Mouf\Modules\GoogleAnalytics\GoogleAnalyticsWebLibrary
+	 */
+	 public static function getGoogleAnalyticsWebLibrary() {
+	 	return MoufManager::getMoufManager()->get('googleAnalyticsWebLibrary');
+	 }
+
+	/**
 	 * @return Mouf\Mvc\Splash\Controllers\HttpErrorsController
 	 */
 	 public static function getHttpErrorsController() {
@@ -1972,13 +1979,6 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 */
 	 public static function getValidatorsTranslateService() {
 	 	return MoufManager::getMoufManager()->get('validatorsTranslateService');
-	 }
-
-	/**
-	 * @return Mouf\Modules\GoogleAnalytics\GoogleAnalyticsWebLibrary
-	 */
-	 public static function getGoogleAnalyticsWebLibrary() {
-	 	return MoufManager::getMoufManager()->get('googleAnalyticsWebLibrary');
 	 }
 
 }

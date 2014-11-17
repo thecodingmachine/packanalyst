@@ -44,3 +44,12 @@ MongoDB package collection:
 	downloads: int
 	favers: int
 }
+
+Packanayst use Grunt
+-------------------------
+Here is the documentation : [Grunt documentation](http://gruntjs.com/)
+
+Quick use :
+1. First install NodeJS and add it to your PATH
+2. Go to `src/views`, here are your `Gruntfile.js` & `package.json`. Download your depencies by using command : `npm install`
+3. Now you can use grunt by using `grunt` or `grunt dev`

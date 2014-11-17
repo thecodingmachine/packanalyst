@@ -1,0 +1,169 @@
+
+// TODO : Change the @import into <head> element.
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,500,400italic);
+
+@import "variables.less";
+@import "global.less";
+@import "view-home.less";
+@import "view-results.less";
+
+/* Typeahead Bootstrap 3 styling */
+.tt-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  background-color: rgba(255,255,255, .95);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 6px 12px #b9b9b9;
+  box-shadow: none;
+  background-clip: padding-box;
+  width: 100%;
+  border-radius: 0;
+}
+.tt-suggestion {
+  & > p {
+    display: block;
+    padding: 5px 20px;
+    clear: both;
+    font-weight: normal;
+    color: #333333;
+    white-space: nowrap;
+    font-size: 18px;
+    line-height: normal;
+  }
+  & > p:hover,
+  & > p:focus,
+  &.tt-cursor p {
+    position: relative;
+    background-color: #4181b7;
+    color: #ffffff;
+    text-decoration: none;
+    outline: 0;
+    cursor: pointer;
+    .transition-duration();
+  }
+}
+
+.twitter-typeahead { width: 100%; }
+
+.item {
+  border: 1px solid #999;
+  border-radius: 5px;
+  margin-bottom: 3px;
+  padding-left: 20px;
+  background-repeat: no-repeat;
+  background-position: 3px 3px;
+  &.class {
+    background-image: url(images/class_obj.png)
+  }
+  &.interface {
+    background-image: url(images/int_obj.png)
+  }
+  &.trait {
+    background-image: url(images/trait_obj.png)
+  }
+  &.package {
+    background-image: url(images/package_obj.png)
+  }
+  a {
+    color: #333
+  }
+  a.otherpackageslink {
+    font-size: 85%;
+  }
+  .otherpackages {
+    display: none;
+  }
+  .stars-container {
+    float: right;
+    padding: 3px;
+  }
+}
+
+
+.className {
+  font-family: "Lucida Console", monospace;
+
+}
+
+.badge a {
+  color: white
+}
+
+.versions .badge {
+  font-size: 10px;
+}
+
+div.description {
+  font-style: italic;
+}
+
+.search-field {
+  font-size: 18px;
+  color: #000;
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid #b9b9b9;
+  height: auto;
+  padding: 10px 15px;
+  &:active,
+  &:hover,
+  &:focus  {
+    border-color: #000;
+    box-shadow: none;
+  }
+}
+
+.button-search {
+  height: auto;
+  padding: 10px 15px;
+  color: #FFF;
+  border-radius: 0;
+  background: #629935;
+  box-shadow: inset 0px 1px 0 #5e9fd7;
+  font-size: 18px;
+  border: 1px solid #21527c;
+  text-shadow: 0 1px 0 rgba(0,0,0,.25);
+  .gradient();
+  .transition-duration();
+  &:hover,
+  &:active,
+  &:focus {
+    color: #FFF;
+    border: 1px solid #21527c;
+    box-shadow: inset 0px 1px 0 #5e9fd7;
+    opacity: 0.95;
+    outline: none;
+  }
+  &:focus {
+    .gradient(darken(#2d6697, 10), darken(#2d6697, 10), darken(#4181b7, 10));
+    border: 1px solid darken(#21527c, 10);
+    box-shadow: inset 0px 1px 0 darken(#5e9fd7, 10);
+    outline: none;
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.panel-default, .panel {
+  background: none;
+  border: none;
+}
+
+.panel-default >.panel-heading {
+  font-size: 18px;
+  font-weight: @mediumWeight;
+  border: none;
+}
