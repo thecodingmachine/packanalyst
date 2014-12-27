@@ -68,6 +68,12 @@ $moufManager->getConfigManager()->setConstantsDefinitionArray(array (
     'type' => 'string',
     'comment' => 'The base domain name to track (if you are tracking sub-domains). In the form: \'.example.com\'. Keep this empty if you don\'t track subdomains.',
   ),
+  'DEBUG' => 
+  array (
+    'defaultValue' => true,
+    'type' => 'bool',
+    'comment' => 'Set to true to enable debug/development mode.',
+  ),
 ));
 
 $moufManager->setAllVariables(array (
@@ -531,6 +537,103 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     array (
     ),
   ),
+  'bower.bootstrap' => 
+  array (
+    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 
+        array (
+          0 => 'vendor/bower-asset/bootstrap/dist/js/bootstrap.js',
+        ),
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 
+        array (
+          0 => 'vendor/bower-asset/bootstrap/dist/css/bootstrap.css',
+        ),
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'bower.jquery' => 
+  array (
+    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 
+        array (
+          0 => 'vendor/bower-asset/jquery/dist/jquery.js',
+        ),
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 
+        array (
+        ),
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'bower.typeahead.js' => 
+  array (
+    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 
+        array (
+          0 => 'vendor/bower-asset/typeahead.js/dist/typeahead.bundle.js',
+        ),
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 
+        array (
+        ),
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
   'classAnalyzerController' => 
   array (
     'class' => 'Mouf\\Packanalyst\\Controllers\\ClassAnalyzerController',
@@ -647,7 +750,7 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
     ),
   ),
-  'component.typeahead.js' => 
+  'compiledAssets' => 
   array (
     'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
     'external' => false,
@@ -658,7 +761,7 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       array (
         'value' => 
         array (
-          0 => 'components/typeahead.js/typeahead.bundle.min.js',
+          0 => 'assets/js/scripts.js',
         ),
         'parametertype' => 'primitive',
         'type' => 'string',
@@ -670,31 +773,9 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       array (
         'value' => 
         array (
-        ),
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-    ),
-    'setterBinds' => 
-    array (
-      'setRenderer' => 'defaultWebLibraryRenderer',
-    ),
-  ),
-  'component.typeaheadjs' => 
-  array (
-    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
-    'external' => false,
-    'weak' => false,
-    'constructor' => 
-    array (
-      0 => 
-      array (
-        'value' => 
-        array (
-          0 => 'components/typeaheadjs/typeahead.bundle.min.js',
+          0 => 'assets/css/bootstrap.css',
+          1 => 'assets/css/messages.css',
+          2 => 'assets/css/styles.css',
         ),
         'parametertype' => 'primitive',
         'type' => 'string',
@@ -702,21 +783,6 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
         array (
         ),
       ),
-      1 => 
-      array (
-        'value' => 
-        array (
-        ),
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-    ),
-    'setterBinds' => 
-    array (
-      'setRenderer' => 'defaultWebLibraryRenderer',
     ),
   ),
   'customRenderer' => 
@@ -819,23 +885,25 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       'setWebLibraries' => 
       array (
         0 => 'rootUrlInlineWebLibrary',
-        1 => 'jQueryLibrary',
-        2 => 'javascript.bootstrap',
-        3 => 'messageServiceLibrary',
-        4 => 'component.typeaheadjs',
-        5 => 'stylesWebLibrary',
-        6 => 'googleAnalyticsWebLibrary',
-        7 => 'component.typeahead.js',
+        1 => 'compiledAssets',
+        2 => 'googleAnalyticsWebLibrary',
       ),
     ),
     'setterProperties' => 
     array (
     ),
-  ),
-  'defaultWebLibraryRenderer' => 
-  array (
-    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\DefaultWebLibraryRenderer',
-    'external' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'defaultRenderer',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'downloadLock' => 
   array (
@@ -917,6 +985,33 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       'level' => 
       array (
         'value' => 4,
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'exceptionRouter' => 
+  array (
+    'class' => 'Mouf\\Mvc\\Splash\\Routers\\ExceptionRouter',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'splashDefaultRouter',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'httpErrorsController',
+        'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 
         array (
@@ -1091,79 +1186,6 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
     ),
   ),
-  'jQueryLibrary' => 
-  array (
-    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
-    'external' => false,
-    'weak' => false,
-    'constructor' => 
-    array (
-      0 => 
-      array (
-        'value' => 
-        array (
-          0 => 'vendor/mouf/javascript.jquery.jquery/jquery-1.11.0.min.js',
-        ),
-        'parametertype' => 'primitive',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      1 => 
-      array (
-        'value' => 
-        array (
-        ),
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-    ),
-    'setterBinds' => 
-    array (
-      'setRenderer' => 'defaultWebLibraryRenderer',
-    ),
-  ),
-  'javascript.bootstrap' => 
-  array (
-    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
-    'external' => false,
-    'weak' => false,
-    'constructor' => 
-    array (
-      0 => 
-      array (
-        'value' => 
-        array (
-          0 => 'vendor/twitter/bootstrap/dist/js/bootstrap.min.js',
-        ),
-        'parametertype' => 'primitive',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      1 => 
-      array (
-        'value' => 
-        array (
-          0 => 'vendor/twitter/bootstrap/dist/css/bootstrap.min.css',
-        ),
-        'parametertype' => 'primitive',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-    ),
-    'setterBinds' => 
-    array (
-      'setRenderer' => 'defaultWebLibraryRenderer',
-    ),
-  ),
   'messageServiceLibrary' => 
   array (
     'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
@@ -1197,7 +1219,6 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     ),
     'setterBinds' => 
     array (
-      'setRenderer' => 'defaultWebLibraryRenderer',
     ),
   ),
   'messageWidget' => 
@@ -1247,6 +1268,24 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     'class' => 'Mouf\\Utils\\Cache\\NoCache',
     'external' => false,
     'weak' => false,
+  ),
+  'notFoundRouter' => 
+  array (
+    'class' => 'Mouf\\Mvc\\Splash\\Routers\\NotFoundRouter',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'httpErrorsController',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'numericValidatorDecimals' => 
   array (
@@ -1364,6 +1403,51 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
     ),
   ),
+  'packageRenderer_mouf/html.utils.weblibrarymanager' => 
+  array (
+    'class' => 'Mouf\\Html\\Renderer\\FileBasedRenderer',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'vendor/mouf/html.utils.weblibrarymanager/src/templates',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'rendererCacheService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'package',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 0,
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
   'packageRenderer_mouf/html.widgets.menu' => 
   array (
     'class' => 'Mouf\\Html\\Renderer\\FileBasedRenderer',
@@ -1419,6 +1503,51 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       0 => 
       array (
         'value' => 'vendor/mouf/html.widgets.messageservice/src/templates',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'rendererCacheService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'package',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 0,
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'packageRenderer_mouf/modules.google-analytics' => 
+  array (
+    'class' => 'Mouf\\Html\\Renderer\\FileBasedRenderer',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'vendor/mouf/modules.google-analytics/src/templates',
         'parametertype' => 'primitive',
         'type' => 'string',
         'metadata' => 
@@ -1603,9 +1732,17 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\InlineWebLibrary',
     'external' => false,
     'weak' => false,
-    'fieldBinds' => 
+    'constructor' => 
     array (
-      'jsElement' => 'rootUrlJsFile',
+      0 => 
+      array (
+        'value' => 'rootUrlJsFile',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
     ),
   ),
   'rootUrlJsFile' => 
@@ -1636,22 +1773,17 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     'class' => 'Mouf\\Mvc\\Splash\\Splash',
     'external' => false,
     'weak' => false,
-    'fieldProperties' => 
+    'constructor' => 
     array (
-      'debugMode' => 
+      0 => 
       array (
-        'value' => 'DEBUG_MODE',
-        'type' => 'config',
+        'value' => 'exceptionRouter',
+        'parametertype' => 'object',
+        'type' => 'string',
         'metadata' => 
         array (
         ),
       ),
-    ),
-    'fieldBinds' => 
-    array (
-      'http404Handler' => 'httpErrorsController',
-      'http500Handler' => 'httpErrorsController',
-      'cacheService' => 'splashCacheApc',
     ),
   ),
   'splashBrowserLanguageDetection' => 
@@ -1700,6 +1832,33 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       array (
         'value' => 'SECRET',
         'type' => 'config',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'splashDefaultRouter' => 
+  array (
+    'class' => 'Mouf\\Mvc\\Splash\\Routers\\SplashDefaultRouter',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'notFoundRouter',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'splashCacheApc',
+        'parametertype' => 'object',
+        'type' => 'string',
         'metadata' => 
         array (
         ),
@@ -2009,6 +2168,27 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 }
 
 	/**
+	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
+	 */
+	 public static function getBower_bootstrap() {
+	 	return MoufManager::getMoufManager()->get('bower.bootstrap');
+	 }
+
+	/**
+	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
+	 */
+	 public static function getBower_jquery() {
+	 	return MoufManager::getMoufManager()->get('bower.jquery');
+	 }
+
+	/**
+	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
+	 */
+	 public static function getBower_typeahead_js() {
+	 	return MoufManager::getMoufManager()->get('bower.typeahead.js');
+	 }
+
+	/**
 	 * @return Mouf\Packanalyst\Controllers\ClassAnalyzerController
 	 */
 	 public static function getClassAnalyzerController() {
@@ -2032,8 +2212,8 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	/**
 	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
 	 */
-	 public static function getComponent_typeaheadjs() {
-	 	return MoufManager::getMoufManager()->get('component.typeaheadjs');
+	 public static function getCompiledAssets() {
+	 	return MoufManager::getMoufManager()->get('compiledAssets');
 	 }
 
 	/**
@@ -2072,13 +2252,6 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 }
 
 	/**
-	 * @return Mouf\Html\Utils\WebLibraryManager\DefaultWebLibraryRenderer
-	 */
-	 public static function getDefaultWebLibraryRenderer() {
-	 	return MoufManager::getMoufManager()->get('defaultWebLibraryRenderer');
-	 }
-
-	/**
 	 * @return Mouf\Utils\Common\Lock
 	 */
 	 public static function getDownloadLock() {
@@ -2111,6 +2284,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 */
 	 public static function getErrorLogLogger() {
 	 	return MoufManager::getMoufManager()->get('errorLogLogger');
+	 }
+
+	/**
+	 * @return Mouf\Mvc\Splash\Routers\ExceptionRouter
+	 */
+	 public static function getExceptionRouter() {
+	 	return MoufManager::getMoufManager()->get('exceptionRouter');
 	 }
 
 	/**
@@ -2153,20 +2333,6 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 */
 	 public static function getItemDao() {
 	 	return MoufManager::getMoufManager()->get('itemDao');
-	 }
-
-	/**
-	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
-	 */
-	 public static function getJQueryLibrary() {
-	 	return MoufManager::getMoufManager()->get('jQueryLibrary');
-	 }
-
-	/**
-	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
-	 */
-	 public static function getJavascript_bootstrap() {
-	 	return MoufManager::getMoufManager()->get('javascript.bootstrap');
 	 }
 
 	/**
@@ -2219,6 +2385,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 }
 
 	/**
+	 * @return Mouf\Mvc\Splash\Routers\NotFoundRouter
+	 */
+	 public static function getNotFoundRouter() {
+	 	return MoufManager::getMoufManager()->get('notFoundRouter');
+	 }
+
+	/**
 	 * @return Mouf\Utils\Common\Validators\NumericValidator
 	 */
 	 public static function getNumericValidatorDecimals() {
@@ -2242,6 +2415,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	/**
 	 * @return Mouf\Html\Renderer\FileBasedRenderer
 	 */
+	 public static function getPackageRenderer_moufhtml_utils_weblibrarymanager() {
+	 	return MoufManager::getMoufManager()->get('packageRenderer_mouf/html.utils.weblibrarymanager');
+	 }
+
+	/**
+	 * @return Mouf\Html\Renderer\FileBasedRenderer
+	 */
 	 public static function getPackageRenderer_moufhtml_widgets_menu() {
 	 	return MoufManager::getMoufManager()->get('packageRenderer_mouf/html.widgets.menu');
 	 }
@@ -2251,6 +2431,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 */
 	 public static function getPackageRenderer_moufhtml_widgets_messageservice() {
 	 	return MoufManager::getMoufManager()->get('packageRenderer_mouf/html.widgets.messageservice');
+	 }
+
+	/**
+	 * @return Mouf\Html\Renderer\FileBasedRenderer
+	 */
+	 public static function getPackageRenderer_moufmodules_googleanalytics() {
+	 	return MoufManager::getMoufManager()->get('packageRenderer_mouf/modules.google-analytics');
 	 }
 
 	/**
@@ -2345,6 +2532,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 }
 
 	/**
+	 * @return Mouf\Mvc\Splash\Routers\SplashDefaultRouter
+	 */
+	 public static function getSplashDefaultRouter() {
+	 	return MoufManager::getMoufManager()->get('splashDefaultRouter');
+	 }
+
+	/**
 	 * @return Mouf\Utils\I18n\Fine\Translate\FinePHPArrayTranslationService
 	 */
 	 public static function getSplashTranslateService() {
@@ -2391,13 +2585,6 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 */
 	 public static function getValidatorsTranslateService() {
 	 	return MoufManager::getMoufManager()->get('validatorsTranslateService');
-	 }
-
-	/**
-	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
-	 */
-	 public static function getComponent_typeahead_js() {
-	 	return MoufManager::getMoufManager()->get('component.typeahead.js');
 	 }
 
 }

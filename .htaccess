@@ -24,7 +24,7 @@
     # If the requested filename exists, and has an allowed extension, simply serve it.
     # We only want to let Apache serve files and not directories.
     RewriteCond %{REQUEST_FILENAME} -f
-    RewriteRule .*((\.(js|ico|gif|jpg|png|css)$)|^vendor) - [L]
+    RewriteRule .*((\.(js|ico|gif|jpg|png|css|woff|ttf|svg|eot|map)$)|^vendor) - [L]
 
     # Rewrite all other queries to the front controller.
     RewriteRule .? %{ENV:BASE}/vendor/mouf/mvc.splash/src/splash.php [L]

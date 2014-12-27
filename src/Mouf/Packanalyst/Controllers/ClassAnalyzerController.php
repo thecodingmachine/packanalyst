@@ -15,12 +15,15 @@ use Mouf\Packanalyst\Widgets\Node;
 use Mouf\Packanalyst\Dao\PackageDao;
 use Mouf\Html\Utils\WebLibraryManager\WebLibrary;
 use Mouf\Packanalyst\Widgets\SearchBlock;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * TODO: write controller comment
  */
 class ClassAnalyzerController extends Controller {
 
+	const LIMIT_INHERITS = 10000;
+	
 	/**
 	 * The logger used by this controller.
 	 * @var LoggerInterface
@@ -88,6 +91,12 @@ class ClassAnalyzerController extends Controller {
 		$q = ltrim($q, '\\');
 		
 		$graphItems = $this->findItemsInheriting($q);
+		
+		if (count($graphItems) == self::LIMIT_INHERITS) {
+			$inheritLimit = true;
+		} else {
+			$inheritLimit = false;
+		}
 		
 		$rootNodesCollection = $this->itemDao->getItemsByName($q);
 		// If there is no root node (for instance if the class is "Exception")
@@ -190,6 +199,7 @@ class ClassAnalyzerController extends Controller {
 						//"inheritNodes"=>$inheritNodes,
 						"inheritNodesHtml"=>$inheritNodes->getHtmlRevert(),
 						"sourceUrl"=>$sourceUrl,
+						"inheritLimit"=>$inheritLimit,
 						"usedInItems"=>$usedInItems)));
 		$this->template->toHtml();
 	}
@@ -201,7 +211,7 @@ class ClassAnalyzerController extends Controller {
 	 */
 	private function findItemsInheriting($className) {
 		$graphItems = $this->itemDao->findItemsInheriting($className);
-		
+		$graphItems->limit(self::LIMIT_INHERITS);
 		
 		$items = [];
 		
@@ -281,16 +291,8 @@ class ClassAnalyzerController extends Controller {
 			// If this class has never been used, we might want to wonder if the class exists at all.
 			if (count($graphItems) == 0) {
 				// Let's go on a 404.
-				header("HTTP/1.0 404 Not Found");
-				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
-				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
-				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
-				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
-				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
-				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
-				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
-				// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO migrate to splash 5!!!!
-				//return new JsonResponse
+				
+				return new JsonResponse(["status"=>"error", "message"=>"Item '$q' does not exist."], 404);
 			}
 				
 			$rootNodes = [[

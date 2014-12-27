@@ -113,7 +113,9 @@ class ItemDao
 		
 		$item['globalInherits'] = $globalInherits;
 		
-		$this->collection->save($item);
+		$securedItem = self::ensureUtf8StringInArray($item);
+		var_dump($securedItem);
+		$this->collection->save($securedItem);
 		
 		$antiLoopList[$item['name']." ".$item['packageName']." ".$item['packageVersion']] = true;
 		
@@ -182,5 +184,33 @@ class ItemDao
 				//'refresh' => true
 			));
 		}*/
+	}
+	
+	/**
+	 * Ensures all elemets of an array are UTF8.
+	 * If not, convert to utf8 if possible.
+	 * 
+	 * @param array $array
+	 */
+	private static function ensureUtf8StringInArray(array $array) {
+		return self::array_map_recursive(function($str) {
+			if (mb_check_encoding($str, 'UTF-8')) {
+				return $str;
+			} else {
+				return utf8_encode($str);
+			}
+		}, $array);
+	}
+	
+	private static function array_map_recursive($callback, $array) {
+		foreach ($array as $key => $value) {
+			if (is_array($array[$key])) {
+				$array[$key] = self::array_map_recursive($callback, $array[$key]);
+			}
+			else {
+				$array[$key] = call_user_func($callback, $array[$key]);
+			}
+		}
+		return $array;
 	}
 }

@@ -6,6 +6,11 @@
 
 </div>
 
+{% if inheritLimit %}
+<div class="alert alert-info">There are more than 10000 classes inheriting '{{ class }}'.
+Displaying first 10000 results.</div>
+{% endif %}
+
 {% if description %}
     <h2>Description</h2>
     <div class="well">

@@ -5,14 +5,14 @@
 		"mouf/mouf" : "~2.0",
 		"mouf/utils.common.doctrine-annotations-wrapper" : "~2.4",
 		"elasticsearch/elasticsearch" : "~1.1",
-		"mouf/mvc.splash" : "~4.3",
-		"components/typeahead.js" : "<2.0",
+		"mouf/mvc.splash" : "~5.0",
+		"bower-asset/typeahead.js" : "<2.0",
 		"geoffroy-aubry/logger" : "1.*",
 		"michelf/php-markdown" : "~1.4",
 		"ezyang/htmlpurifier" : "~4.6",
 		"guzzlehttp/guzzle" : "~4.1",
 		"mouf/utils.common.lock" : "dev-master",
-		"mouf/modules.google-analytics": "~3.0"
+		"mouf/modules.google-analytics" : "~4.0"
 	},
 	"autoload" : {
 		"psr-0" : {
@@ -22,5 +22,10 @@
 	"minimum-stability" : "dev",
 	"require-dev" : {
 		"phpunit/phpunit" : "4.*"
+	},
+	"extra" : {
+		"asset-installer-paths" : {
+			"npm-asset-library" : "node_modules"
+		}
 	}
 }

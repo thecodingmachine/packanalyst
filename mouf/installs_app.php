@@ -50,109 +50,102 @@ return array (
   6 => 
   array (
     'status' => 'done',
-    'type' => 'file',
-    'file' => 'install.php',
+    'type' => 'class',
+    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibraryManagerInstaller',
     'package' => 'mouf/html.utils.weblibrarymanager',
   ),
   7 => 
   array (
     'status' => 'done',
     'type' => 'file',
-    'file' => 'install.php',
-    'package' => 'mouf/javascript.jquery.jquery',
-  ),
-  8 => 
-  array (
-    'status' => 'done',
-    'type' => 'file',
-    'file' => 'install.php',
-    'package' => 'mouf/html.utils.bootstrap',
-  ),
-  9 => 
-  array (
-    'status' => 'done',
-    'type' => 'file',
     'file' => 'src/install.php',
     'package' => 'mouf/html.widgets.menu',
   ),
-  10 => 
+  8 => 
   array (
     'status' => 'done',
     'type' => 'file',
     'file' => 'src/install.php',
     'package' => 'mouf/utils.session.session-manager',
   ),
-  11 => 
+  9 => 
   array (
     'status' => 'done',
     'type' => 'file',
     'file' => 'src/install.php',
     'package' => 'mouf/html.widgets.messageservice',
   ),
-  12 => 
+  10 => 
   array (
     'status' => 'done',
-    'type' => 'file',
-    'file' => 'src/install.php',
+    'type' => 'class',
+    'class' => 'Mouf\\Html\\Template\\BootstrapTemplateInstaller',
     'package' => 'mouf/html.template.bootstrap',
   ),
-  13 => 
+  11 => 
   array (
     'status' => 'done',
     'type' => 'file',
     'file' => 'src/install.php',
     'package' => 'mouf/utils.i18n.fine',
   ),
-  14 => 
+  12 => 
   array (
     'status' => 'done',
     'type' => 'file',
     'file' => 'src/validatorsInstall.php',
     'package' => 'mouf/utils.common.validators',
   ),
-  15 => 
+  13 => 
   array (
     'status' => 'done',
     'type' => 'file',
     'file' => 'src/splashCommonInstall.php',
     'package' => 'mouf/mvc.splash-common',
   ),
-  16 => 
+  14 => 
   array (
     'status' => 'done',
     'type' => 'file',
     'file' => 'src/install.php',
     'package' => 'mouf/utils.cache.no-cache',
   ),
-  17 => 
+  15 => 
+  array (
+    'status' => 'done',
+    'type' => 'class',
+    'class' => 'Mouf\\Utils\\Constants\\DebugInstaller',
+    'package' => 'mouf/utils.constants.debug',
+  ),
+  16 => 
   array (
     'status' => 'done',
     'type' => 'class',
     'class' => 'Mouf\\Utils\\Constants\\SecretInstaller',
     'package' => 'mouf/utils.constants.secret',
   ),
-  18 => 
+  17 => 
   array (
     'status' => 'done',
     'type' => 'url',
     'url' => 'splashinstall/',
     'package' => 'mouf/mvc.splash',
   ),
-  19 => 
+  18 => 
   array (
     'status' => 'done',
     'type' => 'url',
     'url' => 'splashinstall/writeHtAccess',
     'package' => 'mouf/mvc.splash',
   ),
-  20 => 
+  19 => 
   array (
     'status' => 'done',
     'type' => 'file',
     'file' => 'install.php',
     'package' => 'mouf/modules.google-analytics',
   ),
-  21 => 
+  20 => 
   array (
     'status' => 'done',
     'type' => 'file',
