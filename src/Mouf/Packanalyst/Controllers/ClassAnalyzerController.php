@@ -230,8 +230,8 @@ class ClassAnalyzerController extends Controller {
 	private $inheritedNodes = array();
 	
 	private function getNode($className) {
-		if (isset($inheritedNodes[$className])) {
-			return $inheritedNodes[$className];
+		if (isset($this->inheritedNodes[$className])) {
+			return $this->inheritedNodes[$className];
 		}
 		
 		$nodes = $this->itemDao->getItemsByName($className);
@@ -263,7 +263,7 @@ class ClassAnalyzerController extends Controller {
 			$htmlNode->addChild($this->getNode($inherit));
 		}
 		
-		$inheritedNodes[$className] = $htmlNode;
+		$this->inheritedNodes[$className] = $htmlNode;
 		return $htmlNode;
 	}
 	
