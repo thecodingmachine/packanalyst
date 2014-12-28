@@ -257,13 +257,15 @@ class ClassAnalyzerController extends Controller {
 				$inherits = array_merge($inherits, $node['inherits']);
 			}
 		}
+		
+		$this->inheritedNodes[$className] = $htmlNode;
+		
 		$inherits = array_keys(array_flip($inherits));
 		
 		foreach ($inherits as $inherit) {
 			$htmlNode->addChild($this->getNode($inherit));
 		}
 		
-		$this->inheritedNodes[$className] = $htmlNode;
 		return $htmlNode;
 	}
 	
