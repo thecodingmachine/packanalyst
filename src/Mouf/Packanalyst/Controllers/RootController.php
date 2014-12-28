@@ -51,7 +51,8 @@ class RootController extends Controller {
 	 */
 	public function index() {
 		$this->template->setTitle('Packanalyst | Explore PHP classes from Packagist');
-		$this->template->setContainerClass('homeContainer container');
+		//$this->template->setContainerClass('homeContainer container');
+		$this->template->setContainerClass('homeContainer');
 		$this->content->addFile(ROOT_PATH."src/views/root/index.php", $this);
 		$this->template->toHtml();
 	}

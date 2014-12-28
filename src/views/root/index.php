@@ -30,16 +30,17 @@ $(function() {
 
 
 <a name="search"></a>
-<div class="jumbotron" id="search">
+<div class="" id="search">
 <div class="container">
 <h3 class="text-center">Search in PHP open-source code</h3>
+
 <form role="form" id="searchForm" action="search">
 <div class="row form-group-lg">
 	<div class="col-xs-12 col-md-8 col-md-offset-1">
 		<input type="text" name="q" class="form-control typeahead inputlg " placeholder="Search any PHP class / interface / trait / function or package">
 	</div>
 	<div class="col-xs-12 col-md-2">
-    	<button type="submit" class="btn btn-default inputlg btn-block btn-lg"><i class="glyphicon glyphicon-search"></i> Search</button>
+    	<button type="submit" class="btn btn-default inputlg btn-block btn-lg button-search"><i class="glyphicon glyphicon-search"></i> Search</button>
     </div>
 </div>
     
@@ -51,11 +52,12 @@ defined in <a href="http://packagist.org/">Packagist</a>.</p>
 </div>
 </div>
 
+<div class="container">
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading"><h3 class="text-center">Find any class implementing your interface</h3></div>
   <div class="panel-body">
-  	<div class="container">
+  	<div class="">
     <p>Packanalyst can be useful for the average developer, but we believe it can be tremendously 
     useful for any package developer. Indeed, using Packanalyst, you can find any package containing
     classes that implement/extend or simply use your classes/interfaces. 
@@ -72,7 +74,7 @@ defined in <a href="http://packagist.org/">Packagist</a>.</p>
   <!-- Default panel contents -->
   <div class="panel-heading"><h3 class="text-center">Feedback needed!</h3></div>
   <div class="panel-body">
-  	<div class="container">
+  	<div class="">
     <p>Packanalyst is a service in beta. Do not hesitate to <a href="https://github.com/thecodingmachine/packanalyst/issues">send us feedback</a>, or <a href="https://github.com/thecodingmachine/packanalyst/">pull requests</a>.
     Packanalyst is released in <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.</p>
 
@@ -88,7 +90,7 @@ defined in <a href="http://packagist.org/">Packagist</a>.</p>
 <div class="panel panel-default" id="about">
   <div class="panel-heading"><h3 class="text-center">How does it work?</h3></div>
   <div class="panel-body">
-  	<div class="container">
+  	<div class="">
     <p>Packanalyst regularly scans the Packagist repository for new or updated PHP packages. Each package is
     analyzed and all classes interfaces and traits are extracted and stored in our database for later search. 
     </p>
@@ -131,7 +133,7 @@ defined in <a href="http://packagist.org/">Packagist</a>.</p>
   <!-- Default panel contents -->
   <div class="panel-heading"><h3 class="text-center">API</h3></div>
   <div class="panel-body">
-  	<div class="container">
+  	<div class="">
     <p><b>In progress!</b> A REST API will be released to query Packanalyst and integrate Packanalyst with third-party
     programs. Mouf will be the first framework to get a native integration with Packanalyst.</p>
   	</div>
@@ -143,7 +145,7 @@ defined in <a href="http://packagist.org/">Packagist</a>.</p>
   <!-- Default panel contents -->
   <div class="panel-heading"><h3 class="text-center">Who is behind Packanalyst?</h3></div>
   <div class="panel-body">
-  	<div class="container">
+  	<div class="">
     <p>Packanalyst is a service developed by David Négrier who happens to be the 
     lead developer of the <a href="http://mouf-php.com" target="_blank">Mouf framework</a>.
     Mouf is a PHP framework based on dependency injection. The core idea of Mouf is to help bind classes and components
@@ -161,4 +163,4 @@ defined in <a href="http://packagist.org/">Packagist</a>.</p>
   </div>
   </div>
 </div>
-
+</div>

@@ -885,8 +885,12 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       'setWebLibraries' => 
       array (
         0 => 'rootUrlInlineWebLibrary',
-        1 => 'compiledAssets',
-        2 => 'googleAnalyticsWebLibrary',
+        1 => 'bower.jquery',
+        2 => 'bower.bootstrap',
+        3 => 'bower.typeahead.js',
+        4 => 'stylesWebLibrary',
+        5 => 'googleAnalyticsWebLibrary',
+        6 => 'messageServiceLibrary',
       ),
     ),
     'setterProperties' => 
