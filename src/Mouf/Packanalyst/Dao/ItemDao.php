@@ -114,7 +114,7 @@ class ItemDao
 		$item['globalInherits'] = $globalInherits;
 		
 		$securedItem = self::ensureUtf8StringInArray($item);
-		var_dump($securedItem);
+		
 		$this->collection->save($securedItem);
 		
 		$antiLoopList[$item['name']." ".$item['packageName']." ".$item['packageVersion']] = true;
