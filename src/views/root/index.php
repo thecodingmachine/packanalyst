@@ -97,7 +97,7 @@ defined in <a href="http://packagist.org/">Packagist</a>.</p>
     <dl>
 
     	<dt>Do I need to do something special to register my package on Packanalyst?</dt>
-    	<dd>No, you just need to register your package on Packanalyst and it will automatically be scanned
+    	<dd>No, you just need to register your package on Packagist and it will automatically be scanned
     	by Packanalyst.</dd>
     
 	    <dt>How long does it take for my package to be scanned?</dt>

@@ -230,6 +230,11 @@ class ClassAnalyzerController extends Controller {
 	private $inheritedNodes = array();
 	
 	private function getNode($className, $antiLoopArray = array()) {
+		if (isset($antiLoopArray[$className])) {
+			return null;
+		}
+		$antiLoopArray[$className] = true;
+		
 		if (isset($this->inheritedNodes[$className])) {
 			return $this->inheritedNodes[$className];
 		}
@@ -263,12 +268,10 @@ class ClassAnalyzerController extends Controller {
 		$inherits = array_keys(array_flip($inherits));
 		
 		foreach ($inherits as $inherit) {
-			if (isset($antiLoopArray[$inherit])) {
-				continue;
+			$node = $this->getNode($inherit, $antiLoopArray);
+			if ($node) {
+				$htmlNode->addChild($node);
 			}
-			$antiLoopArrayRecursive = $antiLoopArray;
-			$antiLoopArrayRecursive[$inherit] = $inherit;
-			$htmlNode->addChild($this->getNode($inherit, $antiLoopArrayRecursive));
 		}
 		
 		return $htmlNode;
