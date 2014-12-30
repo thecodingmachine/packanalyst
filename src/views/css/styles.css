@@ -20,6 +20,9 @@ table.table {
   border: 1px solid #ddd;
   margin-top: 10px;
 }
+a {
+  color: #386E9D;
+}
 th {
   font-weight: 500;
 }
