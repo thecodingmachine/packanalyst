@@ -26,6 +26,13 @@ th {
 p.sub-title {
   font-size: 20px;
 }
+.well {
+  border-radius: 0;
+  background: none;
+}
+.well p {
+  margin: 0;
+}
 .navbar-default {
   background: #ffffff url('images/bg-head.jpg') repeat-x top right;
   border: none;
@@ -128,6 +135,9 @@ h1 a:hover {
   border-left: 1px dashed #100;
 }
 .pad.arrow:last-child:before {
+  height: 20px;
+}
+.content > .pad.arrow:last-of-type:before {
   height: 20px;
 }
 .highlight {
@@ -496,7 +506,10 @@ input.search-field.inputlg.form-control:focus {
   -moz-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-  opacity: .5;
+  opacity: .75;
+}
+.btn-social:hover {
+  opacity: 1;
 }
 .btn-social.btn-github {
   color: #fff;
