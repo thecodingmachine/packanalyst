@@ -53,6 +53,8 @@ class RootController extends Controller {
 		$this->template->setTitle('Packanalyst | Explore PHP classes from Packagist');
 		//$this->template->setContainerClass('homeContainer container');
 		$this->template->setContainerClass('homeContainer');
+        array_shift(\Mouf::getBootstrapNavBar()->children);
+        array_shift(\Mouf::getBootstrapNavBar()->children);
 		$this->content->addFile(ROOT_PATH."src/views/root/index.php", $this);
 		$this->template->toHtml();
 	}
@@ -99,8 +101,8 @@ class RootController extends Controller {
 		$nbPages = floor($totalCount/50);
 		
 		$this->template->setTitle('Packanalyst | Search results for '.$q);
-		
-		array_unshift(\Mouf::getBootstrapNavBar()->children, new SearchBlock($q));
+
+        \Mouf::getSearchBlock()->setSearch($q);
 		
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/root/search.twig', 
 				array(

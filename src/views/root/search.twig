@@ -2,11 +2,11 @@
 <h1><small>Search results for</small> {{ query }}</h1>
 </div>
 
-Nb results: {{ totalCount }}
+<span class="nb-result">{{ totalCount }} results found: </span>
 
 <ul>
 {% for item in searchResults %}
-	<div class='item {{ item._source.type }}'>
+	<div class='item-result item {{ item._source.type }}'>
 		<div class='className'><a href="{{ constant('ROOT_URL') }}{{ (item._source.type == 'package')?'package?name='~item._source.name|url_encode:'class?q='~item._source.name |url_encode}}">{{ item._source.name }}</a></div>
 	</div>
 {% else %}
@@ -15,7 +15,7 @@ Nb results: {{ totalCount }}
 </ul>
 
 
-{% if nbPages != 1 %}
+{% if nbPages != 0 %}
 <ul class="pagination">
 
 	{% if page != 0 %}

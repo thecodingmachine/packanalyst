@@ -19,7 +19,7 @@ class SearchBlock implements HtmlElementInterface
 	 * 
 	 * @param string $search
 	 */
-	public function __construct($search) {
+	public function __construct($search = null) {
 		$this->search = $search;
 	}
 	

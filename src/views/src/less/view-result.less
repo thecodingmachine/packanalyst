@@ -1,0 +1,69 @@
+
+.item .stars-container {
+	float: right;
+	padding: 3px;
+}
+
+.pad {
+	padding-left: 40px;
+}
+
+.pad.arrow {
+  background: url("images/arrow.png") no-repeat;
+  background-position: 20px 8px;
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    width: 0px;
+    height: 100%;
+    left: 20px;
+    border-left: 1px dashed #100;
+  }
+  &:last-child {
+    &:before {
+      height: 20px;
+    }
+  }
+}
+
+.highlight {
+	background-color: #ffff99;
+}
+
+ul.classgraph {
+  padding-left: 0px;
+  list-style-type: none;
+  & > li ul li {
+    position: relative;
+    &:before {
+      content: "";
+      position: absolute;
+      width: 0px;
+      height: 100%;
+      left: -20px;
+      border-left: 1px dashed #100;
+    }
+    &:last-child {
+      &:before {
+        height: 20px;
+      }
+    }
+  }
+}
+
+ul.classgraph ul {
+		list-style-image: url("images/arrow.png");
+}
+
+.githublink {
+  .transition();
+  padding-left: 40px;
+  background-image: url("images/github-small.png");
+  background-position: 5px center;
+  background-repeat: no-repeat;
+  min-height: 20px;
+  display: inline-block;
+  border-radius: 0;
+  border-color: @darkColor;
+}

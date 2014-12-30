@@ -1,11 +1,14 @@
 
 // TODO : Change the @import into <head> element.
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,500,400italic);
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro);
 
 @import "variables.less";
 @import "global.less";
 @import "view-home.less";
-@import "view-results.less";
+@import "view-result.less";
+
+
 
 /* Typeahead Bootstrap 3 styling */
 .tt-dropdown-menu {
@@ -53,31 +56,90 @@
 }
 
 .twitter-typeahead { width: 100%; }
-
+.nb-result {
+  display: block;
+  margin-bottom: 10px;
+}
 .item {
-  border: 1px solid #999;
-  border-radius: 5px;
+  background-color: #eaeaea;
+  border: 1px solid lighten(#adadad, 15%);
   margin-bottom: 3px;
-  padding-left: 20px;
+  padding: 10px 10px 10px 25px;
   background-repeat: no-repeat;
-  background-position: 3px 3px;
+  background-position: 5px 15px;
+  &.highlight,&.highlight.class,&.highlight.interface,&.highlight.trait,&.highlight.package {
+    .gradient;
+    box-shadow: inset 0px 1px 0 #5e9fd7;
+    border: 1px solid #21527c;
+    padding-left: 15px;
+    a {
+      color: @whiteColor;
+    }
+    .package {
+      color: darken(@whiteColor, 15%);
+    }
+    .className {
+      height: auto;
+      font-weight: @mediumWeight;
+      font-size: 18px;
+    }
+    .package.small {
+      overflow: hidden;
+      &:nth-child(odd) {
+        background: lighten(#326c9e, 4%);
+      }
+    }
+  }
+  &.item-result {
+    padding: 0;
+    .transition();
+    &:hover {
+      background-color: darken(#eaeaea, 10%);
+      a {
+        text-decoration: none;
+      }
+    }
+    .className {
+      height: auto;
+      padding-left: 25px;
+      padding-right: 10px;
+      a {
+        display: block;
+        padding: 10px 0;
+      }
+    }
+  }
   &.class {
-    background-image: url(images/class_obj.png)
+    background-image: url("images/class_obj.png");
   }
   &.interface {
-    background-image: url(images/int_obj.png)
+    background-image: url("images/int_obj.png");
   }
   &.trait {
-    background-image: url(images/trait_obj.png)
+    background-image: url("images/trait_obj.png");
   }
   &.package {
-    background-image: url(images/package_obj.png)
+    background-image: url("images/package_obj.png");
+  }
+  .package.small {
+    overflow: hidden;
+    &:nth-child(odd) {
+      background: lighten(#EAEAEA, 4%);
+    }
   }
   a {
     color: #333
   }
   a.otherpackageslink {
     font-size: 85%;
+    font-weight: @mediumWeight;
+    &:before {
+      display: block;
+      content: "\2b";
+      float: left;
+      font-size: 17px;
+      margin-right: 5px;
+    }
   }
   .otherpackages {
     display: none;
@@ -90,23 +152,32 @@
 
 
 .className {
-  font-family: "Lucida Console", monospace;
-
+  height: 28px;
 }
 
-.badge a {
-  color: white
+.badge {
+  a {
+    color: white
+  }
+  border-radius: 0;
+  background: #004444;
+  float: right;
+  margin-right: 1px;
+  font-weight: 300;
+  color: #5e9fd7;
+  opacity: .5;
+  margin-top: 1px;
 }
 
 .versions .badge {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 div.description {
   font-style: italic;
 }
 
-.search-field {
+input.search-field.inputlg.form-control {
   font-size: 18px;
   color: #000;
   border-radius: 0;
@@ -160,10 +231,97 @@ div.description {
 .panel-default, .panel {
   background: none;
   border: none;
+  box-shadow: none;
 }
 
 .panel-default >.panel-heading {
   font-size: 18px;
   font-weight: @mediumWeight;
   border: none;
+  position: relative;
+  background: none;
+  &:after {
+    content: '';
+    display: block;
+    float: left;
+    height: 1px;
+    width: 100%;
+    background: rgb(0, 0, 0);
+    top: 0px;
+    bottom: 0px;
+    margin: auto;
+    position: absolute;
+  }
+  .ico-panel {
+    float: left;
+    position: absolute;
+    left: 10px;
+    top: 0;
+    background: #FFF;
+    z-index: 3;
+  }
+  h3 {
+    margin: 0;
+    text-align: left;
+    font-weight: 300;
+    padding-left: 55px;
+    display: inline;
+    background: #FFF;
+    position: relative;
+    z-index: 2;
+    padding-right: 15px;
+  }
+}
+.navbar-nav > li > a {
+  border-top: 3px solid transparent;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  background: none;
+  border-top: 3px solid #326c9e;
+  color: @darkColor;
+}
+
+.btn-social {
+  position: relative;
+  padding-left: 44px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: @lightWeight;
+  background-repeat: no-repeat;
+  background-position: 20px 10px;
+  border-radius: 0;
+  .transition();
+  opacity: .5;
+  &.btn-github {
+    color: #fff;
+    background-color: #2b2b2b;
+    border-color: rgba(0,0,0,0.2);
+    text-decoration: none;
+    background-image: url('@{imagePath}github.png');
+    &:hover {
+      background-color: darken(#2b2b2b, 10%);
+    }
+  }
+  &.btn-twitter {
+    color: #fff;
+    background-color: #55acee;
+    border-color: rgba(0,0,0,0.2);
+    background-image: url('@{imagePath}twitter.png');
+    &:hover {
+      background-color: darken(#55acee, 10%);
+    }
+  }
+  &.btn-lg {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    padding-left: 61px;
+  }
 }

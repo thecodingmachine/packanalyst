@@ -6,9 +6,32 @@ html, body {
   position: relative;
 }
 body {
-  padding-top: 70px;
   position: relative;
   font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+strong, b, dt {
+  font-weight: 500;
+}
+
+table.table {
+  border: 1px solid #ddd;
+  margin-top: 10px;
+}
+
+th {
+  font-weight: @mediumWeight;
+}
+
+p.sub-title {
+  font-size: 20px;
+}
+
+.navbar-default {
+  background: @whiteColor url('@{imagePath}bg-head.jpg') repeat-x top right;
+  border: none;
 }
 
 .navbar-right {
@@ -16,30 +39,78 @@ body {
 }
 
 .homeContainer {
-  margin-top: -19px;
+
+}
+
+h2, h3, h4, h5 {
+  font-weight: @lightWeight;
+}
+
+h1 {
+  margin-top: 100px;
+  display: block;
+  font-size: 35px;
+  margin-bottom: 20px;
+  padding-left: 15px;
+  font-weight: @lightWeight;
+  &.logo {
+    margin-top: 65px;
+    font-weight: @regularWeight;
+  }
+  &.small-logo {
+    margin: 10px 0 10px 0;
+    font-size: 25px;
+    float: left;
+    width: 210x;
+    font-weight: @regularWeight;
+    img {
+      width: 30px;
+    }
+    small {
+      font-size: 12px;
+    }
+  }
+  span {
+    &.logo {
+      font-weight: 500;
+      color: #333333;
+    }
+    &.blue {
+      font-weight: 300;
+      color: #2F699A;
+    }
+  }
+  small {
+    display: block;
+    font-size: 16px;
+    font-weight: 300;
+  }
+  img {
+    margin-right: 10px;
+  }
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.search-header {
+  padding: 10px;
+  .search-field {
+    width: 100%;
+  }
+  .twitter-typeahead {
+    float: left;
+    display: block !important;
+    margin-right: 20px;
+  }
 }
 
 #search {
   background: @whiteColor url('@{imagePath}bg-head.jpg') repeat-x top right;
   margin-bottom: 20px;
 }
-
-h1.logo {
-  font-size: 35px;
-  color: #333333;
-  background: url('@{imagePath}logo.png') no-repeat top left;
-  margin: 40px 0 45px;
-  small {
-    clear: both;
-    display: block;
-    font-size: 16px;
-    margin-top: 10px;
-  }
-  span.medium {
-    margin-left: 65px;
-  }
-}
-
 
 //---------------------------
 // Useful classes
