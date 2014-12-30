@@ -538,6 +538,17 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     'setterProperties' => 
     array (
     ),
+    'fieldProperties' => 
+    array (
+      'favIconUrl' => 
+      array (
+        'value' => 'src/views/css/images/favicon.ico',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'bower.bootstrap' => 
   array (
