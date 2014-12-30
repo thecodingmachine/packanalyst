@@ -97,7 +97,7 @@ class PackageAnalyzerController extends Controller {
 		
 		$this->template->setTitle('Packanalyst | Package '.$name.' ('.$version.')');
 
-        \Mouf::getSearchBlock()->setSearch($q);
+        \Mouf::getSearchBlock()->setSearch($name);
 		
 		// Let's add the twig file to the template.
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/packageAnalyzer/index.twig', array("package"=>$package, "itemsList"=>$itemsList, "otherVersions"=>$otherVersions)));
