@@ -27,9 +27,13 @@ $(function() {
 });
 </script>
 
-<form class="navbar-form navbar-left" role="search" id="smallSearchForm" action="{{ constant('ROOT_URL') }}search">
-  <div class="form-group">
-    <input style="width:400px" name="q" type="text" class="form-control " id="searchInput" placeholder="Search any PHP class / interface / trait / function or package" value="{{ search }}">
-  </div>
-  <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i> Search</button>
+<form class="navbar-left search-header col-lg-6 col-md-4 col-sm-3 col-xs-9" role="search" id="smallSearchForm" action="{{ constant('ROOT_URL') }}search">
+    <div class="row">
+        <div class="col-md-8">
+            <input name="q" type="text" class="form-control inputlg search-field " id="searchInput" placeholder="Search any PHP class / interface / trait / function or package" value="{{ search }}">
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-default button-search"><i class="glyphicon glyphicon-search"></i> Search</button>
+        </div>
+    </div>
 </form>

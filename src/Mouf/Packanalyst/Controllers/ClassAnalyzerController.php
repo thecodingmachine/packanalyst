@@ -188,7 +188,7 @@ class ClassAnalyzerController extends Controller {
 		$this->template->setTitle('Packanalyst | '.ucfirst($type).' '.$q);
 		$this->template->getWebLibraryManager()->addLibrary(new WebLibrary([ROOT_URL.'src/views/classAnalyzer/classAnalyzer.js']));
 
-		array_unshift(\Mouf::getBootstrapNavBar()->children, new SearchBlock($q));
+		\Mouf::getSearchBlock()->setSearch($q);
 		
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig', 
 				array(
@@ -381,8 +381,8 @@ class ClassAnalyzerController extends Controller {
 		// Let's add the twig file to the template.
 		$this->template->setTitle('Packanalyst | '.ucfirst($type).' '.$q);
 		$this->template->getWebLibraryManager()->addLibrary(new WebLibrary([ROOT_URL.'src/views/classAnalyzer/classAnalyzer.js']));
-	
-		array_unshift(\Mouf::getBootstrapNavBar()->children, new SearchBlock($q));
+
+        \Mouf::getSearchBlock()->setSearch($q);
 	
 		$this->content->addHtmlElement(new TwigTemplate($this->twig, 'src/views/classAnalyzer/index.twig',
 				array(

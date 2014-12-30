@@ -462,7 +462,9 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       array (
         'value' => 
         array (
-          0 => '__anonymous__3f09_770655_1415899075814',
+          0 => 'logo',
+          1 => 'searchBlock',
+          2 => '__anonymous__3f09_770655_1415899075814',
         ),
         'parametertype' => 'object',
         'type' => 'string',
@@ -1190,6 +1192,33 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
     ),
   ),
+  'logo' => 
+  array (
+    'class' => 'Mouf\\Html\\Renderer\\Twig\\TwigTemplate',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'twigEnvironment',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'src/views/root/logo.twig',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
   'messageServiceLibrary' => 
   array (
     'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
@@ -1767,6 +1796,12 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
     ),
   ),
+  'searchBlock' => 
+  array (
+    'class' => 'Mouf\\Packanalyst\\Widgets\\SearchBlock',
+    'external' => false,
+    'weak' => false,
+  ),
   'sessionManager' => 
   array (
     'class' => 'Mouf\\Utils\\Session\\SessionManager\\DefaultSessionManager',
@@ -2340,6 +2375,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 }
 
 	/**
+	 * @return Mouf\Html\Renderer\Twig\TwigTemplate
+	 */
+	 public static function getLogo() {
+	 	return MoufManager::getMoufManager()->get('logo');
+	 }
+
+	/**
 	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
 	 */
 	 public static function getMessageServiceLibrary() {
@@ -2498,6 +2540,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 */
 	 public static function getRootUrlJsFile() {
 	 	return MoufManager::getMoufManager()->get('rootUrlJsFile');
+	 }
+
+	/**
+	 * @return Mouf\Packanalyst\Widgets\SearchBlock
+	 */
+	 public static function getSearchBlock() {
+	 	return MoufManager::getMoufManager()->get('searchBlock');
 	 }
 
 	/**
