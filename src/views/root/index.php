@@ -190,7 +190,7 @@ $(function() {
                 </p>
                 <p>David is CTO of <a href="http://www.thecodingmachine.com" target="_blank">TheCodingMachine</a>, a French
                 IT company, who is kindly sponsoring Packanalyst's development and hosting.</p>
-
+                <p>The design and front-end part has been developed by <a href="https://twitter.com/eleveur2pixels" target="_blank">Hugo Averty</a>, project manager for TheCodingMachine. </p>
                 <p class="text-center">
                     <a href="http://mouf-php.com" style="margin: 30px"><img src="<?= ROOT_URL ?>src/views/css/images/mouf.png" alt="Mouf" /></a>
                     <a href="http://www.thecodingmachine.com" style="margin: 30px"><img src="<?= ROOT_URL ?>src/views/css/images/tcm.png" alt="TheCodingMachine" /></a>
