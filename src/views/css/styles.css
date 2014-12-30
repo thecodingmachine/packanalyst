@@ -1,5 +1,4 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,500,400italic);
-@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro);
 html,
 body {
   min-height: 100%;
@@ -140,7 +139,7 @@ h1 a:hover {
 .pad.arrow:last-child:before {
   height: 20px;
 }
-.content > .pad.arrow:last-of-type:before {
+#content > .pad.arrow:last-child:before {
   height: 20px;
 }
 .highlight {
@@ -275,7 +274,6 @@ ul.classgraph ul {
 .item.highlight.interface .className,
 .item.highlight.trait .className,
 .item.highlight.package .className {
-  height: auto;
   font-weight: 500;
   font-size: 18px;
 }
@@ -355,7 +353,7 @@ ul.classgraph ul {
   padding: 3px;
 }
 .className {
-  height: 28px;
+  height: 32px;
 }
 .badge {
   border-radius: 0;
