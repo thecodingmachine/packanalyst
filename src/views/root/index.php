@@ -54,7 +54,7 @@ $(function() {
 
                     </form>
                     <p>&nbsp;</p>
-                    <p class="sub-title">Packanalyst is a service that let's you browse in <strong>any</strong> PHP class / interface / trait
+                    <p class="sub-title">Packanalyst is a service that lets you browse in <strong>any</strong> PHP class / interface / trait
                     defined in <a href="http://packagist.org/">Packagist</a>.</p>
                 </div>
             </div>
