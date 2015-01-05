@@ -8,18 +8,6 @@ MoufManager::initMoufManager();
 $moufManager = MoufManager::getMoufManager();
 
 $moufManager->getConfigManager()->setConstantsDefinitionArray(array (
-  'NEO4J_HOST' => 
-  array (
-    'defaultValue' => 'localhost',
-    'type' => 'string',
-    'comment' => 'The host for the Neo4J database',
-  ),
-  'NEO4J_PORT' => 
-  array (
-    'defaultValue' => '7474',
-    'type' => 'string',
-    'comment' => 'The port of the Neo4J database',
-  ),
   'ELASTICSEARCH_HOST' => 
   array (
     'defaultValue' => 'localhost',
