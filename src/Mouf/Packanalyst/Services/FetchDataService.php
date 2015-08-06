@@ -267,9 +267,8 @@ class FetchDataService
 			if ($package instanceof AliasPackage) {
 				continue;
 			}
-			
 			// Let's index by version, but let's first remove the first 'v' (like v1.0.0)
-			$indexedByVersion[ltrim($package->getPrettyVersion(), 'v')] = $package;
+			$indexedByVersion[$package->getVersion()] = $package;
 		}
 
 		uksort($indexedByVersion, "version_compare");
@@ -280,7 +279,7 @@ class FetchDataService
 		$lastMajorVersion = -1;
 		
 		foreach ($indexedByVersion as $version => $package) {
-			if ($version == 'dev-master') {
+			if ($version == '9999999-dev') {
 				$keptPackages[] = $package;
 				continue;
 			}
@@ -297,7 +296,6 @@ class FetchDataService
 			// But still, let's remove any AliasPackage
 			$keptPackages = array_filter($packages, function($package) { return !($package instanceof AliasPackage); });
 		}
-
 		return $keptPackages;
 	}
 	
