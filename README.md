@@ -2,7 +2,7 @@ Packanalyst
 ===========
 
 A PHP package analyzer for Composer/Packagist.
-This is the code of the http://packanalyst.mouf-php.com website.
+This is the code of the http://packanalyst.com website.
 
 Requirements
 ------------
