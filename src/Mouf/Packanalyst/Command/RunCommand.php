@@ -19,7 +19,7 @@ use Composer\Package\PackageInterface;
 use Mouf\Packanalyst\ClassesDetector;
 
 /**
- * 
+ *
  * @author david
  *
  */
@@ -28,7 +28,7 @@ class RunCommand extends Command
     private $gitConfig;
     private $repos;
     private $downloadManager;
-    
+
     protected function configure()
     {
         $this
@@ -59,17 +59,17 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-    	
+
     	\Mouf::getDownloadLock()->acquireLock();
-    	
+
     	$fetchDataService = \Mouf::getFetchDataService();
     	$fetchDataService->setDownloadManager($this->getDownloadManager());
     	$fetchDataService->setPackagistRepository($this->getPackagistRepository());
-    	
+
     	$package = $input->getOption('package');
     	$retry = $input->getOption('retry');
     	$force = $input->getOption('force');
-    	
+
     	if ($package) {
     		$fetchDataService->setForcedPackage($package);
     	}
@@ -79,12 +79,12 @@ EOT
     	if ($force) {
     		$fetchDataService->setForce(true);
     	}
-    	
+
     	$fetchDataService->run();
     }
 
     /**
-     * 
+     *
      * @return ComposerRepository
      */
     private function getPackagistRepository() {
@@ -93,13 +93,16 @@ EOT
     	}
     	return $this->repos['packagist'];
     }
-    
+
     private function getDownloadManager() {
-    	
+
     	if (!$this->downloadManager) {
 	    	$config = Factory::createConfig();
+            $config->merge(array('config' => array(
+                'preferred-install' => 'dist'
+            )));
 	    	$factory = new Factory;
-	    	 
+
 	    	$this->downloadManager = $factory->createDownloadManager($this->getIO(), $config);
     	}
     	return $this->downloadManager;
