@@ -50,7 +50,6 @@ class ClassesDetector extends NodeVisitorAbstract
         $this->traverser->addVisitor($storeInDbNodeVisitor);     // our own node visitor
 
 
-
         if (file_exists($basePath.'/composer.json')) {
             $srcDirs = ComposerSrcDirectoryFinder::getComposerSrcDirs($basePath.'/composer.json');
 
@@ -75,7 +74,6 @@ class ClassesDetector extends NodeVisitorAbstract
                 return (strpos($file, "vendor/") === false) && (strpos($file, "fixtures/") === false);
             });
         }
-
 
         $this->classes = [];
         $this->interfaces = [];
