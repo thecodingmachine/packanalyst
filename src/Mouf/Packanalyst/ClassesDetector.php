@@ -2,6 +2,7 @@
 
 namespace Mouf\Packanalyst;
 
+use Mouf\Packanalyst\Services\ComposerSrcDirectoryFinder;
 use PhpParser\Node;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Parser;
@@ -49,8 +50,32 @@ class ClassesDetector extends NodeVisitorAbstract
         $this->traverser->addVisitor($storeInDbNodeVisitor);     // our own node visitor
 
 
-        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($basePath));
-        $files = new \RegexIterator($files, '/\.php$/');
+
+        if (file_exists($basePath.'/composer.json')) {
+            $srcDirs = ComposerSrcDirectoryFinder::getComposerSrcDirs($basePath.'/composer.json');
+
+            $files = [];
+            foreach ($srcDirs as $dir) {
+                $dirFiles = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($basePath.'/'.$dir));
+                $dirFiles = new \RegexIterator($dirFiles, '/\.php$/');
+                $dirFiles = new \CallbackFilterIterator($dirFiles , function ($file) {
+                    return (strpos($file, "vendor/") === false) && (strpos($file, "fixtures/") === false);
+                });
+                foreach ($dirFiles as $file) {
+                    $files[] = (string) $file;
+                }
+            }
+            // Last deduplicate:
+            $files = array_flip(array_flip($files));
+        } else {
+            // Composer.json not found... this is a weird case... let's go back to full directory scanning.
+            $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($basePath));
+            $files = new \RegexIterator($files, '/\.php$/');
+            $files = new \CallbackFilterIterator($files , function ($file) {
+                return (strpos($file, "vendor/") === false) && (strpos($file, "fixtures/") === false);
+            });
+        }
+
 
         $this->classes = [];
         $this->interfaces = [];
