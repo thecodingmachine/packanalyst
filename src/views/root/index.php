@@ -10,7 +10,7 @@ $(function() {
 	});
 
 	classesAutocomplete.initialize();
-	
+
 	$('.typeahead').typeahead({
 		minLength: 3,
 		highlight: true

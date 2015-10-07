@@ -27,10 +27,10 @@
 		<a href="search?q={{ query | url_encode }}&page={{ i }}">{{ i+1 }}</a>
 	</li>
 	{% endfor %}
-	
+
 	{% if page != nbPages %}
 	<li><a href="search?q={{ query | url_encode }}&page={{ page+1 }}">&raquo;</a></li>
 	{% endif %}
-	
+
 </ul>
 {% endif %}

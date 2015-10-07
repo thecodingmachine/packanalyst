@@ -21,11 +21,11 @@
 		</span>
 		</div>
 		{% endfor %}
-		
+
 		{% if this.getNotImportantPackages()  %}
 		<div class="otherpackagescontainer">
 			<a class="otherpackageslink" href="#">View more packages</a>
-			<div class="otherpackages"> 
+			<div class="otherpackages">
 				{% for packageName, versions in this.getNotImportantPackages() %}
 				<div class='package small'>
 				{{ packageName }}
@@ -39,8 +39,8 @@
 			</div>
 		</div>
 		{% endif %}
-		
-		
+
+
 	</div>
 	{% if children %}
 	<ul>
