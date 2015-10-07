@@ -538,71 +538,6 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
     ),
   ),
-  'bower.bootstrap' => 
-  array (
-    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
-    'external' => false,
-    'weak' => false,
-    'constructor' => 
-    array (
-      0 => 
-      array (
-        'value' => 
-        array (
-          0 => 'vendor/bower-asset/bootstrap/dist/js/bootstrap.js',
-        ),
-        'parametertype' => 'primitive',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      1 => 
-      array (
-        'value' => 
-        array (
-          0 => 'vendor/bower-asset/bootstrap/dist/css/bootstrap.css',
-        ),
-        'parametertype' => 'primitive',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-    ),
-  ),
-  'bower.jquery' => 
-  array (
-    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
-    'external' => false,
-    'weak' => false,
-    'constructor' => 
-    array (
-      0 => 
-      array (
-        'value' => 
-        array (
-          0 => 'vendor/bower-asset/jquery/dist/jquery.js',
-        ),
-        'parametertype' => 'primitive',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      1 => 
-      array (
-        'value' => 
-        array (
-        ),
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-    ),
-  ),
   'bower.typeahead.js' => 
   array (
     'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
@@ -974,10 +909,10 @@ return $driver;
         0 => 'rootUrlInlineWebLibrary',
         1 => 'component.jquery',
         2 => 'component.bootstrap',
-        3 => 'stylesWebLibrary',
-        4 => 'googleAnalyticsWebLibrary',
-        5 => 'messageServiceLibrary',
-        6 => 'bower.typeahead.js',
+        3 => 'bower.typeahead.js',
+        4 => 'stylesWebLibrary',
+        5 => 'googleAnalyticsWebLibrary',
+        6 => 'messageServiceLibrary',
       ),
     ),
     'setterProperties' => 
@@ -2362,20 +2297,6 @@ return $driver;
 	 */
 	 public static function getBootstrapTemplate() {
 	 	return MoufManager::getMoufManager()->get('bootstrapTemplate');
-	 }
-
-	/**
-	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
-	 */
-	 public static function getBower_bootstrap() {
-	 	return MoufManager::getMoufManager()->get('bower.bootstrap');
-	 }
-
-	/**
-	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
-	 */
-	 public static function getBower_jquery() {
-	 	return MoufManager::getMoufManager()->get('bower.jquery');
 	 }
 
 	/**
