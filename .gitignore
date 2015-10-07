@@ -9,3 +9,5 @@ config.php
 mouf/no_commit/*
 src/views/node_modules/*
 .idea/*
+.bowerrc
+bower.json
