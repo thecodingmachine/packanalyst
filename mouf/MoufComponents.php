@@ -614,7 +614,7 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       array (
         'value' => 
         array (
-          0 => 'vendor/bower-asset/typeahead.js/dist/typeahead.bundle.js',
+          0 => 'vendor/bower_components/typeahead.js/dist/typeahead.bundle.js',
         ),
         'parametertype' => 'primitive',
         'type' => 'string',
@@ -786,6 +786,71 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
     ),
   ),
+  'component.bootstrap' => 
+  array (
+    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 
+        array (
+          0 => 'vendor/components/bootstrap/js/bootstrap.js',
+        ),
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 
+        array (
+          0 => 'vendor/components/bootstrap/css/bootstrap.css',
+        ),
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'component.jquery' => 
+  array (
+    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 
+        array (
+          0 => 'vendor/components/jquery/jquery.js',
+        ),
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 
+        array (
+        ),
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
   'customRenderer' => 
   array (
     'class' => 'Mouf\\Html\\Renderer\\FileBasedRenderer',
@@ -830,6 +895,27 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
         ),
       ),
     ),
+  ),
+  'defaultDoctrineCache' => 
+  array (
+    'weak' => false,
+    'comment' => '',
+    'class' => 'Doctrine\\Common\\Cache\\ArrayCache',
+    'external' => false,
+    'code' => '// If DEBUG mode is on, let\'s just use an ArrayCache.
+if (DEBUG) {
+	$driver = new \\Doctrine\\Common\\Cache\\ArrayCache();
+} else {
+	// If APC is available, let\'s use APC
+	if (extension_loaded("apc")) {
+		$driver = new \\Doctrine\\Common\\Cache\\ApcCache();
+	} else {
+		$driver = new \\Doctrine\\Common\\Cache\\FileCache(sys_get_temp_dir().\'/doctrinecache\');
+	}
+}
+$driver->setNamespace(SECRET);
+return $driver;
+',
   ),
   'defaultLanguageDetection' => 
   array (
@@ -886,12 +972,12 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       'setWebLibraries' => 
       array (
         0 => 'rootUrlInlineWebLibrary',
-        1 => 'bower.jquery',
-        2 => 'bower.bootstrap',
-        3 => 'bower.typeahead.js',
-        4 => 'stylesWebLibrary',
-        5 => 'googleAnalyticsWebLibrary',
-        6 => 'messageServiceLibrary',
+        1 => 'component.jquery',
+        2 => 'component.bootstrap',
+        3 => 'stylesWebLibrary',
+        4 => 'googleAnalyticsWebLibrary',
+        5 => 'messageServiceLibrary',
+        6 => 'bower.typeahead.js',
       ),
     ),
     'setterProperties' => 
@@ -902,6 +988,24 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       0 => 
       array (
         'value' => 'defaultRenderer',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'doctrineMoufCache' => 
+  array (
+    'class' => 'Mouf\\Utils\\Common\\Doctrine\\Cache\\DoctrineCacheAdapter',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'defaultDoctrineCache',
         'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 
@@ -1294,6 +1398,24 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
     'external' => false,
     'code' => 'return $container->get(\'mongoClient\')->packanalyst;',
     'class' => 'MongoDB',
+  ),
+  'moufTwigExtension' => 
+  array (
+    'class' => 'Mouf\\Html\\Renderer\\Twig\\MoufTwigExtension',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'return $container;',
+        'parametertype' => 'primitive',
+        'type' => 'php',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'noCacheService' => 
   array (
@@ -1954,11 +2076,25 @@ return new Doctrine\\Common\\Annotations\\CachedReader($reader, new Doctrine\\Co
       ),
     ),
   ),
+  'twigDebugExtension' => 
+  array (
+    'class' => 'Twig_Extension_Debug',
+    'external' => false,
+    'weak' => false,
+  ),
   'twigEnvironment' => 
   array (
     'class' => 'Mouf\\Html\\Renderer\\Twig\\MoufTwigEnvironment',
     'external' => false,
     'weak' => false,
+    'setterBinds' => 
+    array (
+      'setExtensions' => 
+      array (
+        0 => 'moufTwigExtension',
+        1 => 'twigDebugExtension',
+      ),
+    ),
   ),
   'uRLValidatorFtpHttps' => 
   array (
@@ -2112,6 +2248,22 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 					},
 				],
 			],
+			'defaultDoctrineCache' => function(ContainerInterface $container) {
+				// If DEBUG mode is on, let's just use an ArrayCache.
+if (DEBUG) {
+	$driver = new \Doctrine\Common\Cache\ArrayCache();
+} else {
+	// If APC is available, let's use APC
+	if (extension_loaded("apc")) {
+		$driver = new \Doctrine\Common\Cache\ApcCache();
+	} else {
+		$driver = new \Doctrine\Common\Cache\FileCache(sys_get_temp_dir().'/doctrinecache');
+	}
+}
+$driver->setNamespace(SECRET);
+return $driver;
+
+			},
 			'elasticSearchClient' => [
 				'constructor' => [
 					0 => function(ContainerInterface $container) {
@@ -2133,6 +2285,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 			'mongoPackanalystDb' => function(ContainerInterface $container) {
 				return $container->get('mongoClient')->packanalyst;
 			},
+			'moufTwigExtension' => [
+				'constructor' => [
+					0 => function(ContainerInterface $container) {
+						return $container;
+					},
+				],
+			],
 		];
 	}
 	/**
@@ -2255,10 +2414,31 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 }
 
 	/**
+	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
+	 */
+	 public static function getComponent_bootstrap() {
+	 	return MoufManager::getMoufManager()->get('component.bootstrap');
+	 }
+
+	/**
+	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
+	 */
+	 public static function getComponent_jquery() {
+	 	return MoufManager::getMoufManager()->get('component.jquery');
+	 }
+
+	/**
 	 * @return Mouf\Html\Renderer\FileBasedRenderer
 	 */
 	 public static function getCustomRenderer() {
 	 	return MoufManager::getMoufManager()->get('customRenderer');
+	 }
+
+	/**
+	 * @return Doctrine\Common\Cache\ArrayCache
+	 */
+	 public static function getDefaultDoctrineCache() {
+	 	return MoufManager::getMoufManager()->get('defaultDoctrineCache');
 	 }
 
 	/**
@@ -2287,6 +2467,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 */
 	 public static function getDefaultWebLibraryManager() {
 	 	return MoufManager::getMoufManager()->get('defaultWebLibraryManager');
+	 }
+
+	/**
+	 * @return Mouf\Utils\Common\Doctrine\Cache\DoctrineCacheAdapter
+	 */
+	 public static function getDoctrineMoufCache() {
+	 	return MoufManager::getMoufManager()->get('doctrineMoufCache');
 	 }
 
 	/**
@@ -2420,6 +2607,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 */
 	 public static function getMongoPackanalystDb() {
 	 	return MoufManager::getMoufManager()->get('mongoPackanalystDb');
+	 }
+
+	/**
+	 * @return Mouf\Html\Renderer\Twig\MoufTwigExtension
+	 */
+	 public static function getMoufTwigExtension() {
+	 	return MoufManager::getMoufManager()->get('moufTwigExtension');
 	 }
 
 	/**
@@ -2605,6 +2799,13 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 }
 
 	/**
+	 * @return Twig_Extension_Debug
+	 */
+	 public static function getTwigDebugExtension() {
+	 	return MoufManager::getMoufManager()->get('twigDebugExtension');
+	 }
+
+	/**
 	 * @return Mouf\Html\Renderer\Twig\MoufTwigEnvironment
 	 */
 	 public static function getTwigEnvironment() {
@@ -2640,4 +2841,3 @@ return new Doctrine\Common\Annotations\CachedReader($reader, new Doctrine\Common
 	 }
 
 }
-?>
