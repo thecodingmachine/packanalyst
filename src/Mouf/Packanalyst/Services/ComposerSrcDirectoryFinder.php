@@ -1,4 +1,5 @@
 <?php
+
 namespace Mouf\Packanalyst\Services;
 
 /**
@@ -8,14 +9,14 @@ namespace Mouf\Packanalyst\Services;
  */
 class ComposerSrcDirectoryFinder
 {
-
     /**
-     *
      * @param string $composerJsonPath Path to the composer file
-     * @param bool $useAutoloadDev Include files for autoload dev?
+     * @param bool   $useAutoloadDev   Include files for autoload dev?
+     *
      * @return array The directories containing PHP code.
      */
-    public static function getComposerSrcDirs($composerJsonPath, $useAutoloadDev = false) {
+    public static function getComposerSrcDirs($composerJsonPath, $useAutoloadDev = false)
+    {
         $composer = json_decode(file_get_contents($composerJsonPath), true);
 
         if (!$composer) {
@@ -26,7 +27,7 @@ class ComposerSrcDirectoryFinder
 
         $autoloadTags = ['autoload'];
         if ($useAutoloadDev) {
-            $autoloadTags[] = ["autoload-dev"];
+            $autoloadTags[] = ['autoload-dev'];
         }
 
         foreach ($autoloadTags as $autoload) {
@@ -38,7 +39,7 @@ class ComposerSrcDirectoryFinder
                             $paths = [$paths];
                         }
 
-                        $paths = array_map(function($path) {
+                        $paths = array_map(function ($path) {
                             return trim($path, '\\/');
                         }, $paths);
 
@@ -49,7 +50,7 @@ class ComposerSrcDirectoryFinder
 
             if (isset($composer[$autoload]['classmap'])) {
                 foreach ($composer[$autoload]['classmap'] as $classMapDir) {
-                    if (strrpos($classMapDir, '.php') !== strlen($classMapDir)-4) {
+                    if (strrpos($classMapDir, '.php') !== strlen($classMapDir) - 4) {
                         $srcDirs[] = $classMapDir;
                     }
                 }
@@ -59,7 +60,7 @@ class ComposerSrcDirectoryFinder
         // Remove duplicates:
         $srcDirs = array_flip(array_flip($srcDirs));
 
-        $srcDirs = array_filter($srcDirs, function($path) {
+        $srcDirs = array_filter($srcDirs, function ($path) {
             return strpos($path, '..') === false;
         });
 

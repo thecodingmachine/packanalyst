@@ -57,8 +57,8 @@ class ClassesDetector extends NodeVisitorAbstract
             foreach ($srcDirs as $dir) {
                 $dirFiles = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($basePath.'/'.$dir));
                 $dirFiles = new \RegexIterator($dirFiles, '/\.php$/');
-                $dirFiles = new \CallbackFilterIterator($dirFiles , function ($file) {
-                    return (strpos($file, "vendor/") === false) && (strpos($file, "fixtures/") === false);
+                $dirFiles = new \CallbackFilterIterator($dirFiles, function ($file) {
+                    return (strpos($file, 'vendor/') === false) && (strpos($file, 'fixtures/') === false);
                 });
                 foreach ($dirFiles as $file) {
                     $files[] = (string) $file;
@@ -70,8 +70,8 @@ class ClassesDetector extends NodeVisitorAbstract
             // Composer.json not found... this is a weird case... let's go back to full directory scanning.
             $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($basePath));
             $files = new \RegexIterator($files, '/\.php$/');
-            $files = new \CallbackFilterIterator($files , function ($file) {
-                return (strpos($file, "vendor/") === false) && (strpos($file, "fixtures/") === false);
+            $files = new \CallbackFilterIterator($files, function ($file) {
+                return (strpos($file, 'vendor/') === false) && (strpos($file, 'fixtures/') === false);
             });
         }
 
