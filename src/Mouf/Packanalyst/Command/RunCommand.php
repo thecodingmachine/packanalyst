@@ -1,27 +1,17 @@
 <?php
+
 namespace Mouf\Packanalyst\Command;
 
-use Composer\Json\JsonFile;
 use Composer\Factory;
 use Composer\Package\BasePackage;
-use Composer\Repository\CompositeRepository;
-use Composer\Repository\PlatformRepository;
-use Composer\Package\Version\VersionParser;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ExecutableFinder;
 use Composer\Command\Command;
-use Composer\Repository\RepositoryInterface;
 use Composer\Repository\ComposerRepository;
-use Composer\Package\PackageInterface;
-use Mouf\Packanalyst\ClassesDetector;
 
 /**
- *
  * @author david
- *
  */
 class RunCommand extends Command
 {
@@ -35,9 +25,9 @@ class RunCommand extends Command
             ->setName('run')
             ->setDescription('Runs Packanalyst update.')
             ->setDefinition(array(
-            		new InputOption('package', null, InputOption::VALUE_REQUIRED, 'Name of the package to analyze'),
-            		new InputOption('retry', null, InputOption::VALUE_NONE, 'Retry packages previously in error'),
-            		new InputOption('force', null, InputOption::VALUE_NONE, 'Forces packages to update even if the package has not been updated'),
+                    new InputOption('package', null, InputOption::VALUE_REQUIRED, 'Name of the package to analyze'),
+                    new InputOption('retry', null, InputOption::VALUE_NONE, 'Retry packages previously in error'),
+                    new InputOption('force', null, InputOption::VALUE_NONE, 'Forces packages to update even if the package has not been updated'),
             ))
             /*->setDefinition(array(
                 new InputOption('name', null, InputOption::VALUE_REQUIRED, 'Name of the package'),
@@ -59,52 +49,53 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        \Mouf::getDownloadLock()->acquireLock();
 
-    	\Mouf::getDownloadLock()->acquireLock();
+        $fetchDataService = \Mouf::getFetchDataService();
+        $fetchDataService->setDownloadManager($this->getDownloadManager());
+        $fetchDataService->setPackagistRepository($this->getPackagistRepository());
 
-    	$fetchDataService = \Mouf::getFetchDataService();
-    	$fetchDataService->setDownloadManager($this->getDownloadManager());
-    	$fetchDataService->setPackagistRepository($this->getPackagistRepository());
+        $package = $input->getOption('package');
+        $retry = $input->getOption('retry');
+        $force = $input->getOption('force');
 
-    	$package = $input->getOption('package');
-    	$retry = $input->getOption('retry');
-    	$force = $input->getOption('force');
+        if ($package) {
+            $fetchDataService->setForcedPackage($package);
+        }
+        if ($retry) {
+            $fetchDataService->setRetryOnError(true);
+        }
+        if ($force) {
+            $fetchDataService->setForce(true);
+        }
 
-    	if ($package) {
-    		$fetchDataService->setForcedPackage($package);
-    	}
-    	if ($retry) {
-    		$fetchDataService->setRetryOnError(true);
-    	}
-    	if ($force) {
-    		$fetchDataService->setForce(true);
-    	}
-
-    	$fetchDataService->run();
+        $fetchDataService->run();
     }
 
     /**
-     *
      * @return ComposerRepository
      */
-    private function getPackagistRepository() {
-    	if (!$this->repos) {
-    		$this->repos = Factory::createDefaultRepositories($this->getIO());
-    	}
-    	return $this->repos['packagist'];
+    private function getPackagistRepository()
+    {
+        if (!$this->repos) {
+            $this->repos = Factory::createDefaultRepositories($this->getIO());
+        }
+
+        return $this->repos['packagist'];
     }
 
-    private function getDownloadManager() {
-
-    	if (!$this->downloadManager) {
-	    	$config = Factory::createConfig();
+    private function getDownloadManager()
+    {
+        if (!$this->downloadManager) {
+            $config = Factory::createConfig();
             $config->merge(array('config' => array(
-                'preferred-install' => 'dist'
+                'preferred-install' => 'dist',
             )));
-	    	$factory = new Factory;
+            $factory = new Factory();
 
-	    	$this->downloadManager = $factory->createDownloadManager($this->getIO(), $config);
-    	}
-    	return $this->downloadManager;
+            $this->downloadManager = $factory->createDownloadManager($this->getIO(), $config);
+        }
+
+        return $this->downloadManager;
     }
 }
