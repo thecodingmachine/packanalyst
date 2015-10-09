@@ -2011,6 +2011,31 @@ return $driver;
       ),
     ),
   ),
+  'twigCacheFileSystem' => 
+  array (
+    'class' => 'Twig_Cache_Filesystem',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => '// If we are running on a Unix environment, let\'s prepend the cache with the user id of the PHP process.
+// This way, we can avoid rights conflicts.
+if (function_exists(\'posix_geteuid\')) {
+    $posixGetuid = posix_geteuid();
+} else {
+    $posixGetuid = \'\';
+}
+return rtrim(sys_get_temp_dir(), \'/\\\\\').\'/mouftwigtemplatemain_\'.$posixGetuid.str_replace(":", "", ROOT_PATH);',
+        'parametertype' => 'primitive',
+        'type' => 'php',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
   'twigDebugExtension' => 
   array (
     'class' => 'Twig_Extension_Debug',
@@ -2028,6 +2053,46 @@ return $driver;
       array (
         0 => 'moufTwigExtension',
         1 => 'twigDebugExtension',
+      ),
+      'setCache' => 'twigCacheFileSystem',
+    ),
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'twigLoaderFileSystem',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'return array(\'debug\' => DEBUG, \'auto_reload\' => true);',
+        'parametertype' => 'primitive',
+        'type' => 'php',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'twigLoaderFileSystem' => 
+  array (
+    'class' => 'Twig_Loader_Filesystem',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'return ROOT_PATH;',
+        'parametertype' => 'primitive',
+        'type' => 'php',
+        'metadata' => 
+        array (
+        ),
       ),
     ),
   ),
@@ -2224,6 +2289,34 @@ return $driver;
 				'constructor' => [
 					0 => function(ContainerInterface $container) {
 						return $container;
+					},
+				],
+			],
+			'twigCacheFileSystem' => [
+				'constructor' => [
+					0 => function(ContainerInterface $container) {
+						// If we are running on a Unix environment, let's prepend the cache with the user id of the PHP process.
+// This way, we can avoid rights conflicts.
+if (function_exists('posix_geteuid')) {
+    $posixGetuid = posix_geteuid();
+} else {
+    $posixGetuid = '';
+}
+return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.str_replace(":", "", ROOT_PATH);
+					},
+				],
+			],
+			'twigEnvironment' => [
+				'constructor' => [
+					1 => function(ContainerInterface $container) {
+						return array('debug' => DEBUG, 'auto_reload' => true);
+					},
+				],
+			],
+			'twigLoaderFileSystem' => [
+				'constructor' => [
+					0 => function(ContainerInterface $container) {
+						return ROOT_PATH;
 					},
 				],
 			],
@@ -2734,6 +2827,13 @@ return $driver;
 	 }
 
 	/**
+	 * @return Twig_Loader_Filesystem
+	 */
+	 public static function getTwigLoaderFileSystem() {
+	 	return MoufManager::getMoufManager()->get('twigLoaderFileSystem');
+	 }
+
+	/**
 	 * @return Mouf\Utils\Common\Validators\URLValidator
 	 */
 	 public static function getURLValidatorFtpHttps() {
@@ -2759,6 +2859,13 @@ return $driver;
 	 */
 	 public static function getValidatorsTranslateService() {
 	 	return MoufManager::getMoufManager()->get('validatorsTranslateService');
+	 }
+
+	/**
+	 * @return Twig_Cache_Filesystem
+	 */
+	 public static function getTwigCacheFileSystem() {
+	 	return MoufManager::getMoufManager()->get('twigCacheFileSystem');
 	 }
 
 }
