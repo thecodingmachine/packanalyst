@@ -37,7 +37,7 @@ return array (
   array (
     'status' => 'done',
     'type' => 'class',
-    'class' => 'Mouf\\Html\\Renderer\\Twig\\MoufTwigEnvironmentInstaller',
+    'class' => 'Mouf\\Html\\Renderer\\Twig\\MoufTwigEnvironmentInstaller2',
     'package' => 'mouf/html.renderer.twig-extensions',
   ),
   5 => 

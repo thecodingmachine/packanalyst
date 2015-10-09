@@ -123,12 +123,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "fcce52b169799fc5973d080d31c27532ca41b7b8"
+                "reference": "7a9eb02190d334513e99a479510f87eed18cf958"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/fcce52b169799fc5973d080d31c27532ca41b7b8",
-                "reference": "fcce52b169799fc5973d080d31c27532ca41b7b8",
+                "url": "https://api.github.com/repos/composer/composer/zipball/7a9eb02190d334513e99a479510f87eed18cf958",
+                "reference": "7a9eb02190d334513e99a479510f87eed18cf958",
                 "shasum": ""
             },
             "require": {
@@ -189,7 +189,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-10-03 22:10:34"
+            "time": "2015-10-07 10:05:33"
         },
         {
             "name": "composer/semver",
@@ -1373,24 +1373,25 @@
         },
         {
             "name": "mouf/html.renderer.twig-extensions",
-            "version": "v1.0.6",
+            "version": "v1.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/html.renderer.twig-extensions.git",
-                "reference": "6e528063bc0298a2e45faddca291e90a67cb565b"
+                "reference": "0a47856fbc93630bb8b26f5ef27d5bc6ffa66175"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/html.renderer.twig-extensions/zipball/6e528063bc0298a2e45faddca291e90a67cb565b",
-                "reference": "6e528063bc0298a2e45faddca291e90a67cb565b",
+                "url": "https://api.github.com/repos/thecodingmachine/html.renderer.twig-extensions/zipball/0a47856fbc93630bb8b26f5ef27d5bc6ffa66175",
+                "reference": "0a47856fbc93630bb8b26f5ef27d5bc6ffa66175",
                 "shasum": ""
             },
             "require": {
                 "container-interop/container-interop": "~1.0",
                 "mouf/html.htmlelement": "~2.0",
                 "mouf/utils.cache.cache-interface": "~2.0",
+                "mouf/utils.constants.debug": "~1.0",
                 "php": ">=5.4.0",
-                "twig/twig": "1.*@stable"
+                "twig/twig": "~1.19"
             },
             "type": "mouf-library",
             "extra": {
@@ -1398,7 +1399,7 @@
                     "install": [
                         {
                             "type": "class",
-                            "class": "Mouf\\Html\\Renderer\\Twig\\MoufTwigEnvironmentInstaller"
+                            "class": "Mouf\\Html\\Renderer\\Twig\\MoufTwigEnvironmentInstaller2"
                         }
                     ],
                     "doc": [
@@ -1434,7 +1435,7 @@
                 "render",
                 "tohtml"
             ],
-            "time": "2015-09-18 15:41:13"
+            "time": "2015-10-09 08:16:33"
         },
         {
             "name": "mouf/html.template.bootstrap",
@@ -1849,16 +1850,16 @@
         },
         {
             "name": "mouf/mouf",
-            "version": "v2.0.5",
+            "version": "v2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/mouf.git",
-                "reference": "459d7bfb00db2c7aaf593634ac74fa2ff246c9b9"
+                "reference": "116fc3bc95e563ef7dffe802769e8f16bd152f07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/mouf/zipball/459d7bfb00db2c7aaf593634ac74fa2ff246c9b9",
-                "reference": "459d7bfb00db2c7aaf593634ac74fa2ff246c9b9",
+                "url": "https://api.github.com/repos/thecodingmachine/mouf/zipball/116fc3bc95e563ef7dffe802769e8f16bd152f07",
+                "reference": "116fc3bc95e563ef7dffe802769e8f16bd152f07",
                 "shasum": ""
             },
             "require": {
@@ -1988,7 +1989,7 @@
                 "ioc",
                 "mouf"
             ],
-            "time": "2015-09-23 15:51:15"
+            "time": "2015-10-08 19:00:45"
         },
         {
             "name": "mouf/mouf-installer",
@@ -3029,7 +3030,7 @@
         },
         {
             "name": "mouf/utils.constants.debug",
-            "version": "1.0.x-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/utils.constants.debug.git",
@@ -4534,16 +4535,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.2.3",
+            "version": "2.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f"
+                "reference": "eabf68b476ac7d0f73793aada060f1c1a9bf8979"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ef1ca6835468857944d5c3b48fa503d5554cff2f",
-                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/eabf68b476ac7d0f73793aada060f1c1a9bf8979",
+                "reference": "eabf68b476ac7d0f73793aada060f1c1a9bf8979",
                 "shasum": ""
             },
             "require": {
@@ -4592,7 +4593,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-09-14 06:51:16"
+            "time": "2015-10-06 15:47:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -4774,16 +4775,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.10",
+            "version": "4.8.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "463163747474815c5ccd4ae12b5b355ec12158e8"
+                "reference": "bdd199472410fd7e32751f9c814c7e06f2c21bd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/463163747474815c5ccd4ae12b5b355ec12158e8",
-                "reference": "463163747474815c5ccd4ae12b5b355ec12158e8",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/bdd199472410fd7e32751f9c814c7e06f2c21bd5",
+                "reference": "bdd199472410fd7e32751f9c814c7e06f2c21bd5",
                 "shasum": ""
             },
             "require": {
@@ -4842,7 +4843,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-01 09:14:30"
+            "time": "2015-10-07 10:39:46"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -5134,16 +5135,16 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "c7428acdb62ece0a45e6306f1ae85e1c05b09c01"
+                "reference": "23af31f402993cfd94e99cbc4b782e9a78eb0e97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/c7428acdb62ece0a45e6306f1ae85e1c05b09c01",
-                "reference": "c7428acdb62ece0a45e6306f1ae85e1c05b09c01",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/23af31f402993cfd94e99cbc4b782e9a78eb0e97",
+                "reference": "23af31f402993cfd94e99cbc4b782e9a78eb0e97",
                 "shasum": ""
             },
             "require": {
@@ -5181,7 +5182,7 @@
             "keywords": [
                 "global state"
             ],
-            "time": "2014-10-06 09:23:50"
+            "time": "2015-06-21 15:11:22"
         },
         {
             "name": "sebastian/recursion-context",
