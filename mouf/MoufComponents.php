@@ -2813,6 +2813,13 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 }
 
 	/**
+	 * @return Twig_Cache_Filesystem
+	 */
+	 public static function getTwigCacheFileSystem() {
+	 	return MoufManager::getMoufManager()->get('twigCacheFileSystem');
+	 }
+
+	/**
 	 * @return Twig_Extension_Debug
 	 */
 	 public static function getTwigDebugExtension() {
@@ -2859,13 +2866,6 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 */
 	 public static function getValidatorsTranslateService() {
 	 	return MoufManager::getMoufManager()->get('validatorsTranslateService');
-	 }
-
-	/**
-	 * @return Twig_Cache_Filesystem
-	 */
-	 public static function getTwigCacheFileSystem() {
-	 	return MoufManager::getMoufManager()->get('twigCacheFileSystem');
 	 }
 
 }
