@@ -93,11 +93,11 @@ class ElasticSearchService
         $itemNameMapping = array(
                 'properties' => array(
                         'name' => [
-                            'type' => 'multi_field',
-                            'fields' => [
-                                'name' => ['type' => 'string', 'index' => 'not_analyzed'],
-                                'nameAuto' => ['type' => 'string', 'index' => 'analyzed'],
-                            ],
+                            'type' => 'string',
+                            'index' => 'not_analyzed'
+                            /*'fields' => [
+                                'raw' => ['type' => 'string', 'index' => 'not_analyzed'],
+                            ],*/
                         ],
                         'suggest' => [
                             'type' => 'completion',
@@ -279,20 +279,20 @@ class ElasticSearchService
                         'query' => [
                             'bool' => [
                                 'should' => [
-                                    'query_string' => [
-                                        'fields' => [
-                                            'nameAuto',
+                                    [
+                                        'wildcard' => [
+                                            'name' => '*'.addslashes($input).'*',
                                         ],
-                                        'query' => '*'.$input.'*',
                                     ],
-                                ],
-                                'should' => [
-                                    'fuzzy_like_this' => [
-                                        'fields' => [
-                                            'nameAuto',
+                                    [
+                                        'match' => [
+                                            'suggest' => [
+                                                'query' => $input,
+                                                'fuzziness' => 'AUTO',
+                                            ],
+
                                         ],
-                                        'like_text' => $input,
-                                    ],
+                                    ]
                                 ],
                             ],
                         ],
