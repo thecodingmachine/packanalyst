@@ -88,7 +88,7 @@ class RootController extends Controller
     {
         // If query is a valid item of package, let's go to the dedicated page.
         $item = $this->itemDao->getItemsByName($q);
-        if ($item->count() != 0) {
+        if (count($item->toArray()) != 0) {
             header('Location: '.ROOT_URL.'class?q='.urlencode($q));
 
             return;

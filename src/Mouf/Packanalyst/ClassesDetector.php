@@ -12,6 +12,7 @@ use PhpParser\NodeVisitor\NameResolver;
 use Composer\Package\Package;
 use Mouf\Packanalyst\Services\StoreInDbNodeVisitor;
 use PhpParser\Error;
+use PhpParser\ParserFactory;
 use Psr\Log\LoggerInterface;
 use Mouf\Packanalyst\Dao\ItemDao;
 
@@ -28,9 +29,7 @@ class ClassesDetector extends NodeVisitorAbstract
 
     public function __construct(LoggerInterface $logger, ItemDao $itemDao)
     {
-        // use the emulative lexer here, as we are running PHP 5.2 but want to parse PHP 5.3
-        //$this->parser        = new PhpParser\Parser(new PhpParser\Lexer\Emulative);
-        $this->parser = new Parser(new Lexer());
+        $this->parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
         $this->logger = $logger;
         $this->itemDao = $itemDao;
     }

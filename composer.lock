@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8dda186c9c31557440905c4c7d3b083b",
-    "content-hash": "e2e189693db2d468498df6da95bd0aeb",
+    "hash": "eb0e2da19dea2916748656393c8dc4ee",
+    "content-hash": "e6a9c462fe007273b70e303d6f99e572",
     "packages": [
         {
             "name": "components/bootstrap",
@@ -1168,6 +1168,66 @@
             "time": "2015-12-24 01:37:31"
         },
         {
+            "name": "mongodb/mongodb",
+            "version": "1.0.0-beta2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mongodb/mongo-php-library.git",
+                "reference": "e8177e87efe74437b812915887d416f5b68b4e30"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/e8177e87efe74437b812915887d416f5b68b4e30",
+                "reference": "e8177e87efe74437b812915887d416f5b68b4e30",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mongodb": "^1.1.1",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MongoDB\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Mikola",
+                    "email": "jmikola@gmail.com"
+                },
+                {
+                    "name": "Hannes Magnusson",
+                    "email": "bjori@mongodb.com"
+                },
+                {
+                    "name": "Derick Rethans",
+                    "email": "github@derickrethans.nl"
+                }
+            ],
+            "description": "MongoDB driver library",
+            "homepage": "https://jira.mongodb.org/browse/PHPLIB",
+            "keywords": [
+                "database",
+                "driver",
+                "mongodb",
+                "persistence"
+            ],
+            "time": "2015-12-28 19:40:56"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.17.2",
             "source": {
@@ -1852,16 +1912,16 @@
         },
         {
             "name": "mouf/mouf",
-            "version": "v2.0.9",
+            "version": "v2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/mouf.git",
-                "reference": "87e95fffe31b09fd740c5239bda968aff91f0635"
+                "reference": "bef30653f7e988461f5025dbaa3b2b78aeb398c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/mouf/zipball/87e95fffe31b09fd740c5239bda968aff91f0635",
-                "reference": "87e95fffe31b09fd740c5239bda968aff91f0635",
+                "url": "https://api.github.com/repos/thecodingmachine/mouf/zipball/bef30653f7e988461f5025dbaa3b2b78aeb398c1",
+                "reference": "bef30653f7e988461f5025dbaa3b2b78aeb398c1",
                 "shasum": ""
             },
             "require": {
@@ -1991,7 +2051,7 @@
                 "ioc",
                 "mouf"
             ],
-            "time": "2015-11-17 10:48:56"
+            "time": "2016-01-05 09:18:57"
         },
         {
             "name": "mouf/mouf-installer",
@@ -3549,32 +3609,38 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v1.4.1",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "f78af2c9c86107aa1a34cd1dbb5bbe9eeb0d9f51"
+                "reference": "c542e5d86a9775abd1021618eb2430278bfc1e01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/f78af2c9c86107aa1a34cd1dbb5bbe9eeb0d9f51",
-                "reference": "f78af2c9c86107aa1a34cd1dbb5bbe9eeb0d9f51",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/c542e5d86a9775abd1021618eb2430278bfc1e01",
+                "reference": "c542e5d86a9775abd1021618eb2430278bfc1e01",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
-                "php": ">=5.3"
+                "php": ">=5.4"
             },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "bin": [
+                "bin/php-parse"
+            ],
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4-dev"
+                    "dev-master": "2.0-dev"
                 }
             },
             "autoload": {
-                "files": [
-                    "lib/bootstrap.php"
-                ]
+                "psr-4": {
+                    "PhpParser\\": "lib/PhpParser"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -3590,7 +3656,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2015-09-19 14:15:08"
+            "time": "2015-12-04 15:28:43"
         },
         {
             "name": "pimple/pimple",
@@ -5395,7 +5461,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "composer/composer": 20,
-        "mouf/utils.common.lock": 20
+        "mouf/utils.common.lock": 20,
+        "mongodb/mongodb": 10
     },
     "prefer-stable": true,
     "prefer-lowest": false,

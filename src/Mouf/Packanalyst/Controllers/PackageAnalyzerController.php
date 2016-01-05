@@ -94,15 +94,14 @@ class PackageAnalyzerController extends Controller
         $allPackages = $this->packageDao->getPackagesByName($name);
         $otherVersions = [];
         foreach ($allPackages as $package2) {
-            if ($package2['packageVersion'] != $version) {
-                $otherVersions[] = $package2['packageVersion'];
+            if ($package2->packageVersion != $version) {
+                $otherVersions[] = $package2->packageVersion;
             }
         }
 
-        $itemsList = $this->itemDao->findItemsByPackageVersion($name, $version);
-
         // Let's sort alphabetically.
-        $itemsList->sort(['name' => 1]);
+        $itemsList = $this->itemDao->findItemsByPackageVersion($name, $version, ['sort'=> ['name' => 1]]);
+
 
         $this->template->setTitle('Packanalyst | Package '.$name.' ('.$version.')');
 
