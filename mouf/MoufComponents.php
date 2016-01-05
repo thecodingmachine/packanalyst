@@ -1307,32 +1307,32 @@ return $driver;
     'weak' => false,
     'comment' => '',
     'external' => false,
-    'code' => 'return new \\MongoClient(MONGODB_CONNECTIONSTRING);',
-    'class' => 'MongoClient',
+    'code' => 'return new \\MongoDB\\Client(MONGODB_CONNECTIONSTRING);',
+    'class' => 'MongoDB\\Client',
   ),
   'mongoItemsCollection' => 
   array (
     'weak' => false,
     'comment' => '',
     'external' => false,
-    'code' => 'return $container->get(\'mongoPackanalystDb\')->items;',
-    'class' => 'MongoCollection',
+    'code' => 'return $container->get(\'mongoPackanalystDb\')->selectCollection(\'items\');',
+    'class' => 'MongoDB\\Collection',
   ),
   'mongoPackagesCollection' => 
   array (
     'weak' => false,
     'comment' => '',
-    'class' => 'MongoCollection',
+    'class' => 'MongoDB\\Collection',
     'external' => false,
-    'code' => 'return $container->get(\'mongoPackanalystDb\')->packages;',
+    'code' => 'return $container->get(\'mongoPackanalystDb\')->selectCollection(\'packages\');',
   ),
   'mongoPackanalystDb' => 
   array (
     'weak' => false,
     'comment' => '',
     'external' => false,
-    'code' => 'return $container->get(\'mongoClient\')->packanalyst;',
-    'class' => 'MongoDB',
+    'code' => 'return $container->get(\'mongoClient\')->selectDatabase(\'packanalyst\');',
+    'class' => 'MongoDB\\Database',
   ),
   'moufTwigExtension' => 
   array (
@@ -2274,16 +2274,16 @@ return $driver;
 				],
 			],
 			'mongoClient' => function(ContainerInterface $container) {
-				return new \MongoClient(MONGODB_CONNECTIONSTRING);
+				return new \MongoDB\Client(MONGODB_CONNECTIONSTRING);
 			},
 			'mongoItemsCollection' => function(ContainerInterface $container) {
-				return $container->get('mongoPackanalystDb')->items;
+				return $container->get('mongoPackanalystDb')->selectCollection('items');
 			},
 			'mongoPackagesCollection' => function(ContainerInterface $container) {
-				return $container->get('mongoPackanalystDb')->packages;
+				return $container->get('mongoPackanalystDb')->selectCollection('packages');
 			},
 			'mongoPackanalystDb' => function(ContainerInterface $container) {
-				return $container->get('mongoClient')->packanalyst;
+				return $container->get('mongoClient')->selectDatabase('packanalyst');
 			},
 			'moufTwigExtension' => [
 				'constructor' => [
@@ -2596,28 +2596,28 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 }
 
 	/**
-	 * @return MongoClient
+	 * @return MongoDB\Client
 	 */
 	 public static function getMongoClient() {
 	 	return MoufManager::getMoufManager()->get('mongoClient');
 	 }
 
 	/**
-	 * @return MongoCollection
+	 * @return MongoDB\Collection
 	 */
 	 public static function getMongoItemsCollection() {
 	 	return MoufManager::getMoufManager()->get('mongoItemsCollection');
 	 }
 
 	/**
-	 * @return MongoCollection
+	 * @return MongoDB\Collection
 	 */
 	 public static function getMongoPackagesCollection() {
 	 	return MoufManager::getMoufManager()->get('mongoPackagesCollection');
 	 }
 
 	/**
-	 * @return MongoDB
+	 * @return MongoDB\Database
 	 */
 	 public static function getMongoPackanalystDb() {
 	 	return MoufManager::getMoufManager()->get('mongoPackanalystDb');

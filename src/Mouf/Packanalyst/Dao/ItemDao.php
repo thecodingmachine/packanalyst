@@ -2,6 +2,7 @@
 
 namespace Mouf\Packanalyst\Dao;
 
+use MongoDB\Collection;
 use Mouf\Packanalyst\Services\ElasticSearchService;
 
 class ItemDao
@@ -12,13 +13,13 @@ class ItemDao
     const TYPE_FUNCTION = 'function';
 
     /**
-     * @var \MongoCollection
+     * @var Collection
      */
     private $collection;
 
     private $elasticSearchService;
 
-    public function __construct(\MongoCollection $collection, ElasticSearchService $elasticSearchService)
+    public function __construct(Collection $collection, ElasticSearchService $elasticSearchService)
     {
         $this->collection = $collection;
         $this->elasticSearchService = $elasticSearchService;
@@ -60,7 +61,7 @@ class ItemDao
      */
     public function deletePackage($packageName, $packageVersion)
     {
-        $this->collection->remove([
+        $this->collection->deleteMany([
             'packageName' => $packageName,
             'packageVersion' => $packageVersion,
         ]);
@@ -85,7 +86,7 @@ class ItemDao
      *
      * @param string $itemName
      *
-     * @return array
+     * @return \MongoDB\Driver\Cursor
      */
     public function getItemsByName($itemName)
     {
@@ -113,7 +114,7 @@ class ItemDao
 
         foreach ($inherits as $inheritedItemName) {
             foreach ($this->getItemsByName($inheritedItemName) as $parentItem) {
-                $globalInherits = array_merge($globalInherits, isset($parentItem['globalInherits']) ? $parentItem['globalInherits'] : array());
+                $globalInherits = array_merge($globalInherits, isset($parentItem->globalInherits) ? $parentItem->globalInherits : array());
             }
         }
 
@@ -124,14 +125,19 @@ class ItemDao
 
         $securedItem = self::ensureUtf8StringInArray($item);
 
-        $this->collection->save($securedItem);
+        if (isset($securedItem['_id'])) {
+            $this->collection->findOneAndReplace(['_id'=>$securedItem['_id']], $securedItem);
+        } else {
+            $this->collection->insertOne($securedItem);
+        }
+
 
         $antiLoopList[$item['name'].' '.$item['packageName'].' '.$item['packageVersion']] = true;
 
         // Now, let's find the list of all items directly implementing this item
         $children = $this->collection->find(['inherits' => $item['name']]);
         foreach ($children as $child) {
-            $this->recomputeGlobalInherits($child, $antiLoopList);
+            $this->recomputeGlobalInherits((array) $child, $antiLoopList);
         }
     }
 
@@ -140,19 +146,28 @@ class ItemDao
      *
      * @param string $itemName
      */
-    public function findItemsInheriting($itemName)
+    public function findItemsInheriting($itemName, $limit = null)
     {
-        return $this->collection->find(['globalInherits' => $itemName]);
+        $options = [];
+        if ($limit !== null) {
+            $options['limit'] = $limit;
+        }
+        return $this->collection->find(['globalInherits' => $itemName], $options);
     }
 
     /**
      * Find the list of items that use $itemName.
      *
      * @param string $itemName
+     * @return array
      */
-    public function findItemsUsing($itemName)
+    public function findItemsUsing($itemName, $limit = null)
     {
-        return $this->collection->find(['uses' => $itemName]);
+        $options = [];
+        if ($limit !== null) {
+            $options['limit'] = $limit;
+        }
+        return $this->collection->find(['uses' => $itemName], $options)->toArray();
     }
 
     /**
@@ -160,15 +175,15 @@ class ItemDao
      *
      * @param string $itemName
      */
-    public function findItemsByPackageVersion($packageName, $packageVersion)
+    public function findItemsByPackageVersion($packageName, $packageVersion, $options = [])
     {
-        return $this->collection->find(['packageName' => $packageName, 'packageVersion' => $packageVersion]);
+        return $this->collection->find(['packageName' => $packageName, 'packageVersion' => $packageVersion], $options);
     }
 
     public function applyOnAllItemName(callable $callback)
     {
         foreach ($this->collection->find() as $item) {
-            $callback($item);
+            $callback((array) $item);
         }
     }
 
@@ -182,7 +197,7 @@ class ItemDao
 
     public function applyScore($packageName, $score)
     {
-        $this->collection->update(['packageName' => $packageName],
+        $this->collection->updateMany(['packageName' => $packageName],
                 ['$set' => ['boost' => $score],
                 ]);
 

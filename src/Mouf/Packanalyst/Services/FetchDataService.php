@@ -198,7 +198,7 @@ class FetchDataService
                     $packageVersion = $this->packageDao->get($package->getName(), $package->getPrettyVersion());
 
                     if (!$this->force && ((!isset($packageVersion['refresh']) || !$packageVersion['refresh']))) {
-                        if ($packageVersion && $packageVersion['releaseDate']->sec == $package->getReleaseDate()->getTimestamp()) {
+                        if ($packageVersion && $packageVersion['releaseDate']->toDateTime()->getTimestamp() == $package->getReleaseDate()->getTimestamp()) {
                             if (isset($packageVersion['onError'])) {
                                 if ($packageVersion['onError'] == false || ($packageVersion['onError'] == true && !$this->retryOnError)) {
                                     $this->logger->debug('{packageName} {version} has not moved since last run. Ignoring.', array(

@@ -1,7 +1,7 @@
 {
 	"require" : {
 		"composer/composer" : "dev-master",
-		"nikic/php-parser" : "~1.0",
+		"nikic/php-parser" : "~2.0",
 		"mouf/mouf" : "~2.0",
 		"mouf/utils.common.doctrine-annotations-wrapper" : "~1.2",
 		"elasticsearch/elasticsearch" : "~1.1",
@@ -12,7 +12,8 @@
 		"ezyang/htmlpurifier" : "~4.6",
 		"guzzlehttp/guzzle" : "~4.1",
 		"mouf/utils.common.lock" : "dev-master",
-		"mouf/modules.google-analytics" : "~4.0"
+		"mouf/modules.google-analytics" : "~4.0",
+		"mongodb/mongodb": "^1.0.0@beta"
 	},
 	"autoload" : {
 		"psr-4" : {

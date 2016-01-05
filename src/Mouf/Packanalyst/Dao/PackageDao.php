@@ -4,12 +4,13 @@ namespace Mouf\Packanalyst\Dao;
 
 use Composer\Package\Package;
 use Composer\Package\CompletePackage;
+use MongoDB\Collection;
 use Mouf\Packanalyst\Services\ElasticSearchService;
 
 class PackageDao
 {
     /**
-     * @var \MongoCollection
+     * @var Collection
      */
     private $collection;
 
@@ -17,7 +18,7 @@ class PackageDao
 
     private $itemDao;
 
-    public function __construct(\MongoCollection $collection, ElasticSearchService $elasticSearchService, ItemDao $itemDao)
+    public function __construct(Collection $collection, ElasticSearchService $elasticSearchService, ItemDao $itemDao)
     {
         $this->collection = $collection;
         $this->elasticSearchService = $elasticSearchService;
@@ -48,7 +49,7 @@ class PackageDao
      */
     public function deletePackage($packageName, $packageVersion)
     {
-        $this->collection->remove([
+        $this->collection->deleteMany([
             'packageName' => $packageName,
             'packageVersion' => $packageVersion,
         ]);
@@ -64,7 +65,7 @@ class PackageDao
      */
     public function get($packageName, $packageVersion)
     {
-        return $this->collection->findOne([
+        return (array) $this->collection->findOne([
             'packageName' => $packageName,
             'packageVersion' => $packageVersion,
         ]);
@@ -84,32 +85,31 @@ class PackageDao
      */
     public function getLatestPackage($packageName)
     {
-        $packages = $this->getPackagesByName($packageName);
+        $packages = $this->getPackagesByName($packageName)->toArray();
 
-        if ($packages->count() == 0) {
+        if (count($packages) == 0) {
             return;
         }
 
         // Is there a dev-master?
         foreach ($packages as $package) {
-            if ($package['packageVersion'] == 'dev-master') {
-                return $package;
+            if ($package->packageVersion == 'dev-master') {
+                return (array) $package;
             }
         }
 
         $latestVersion = '0.0.0';
-        $packages->reset();
-        $selectedPackage = $packages->getNext();
+        $selectedPackage = reset($packages);
 
         foreach ($packages as $package) {
-            $version = ltrim($package['packageVersion'], 'v');
+            $version = ltrim($package->packageVersion, 'v');
             if (version_compare($version, $latestVersion) > 0) {
                 $latestVersion = $version;
                 $selectedPackage = $package;
             }
         }
 
-        return $selectedPackage;
+        return (array) $selectedPackage;
     }
 
     /**
@@ -130,7 +130,7 @@ class PackageDao
             ];
         }
 
-        $packageVersion['releaseDate'] = new \MongoDate($package->getReleaseDate()->getTimestamp());
+        $packageVersion['releaseDate'] = new \MongoDB\BSON\UTCDateTime($package->getReleaseDate()->getTimestamp()*1000);
         $packageVersion['type'] = $package->getType();
         $packageVersion['sourceUrl'] = $package->getSourceUrl();
         $packageVersion['realVersion'] = $package->getVersion();
@@ -139,7 +139,8 @@ class PackageDao
             $packageVersion['description'] = $package->getDescription();
         }
 
-        $this->collection->save($packageVersion);
+        // TODO: check this can replace the old SAVE method
+        $this->collection->insertOne($packageVersion);
 
         // Boost = 1 + download/10 + favers
         // TODO: we could improve the score of packages by the number of times they are referred by other packages.
@@ -158,15 +159,19 @@ class PackageDao
         return $packageVersion;
     }
 
-    public function save($packageVersion)
+    public function save(array $packageVersion)
     {
-        $this->collection->save($packageVersion);
+        if (isset($packageVersion['_id'])) {
+            $this->collection->findOneAndReplace(['_id'=>$packageVersion['_id']], $packageVersion);
+        } else {
+            $this->collection->insertOne($packageVersion);
+        }
     }
 
     public function applyOnAllPackages(callable $callback)
     {
         foreach ($this->collection->find() as $item) {
-            $callback($item);
+            $callback((array) $item);
         }
     }
 
@@ -175,7 +180,7 @@ class PackageDao
      */
     public function refreshAllPackages()
     {
-        $this->collection->update(
+        $this->collection->updateMany(
                 array(),
                 array('$set' => array('refresh' => true)),
                 array('multiple' => true)

@@ -104,9 +104,9 @@ class ClassAnalyzerController extends Controller
             $inheritLimit = false;
         }
 
-        $rootNodesCollection = $this->itemDao->getItemsByName($q);
+        $rootNodesCollection = $this->itemDao->getItemsByName($q)->toArray();
         // If there is no root node (for instance if the class is "Exception")
-        if ($rootNodesCollection->count() == 0) {
+        if (count($rootNodesCollection) == 0) {
 
             // If this class has never been used, we might want to wonder if the class exists at all.
             if (count($graphItems) == 0) {
@@ -124,10 +124,11 @@ class ClassAnalyzerController extends Controller
         } else {
             $rootNodes = [];
             foreach ($rootNodesCollection as $key => $item) {
+                $item = (array) $item;
                 $rootNodes[$key] = $item;
                 $packageName = $item['packageName'];
                 if (!isset($this->packagesCache[$packageName])) {
-                    $this->packagesCache[$packageName] = $this->packageDao->getPackagesByName($packageName)->getNext();
+                    $this->packagesCache[$packageName] = (array) $this->packageDao->getPackagesByName($packageName)->toArray()[0];
                 }
                 $rootNodes[$key]['package'] = $this->packagesCache[$packageName];
             }
@@ -186,7 +187,7 @@ class ClassAnalyzerController extends Controller
         $inheritNodes->replaceNodeRenderingWith($graph);
 
         // Finally, let's get the list of classes/interfaces/traits/functions using this item
-        $usedInItems = $this->itemDao->findItemsUsing($q)->limit(1000);
+        $usedInItems = $this->itemDao->findItemsUsing($q, 1000);
 
         // Let's add the twig file to the template.
         $this->template->setTitle('Packanalyst | '.ucfirst($type).' '.$q);
@@ -216,15 +217,15 @@ class ClassAnalyzerController extends Controller
      */
     private function findItemsInheriting($className)
     {
-        $graphItems = $this->itemDao->findItemsInheriting($className);
-        $graphItems->limit(self::LIMIT_INHERITS);
+        $graphItems = $this->itemDao->findItemsInheriting($className, self::LIMIT_INHERITS);
 
         $items = [];
 
         foreach ($graphItems as $item) {
+            $item = (array) $item;
             $packageName = $item['packageName'];
             if (!isset($this->packagesCache[$packageName])) {
-                $this->packagesCache[$packageName] = $this->packageDao->getPackagesByName($packageName)->getNext();
+                $this->packagesCache[$packageName] = (array) $this->packageDao->getPackagesByName($packageName)->toArray()[0];
             }
             $item['package'] = $this->packagesCache[$packageName];
             $items[] = $item;
@@ -246,9 +247,9 @@ class ClassAnalyzerController extends Controller
             return $this->inheritedNodes[$className];
         }
 
-        $nodes = $this->itemDao->getItemsByName($className);
-        if ($nodes->hasNext()) {
-            $mainNode = $nodes->getNext();
+        $nodes = $this->itemDao->getItemsByName($className)->toArray();
+        if ($nodes) {
+            $mainNode = (array) $nodes[0];
             $type = isset($mainNode['type']) ? $mainNode['type'] : null;
         } else {
             $type = null;
@@ -258,10 +259,11 @@ class ClassAnalyzerController extends Controller
 
         $inherits = array();
         foreach ($nodes as $node) {
+            $node = (array) $node;
             if (isset($node['packageName'])) {
                 $packageName = $node['packageName'];
                 if (!isset($this->packagesCache[$packageName])) {
-                    $this->packagesCache[$packageName] = $this->packageDao->getPackagesByName($packageName)->getNext();
+                    $this->packagesCache[$packageName] = (array) $this->packageDao->getPackagesByName($packageName)->toArray()[0];
                 }
                 $htmlNode->registerPackage($node['packageName'], $node['packageVersion'], isset($this->packagesCache[$packageName]['downloads']) ? $this->packagesCache[$packageName]['downloads'] : null, isset($this->packagesCache[$packageName]['favers']) ? $this->packagesCache[$packageName]['favers'] : null);
             }
@@ -302,9 +304,9 @@ class ClassAnalyzerController extends Controller
 
         $graphItems = $this->findItemsInheriting($q);
 
-        $rootNodesCollection = $this->itemDao->getItemsByName($q);
+        $rootNodesCollection = $this->itemDao->getItemsByName($q)->toArray();
         // If there is no root node (for instance if the class is "Exception")
-        if ($rootNodesCollection->count() == 0) {
+        if (count($rootNodesCollection) == 0) {
 
             // If this class has never been used, we might want to wonder if the class exists at all.
             if (count($graphItems) == 0) {
