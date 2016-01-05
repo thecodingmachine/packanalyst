@@ -139,8 +139,7 @@ class PackageDao
             $packageVersion['description'] = $package->getDescription();
         }
 
-        // TODO: check this can replace the old SAVE method
-        $this->collection->insertOne($packageVersion);
+        $this->save($packageVersion);
 
         // Boost = 1 + download/10 + favers
         // TODO: we could improve the score of packages by the number of times they are referred by other packages.
