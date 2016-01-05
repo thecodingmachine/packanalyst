@@ -101,7 +101,11 @@ class ElasticSearchService
                         ],
                         'suggest' => [
                             'type' => 'completion',
+                            // For older versions of Elasticsearch <=1.6)
                             'index_analyzer' => 'simple',
+                            // For newer versions of Elasticsearch
+                            'analyzer' => 'simple',
+                            
                             'search_analyzer' => 'simple',
                             //"payloads" => true
                         ],
