@@ -35,6 +35,7 @@ class PackagistScoreService
             $result = $this->request($i);
 
             foreach ($result['results'] as $packageResult) {
+                $packageResult = (array) $packageResult;
                 $packages = $this->packageDao->getPackagesByName($packageResult['name']);
                 foreach ($packages as $package) {
                     $package['downloads'] = $packageResult['downloads'];
