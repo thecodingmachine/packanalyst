@@ -38,8 +38,8 @@ class PackagistScoreService
                 $packageResult = (array) $packageResult;
                 $packages = $this->packageDao->getPackagesByName($packageResult['name']);
                 foreach ($packages as $package) {
-                    $package['downloads'] = $packageResult['downloads'];
-                    $package['favers'] = $packageResult['favers'];
+                    $package->downloads = $packageResult['downloads'];
+                    $package->favers = $packageResult['favers'];
                     $this->packageDao->save($package);
                 }
             }
