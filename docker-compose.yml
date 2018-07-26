@@ -1,0 +1,57 @@
+version: '3.3'
+services:
+  app:
+    image: thecodingmachine/php:7.2-v1-apache-node6
+    env_file:
+      - .env
+    environment:
+      PHP_EXTENSION_MONGODB: '1'
+      PHP_EXTENSION_XDEBUG: 1
+      PHP_INI_MEMORY_LIMIT: 256M
+      STARTUP_COMMAND_1: composer install
+      STARTUP_COMMAND_2: cd src/views/ && npm install
+    volumes:
+    - type: bind
+      source: ./.
+      target: /var/www/html
+      read_only: false
+    - type: volume
+      source: downloads
+      target: /var/downloads
+      read_only: false
+    labels:
+      traefik.enable: 'true'
+      traefik.backend: app
+      traefik.frontend.rule: Host:packanalyst.localhost
+      traefik.port: '80'
+  traefik:
+    image: traefik:1.6
+    command:
+    - --docker
+    - --docker.exposedbydefault=false
+    ports:
+    - 80:80
+    volumes:
+    - type: bind
+      source: /var/run/docker.sock
+      target: /var/run/docker.sock
+      read_only: false
+  mongo:
+    image: mongo:3.6
+    volumes:
+    - type: volume
+      source: mongodata
+      target: /data/db
+      read_only: false
+  elasticsearch:
+    image: elasticsearch:2.2
+    volumes:
+    - type: volume
+      source: elasticsearchdata
+      target: /usr/share/elasticsearch/data
+      read_only: false
+
+volumes:
+  downloads:
+  mongodata:
+  elasticsearchdata:

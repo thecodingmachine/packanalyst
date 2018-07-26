@@ -2,6 +2,7 @@
 
 namespace Mouf\Packanalyst\Command;
 
+use Composer\Command\BaseCommand;
 use Composer\Factory;
 use Composer\Package\BasePackage;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,7 +14,7 @@ use Composer\Repository\ComposerRepository;
 /**
  * @author david
  */
-class RunCommand extends Command
+class RunCommand extends BaseCommand
 {
     private $gitConfig;
     private $repos;

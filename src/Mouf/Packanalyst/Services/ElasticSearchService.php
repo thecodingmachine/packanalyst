@@ -129,7 +129,7 @@ class ElasticSearchService
     public function storeItemName($itemName, $type = null, $boost = null)
     {
 
-        // TODO: a local "cache" array that contain all the classes we know that exist in ElasticSearch.
+        // TODO: a local "cache" array that contain all the classes we know that exists in ElasticSearch.
         // When the local cache is set, remove the "refresh"=>true
 
         // Before inserting itemName, let's make sure it is not ALREADY in the index.

@@ -4,7 +4,7 @@
  */
 
 // Files declared in the extra:mouf:adminRequire section.
-require_once __DIR__.'/../vendor/mouf/utils.cache.cache-interface/CacheAdmin.php';
+require_once __DIR__.'/../vendor/mouf/utils.cache.purge-ui/CacheAdmin.php';
 require_once __DIR__.'/../vendor/mouf/html.utils.weblibrarymanager/src/WebLibraryAdmin.php';
 require_once __DIR__.'/../vendor/mouf/utils.i18n.fine/src/FineAdmin.php';
 require_once __DIR__.'/../vendor/mouf/mvc.splash-common/src/SplashCommonAdmin.php';

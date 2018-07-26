@@ -103,14 +103,13 @@ class ItemDao
      */
     protected function recomputeGlobalInherits(array $item, array &$antiLoopList = array())
     {
-
         // Let's prevent any infinite loops.
         if (isset($antiLoopList[$item['name'].' '.$item['packageName'].' '.$item['packageVersion']])) {
             return;
         }
 
-        $inherits = isset($item['inherits']) ? $item['inherits'] : array();
-        $globalInherits = $inherits;
+        $inherits = isset($item['inherits']) ? $item['inherits'] : [];
+        $globalInherits = $inherits ?: [];
 
         foreach ($inherits as $inheritedItemName) {
             foreach ($this->getItemsByName($inheritedItemName) as $parentItem) {
