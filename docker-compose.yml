@@ -8,6 +8,8 @@ services:
       PHP_EXTENSION_MONGODB: '1'
       PHP_EXTENSION_XDEBUG: 1
       PHP_INI_MEMORY_LIMIT: 256M
+      PHP_IDE_CONFIG: "serverName=Docker"
+      XDEBUG_CONFIG: "remote_autostart=1"
       STARTUP_COMMAND_1: composer install
       STARTUP_COMMAND_2: cd src/views/ && npm install
     volumes:

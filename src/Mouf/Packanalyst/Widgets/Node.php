@@ -207,7 +207,7 @@ class Node implements HtmlElementInterface
     /**
      * Renders the tree, in reverse order!
      */
-    public function getHtmlRevert()
+    public function getHtmlRevert(): string
     {
         ob_start();
         \Mouf::getDefaultRenderer()->render($this, 'revert');
@@ -220,10 +220,8 @@ class Node implements HtmlElementInterface
     /**
      * Replaces this node rendering with another HtmlElementInterface.
      * Used for the root node in htmlrevert mode.
-     *
-     * @param HtmlElementInterface $node
      */
-    public function replaceNodeRenderingWith(HtmlElementInterface $graph)
+    public function replaceNodeRenderingWith(HtmlElementInterface $graph): void
     {
         $this->replacementNode = $graph;
     }
@@ -235,10 +233,8 @@ class Node implements HtmlElementInterface
 
     /**
      * Sets whether we should highlight or not the class (in yellow).
-     *
-     * @param bool $highlight
      */
-    public function setHighlight($highlight)
+    public function setHighlight(bool $highlight): void
     {
         $this->highlight = $highlight;
     }

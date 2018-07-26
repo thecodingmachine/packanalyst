@@ -3,6 +3,7 @@
 namespace Mouf\Packanalyst\Dao;
 
 use MongoDB\Collection;
+use MongoDB\Driver\Cursor;
 use Mouf\Packanalyst\Services\ElasticSearchService;
 
 class ItemDao
@@ -108,12 +109,12 @@ class ItemDao
             return;
         }
 
-        $inherits = isset($item['inherits']) ? $item['inherits'] : [];
+        $inherits = isset($item['inherits']) ? (array) $item['inherits'] : [];
         $globalInherits = $inherits ?: [];
 
         foreach ($inherits as $inheritedItemName) {
             foreach ($this->getItemsByName($inheritedItemName) as $parentItem) {
-                $globalInherits = array_merge($globalInherits, isset($parentItem->globalInherits) ? $parentItem->globalInherits : array());
+                $globalInherits = array_merge($globalInherits, isset($parentItem->globalInherits) ? (array) $parentItem->globalInherits : array());
             }
         }
 
@@ -136,7 +137,8 @@ class ItemDao
         // Now, let's find the list of all items directly implementing this item
         $children = $this->collection->find(['inherits' => $item['name']]);
         foreach ($children as $child) {
-            $this->recomputeGlobalInherits((array) $child, $antiLoopList);
+            $childJson = (array) $child->jsonSerialize();
+            $this->recomputeGlobalInherits($childJson, $antiLoopList);
         }
     }
 
@@ -171,10 +173,8 @@ class ItemDao
 
     /**
      * Find the list of items that inherit in a way or another $itemName.
-     *
-     * @param string $itemName
      */
-    public function findItemsByPackageVersion($packageName, $packageVersion, $options = [])
+    public function findItemsByPackageVersion(string $packageName, string $packageVersion, array $options = []): Cursor
     {
         return $this->collection->find(['packageName' => $packageName, 'packageVersion' => $packageVersion], $options);
     }
@@ -222,7 +222,7 @@ class ItemDao
     private static function ensureUtf8StringInArray(array $array)
     {
         return self::array_map_recursive(function ($str) {
-            if (mb_check_encoding($str, 'UTF-8')) {
+            if (!\is_string($str) || mb_check_encoding($str, 'UTF-8')) {
                 return $str;
             } else {
                 return utf8_encode($str);

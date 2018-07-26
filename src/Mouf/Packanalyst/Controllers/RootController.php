@@ -3,6 +3,7 @@
 namespace Mouf\Packanalyst\Controllers;
 
 use Mouf\Html\HtmlElement\HtmlBlock;
+use Mouf\Html\Template\BootstrapTemplate;
 use Mouf\Html\Template\TemplateInterface;
 use Mouf\Mvc\Splash\Controllers\Controller;
 use Mouf\Packanalyst\Services\ElasticSearchService;
@@ -18,7 +19,7 @@ class RootController extends Controller
     /**
      * The template used by the controller.
      *
-     * @var TemplateInterface
+     * @var BootstrapTemplate
      */
     private $template;
 
@@ -34,7 +35,7 @@ class RootController extends Controller
     private $itemDao;
     private $twig;
 
-    public function __construct(TemplateInterface $template, HtmlBlock $content, ElasticSearchService $elasticSearchService,
+    public function __construct(BootstrapTemplate $template, HtmlBlock $content, ElasticSearchService $elasticSearchService,
             PackageDao $packageDao, ItemDao $itemDao, \Twig_Environment $twig)
     {
         $this->template = $template;

@@ -123,10 +123,8 @@ class ElasticSearchService
 
     /**
      * Stores an item name in elastic search.
-     *
-     * @param string $item
      */
-    public function storeItemName($itemName, $type = null, $boost = null)
+    public function storeItemName(string $itemName, $type = null, ?float $boost = null)
     {
 
         // TODO: a local "cache" array that contain all the classes we know that exists in ElasticSearch.
@@ -200,9 +198,8 @@ class ElasticSearchService
     /**
      * False if the item name does not exist, or the source if the type does exist.
      *
-     * @param string $itemName
      */
-    private function checkItemNameExists($itemName)
+    private function checkItemNameExists(string $itemName)
     {
         $params = array();
         $params['body'] = [
@@ -220,6 +217,7 @@ class ElasticSearchService
         } catch (ServerErrorResponseException $e) {
             // Note: it seems an error is triggered if the index is empty.
             error_log('Exception in search: '.$e->getMessage()."\n".$e->getTraceAsString());
+            return;
         }
 
         if ($ret['hits']['total'] == 0) {
@@ -262,14 +260,9 @@ class ElasticSearchService
     }
 
     /**
-     * @param unknown $input
-     * @param number  $size
-     *
-     * @throws \Exception
-     *
      * @return array(["total"=>xxx, "max_score"=>xxxx, hits=>[]])
      */
-    public function suggestItemName2($input, $size = 10, $offset = 0)
+    public function suggestItemName2(string $input, int $size = 10, int $offset = 0)
     {
         $params =
         [

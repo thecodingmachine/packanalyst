@@ -29,13 +29,6 @@ $moufManager->getConfigManager()->setConstantsDefinitionArray(array (
     'comment' => 'A random string. It should be different for any application deployed.',
     'fetchFromEnv' => true,
   ),
-  'DEBUG_MODE' => 
-  array (
-    'defaultValue' => true,
-    'type' => 'bool',
-    'comment' => 'When the application is in debug mode, stacktraces are outputed directly to the user. Otherwise, they are hidden.',
-    'fetchFromEnv' => true,
-  ),
   'DOWNLOAD_DIR' => 
   array (
     'defaultValue' => 'downloads',

@@ -136,6 +136,7 @@ class ClassAnalyzerController extends Controller
         $graph = new Graph($rootNodes, $graphItems);
 
         // Let's extract the PHPDoc from the latest version (dev version):
+        $rootNode = null;
         foreach ($rootNodes as $rootNode) {
             if (isset($rootNode['packageVersion']) && strpos($rootNode['packageVersion'], '-dev') !== false) {
                 break;
@@ -268,7 +269,7 @@ class ClassAnalyzerController extends Controller
                 $htmlNode->registerPackage($node['packageName'], $node['packageVersion'], isset($this->packagesCache[$packageName]['downloads']) ? $this->packagesCache[$packageName]['downloads'] : null, isset($this->packagesCache[$packageName]['favers']) ? $this->packagesCache[$packageName]['favers'] : null);
             }
             if (isset($node['inherits'])) {
-                $inherits = array_merge($inherits, $node['inherits']);
+                $inherits = array_merge($inherits, (array) $node['inherits']);
             }
         }
 
@@ -332,6 +333,7 @@ class ClassAnalyzerController extends Controller
         $graph = new Graph($rootNodes, $graphItems);
 
         // Let's extract the PHPDoc from the latest version (dev version):
+        $rootNode = null;
         foreach ($rootNodes as $rootNode) {
             if (isset($rootNode['packageVersion']) && strpos($rootNode['packageVersion'], '-dev') !== false) {
                 break;
