@@ -3,7 +3,7 @@ php:
   - '7.2'
 
 before_script:
-- pecl install mongodb
+- echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 - composer install --prefer-dist --no-interaction
 script:
 - composer phpstan
