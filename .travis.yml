@@ -3,7 +3,7 @@ php:
   - '7.2'
 
 before_script:
-- echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+- pecl install -f mongo:1.6.16
 - composer install --prefer-dist --no-interaction
 script:
 - composer phpstan
