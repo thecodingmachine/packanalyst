@@ -1,7 +1,7 @@
 {
 	"require" : {
 		"composer/composer" : "~1.0.0",
-		"nikic/php-parser" : "~3.0",
+		"nikic/php-parser" : "~4.0",
 		"mouf/mouf" : "~2.0",
 		"mouf/utils.common.doctrine-annotations-wrapper" : "~1.2",
 		"elasticsearch/elasticsearch" : "~1.1",

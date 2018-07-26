@@ -56,6 +56,11 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
         if ($node instanceof Stmt\Class_ || $node instanceof Stmt\Interface_
             || $node instanceof Stmt\Trait_ || $node instanceof Stmt\Function_) {
             $item = [];
+
+            if ($node->name === null) {
+                // Anonymous class
+                return;
+            }
             $itemName = $node->namespacedName->toString();
 
             $item['name'] = $this->ensureUtf8($itemName);

@@ -10,6 +10,7 @@ services:
       PHP_INI_MEMORY_LIMIT: 256M
       PHP_IDE_CONFIG: "serverName=Docker"
       XDEBUG_CONFIG: "remote_autostart=1"
+      PHP_INI_XDEBUG__MAX_NESTING_LEVEL: 2000
       STARTUP_COMMAND_1: composer install
       STARTUP_COMMAND_2: cd src/views/ && npm install
     volumes:
