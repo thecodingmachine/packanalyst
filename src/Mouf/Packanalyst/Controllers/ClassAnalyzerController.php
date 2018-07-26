@@ -385,7 +385,7 @@ class ClassAnalyzerController extends Controller
         $inheritNodes->replaceNodeRenderingWith($graph);
 
         // Finally, let's get the list of classes/interfaces/traits/functions using this item
-        $usedInItems = $this->itemDao->findItemsUsing($q)->limit(1000);
+        $usedInItems = $this->itemDao->findItemsUsing($q, 1000);
 
         // Let's add the twig file to the template.
         $this->template->setTitle('Packanalyst | '.ucfirst($type).' '.$q);
