@@ -3,7 +3,7 @@ php:
   - '7.2'
 
 before_script:
-- pecl install -f mongo:1.6.16
+- pecl install mongo
 - composer install --prefer-dist --no-interaction
 script:
 - composer phpstan
