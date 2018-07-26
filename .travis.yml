@@ -1,0 +1,9 @@
+language: php:7.2
+
+before_script:
+- composer install --prefer-dist --no-interaction
+script:
+- composer phpstan
+#- "./vendor/bin/phpunit"
+#after_script:
+#- php vendor/bin/coveralls -v
