@@ -1,4 +1,6 @@
-FROM thecodingmachine/php:7.2-v1-apache-node6
+FROM thecodingmachine/php:7.2-v2-apache-node8
+
+ENV PHP_EXTENSION_MONGODB=1
 
 COPY --chown=docker:docker . .
 
