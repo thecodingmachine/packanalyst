@@ -5,11 +5,11 @@ ENV PHP_INI_MEMORY_LIMIT=256M
 
 ENV CRON_USER_1=docker
 ENV CRON_SCHEDULE_1="42 * * * *"
-ENV CRON_COMMAND_1="cd /var/www/html;ulimit -S -s 131072;./console.php run"
+ENV CRON_COMMAND_1="cd /var/www/html;ulimit -S -s 131072;./console.php run -v"
 
 ENV CRON_USER_2=docker
 ENV CRON_SCHEDULE_2="0 5 * * *"
-ENV CRON_COMMAND_2="cd /var/www/html;./console.php get-scores"
+ENV CRON_COMMAND_2="cd /var/www/html;./console.php get-scores -v"
 
 # Delete files older than 30 days
 ENV CRON_USER_3=docker
