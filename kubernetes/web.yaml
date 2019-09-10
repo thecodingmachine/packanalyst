@@ -30,6 +30,13 @@ spec:
         volumeMounts:
           - name: files-data
             mountPath: /var/downloads
+        resources:
+          requests:
+            memory: "1G"
+            cpu: "1"
+          limits:
+            memory: "8G"
+            cpu: "4"
       volumes:
       - name: files-data
         persistentVolumeClaim:

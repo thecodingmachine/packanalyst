@@ -25,6 +25,13 @@ spec:
         volumeMounts:
           - name: mongo-data
             mountPath: /data/db
+        resources:
+          requests:
+            memory: "2G"
+            cpu: "250m"
+          limits:
+            memory: "8G"
+            cpu: "2"
       volumes:
         - name: mongo-data
           persistentVolumeClaim:
