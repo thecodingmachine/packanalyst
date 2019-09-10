@@ -25,6 +25,48 @@ jobs:
       branches:
         only:
           - master
+      cache:
+        directories:
+          # We cache the SDK so we don't have to download it again on subsequent builds.
+          - $HOME/google-cloud-sdk
+      env:
+        - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+      before_script:
+        - if [ ! -d $HOME/google-cloud-sdk/bin ]; then
+          # The install script errors if this directory already exists,
+          # but Travis already creates it when we mark it as cached.
+          rm -rf $HOME/google-cloud-sdk;
+          # The install script is overly verbose, which sometimes causes
+          # problems on Travis, so ignore stdout.
+          curl https://sdk.cloud.google.com | bash > /dev/null;
+          fi
+        # This line is critical. We setup the SDK to take precedence in our
+        # environment over the old SDK that is already on the machine.
+        - source $HOME/google-cloud-sdk/path.bash.inc
+        - gcloud components update kubectl
+        - gcloud version
       script:
-        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-        - chmod +x ./kubectl
+        - |
+          if [[ "$TRAVIS_PULL_REQUEST" = false ]] ; then
+            if [ ! -d $HOME/google-cloud-sdk/bin ]; then
+              # The install script errors if this directory already exists,
+              # but Travis already creates it when we mark it as cached.
+              rm -rf $HOME/google-cloud-sdk;
+              # The install script is overly verbose, which sometimes causes
+              # problems on Travis, so ignore stdout.
+              curl https://sdk.cloud.google.com | bash > /dev/null;
+            fi
+            source $HOME/google-cloud-sdk/path.bash.inc
+            gcloud components update kubectl
+            gcloud version
+
+            echo "$GCLOUD_SERVICE_KEY" > key.json
+            gcloud auth activate-service-account --key-file key.json
+            gcloud config set project $GCLOUD_PROJECT
+            gcloud container clusters get-credentials $GKE_CLUSTER --zone $ZONE --project $GCLOUD_PROJECT
+            kubectl create namespace ${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG} || true
+            kubectl -n ${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG} delete deployment --all
+            kubectl -n ${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG} delete secret tcmregistry || true
+            cd kubernetes
+            kubectl -n ${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG} apply -f ./*.yaml
+          fi
