@@ -50,9 +50,9 @@ jobs:
             gcloud auth activate-service-account --key-file key.json
             gcloud config set project $GCLOUD_PROJECT
             gcloud container clusters get-credentials $GKE_CLUSTER --zone $ZONE --project $GCLOUD_PROJECT
-            kubectl create namespace ${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG} || true
-            kubectl -n ${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG} delete deployment --all
-            kubectl -n ${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG} delete secret tcmregistry || true
+            kubectl create namespace packanalyst || true
+            kubectl -n packanalyst delete deployment --all
+            kubectl -n packanalyst delete secret tcmregistry || true
             cd kubernetes
-            kubectl -n ${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG} apply -f ./*.yaml
+            kubectl -n packanalyst apply -f .
           fi
