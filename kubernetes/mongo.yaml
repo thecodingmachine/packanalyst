@@ -18,10 +18,6 @@ spec:
       containers:
       - name: "mongodb"
         image: "mongo:3.6"
-        envFrom:
-        - secretRef:
-            name: db-secrets
-            optional: false
         volumeMounts:
           - name: mongo-data
             mountPath: /data/db

@@ -19,7 +19,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: "web"
-        image: "thecodingmachine/packanalyst:master"
+        image: "thecodingmachine/packanalyst:latest"
         imagePullPolicy: Always
         envFrom:
         - configMapRef:

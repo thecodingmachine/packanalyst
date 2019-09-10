@@ -18,10 +18,6 @@ spec:
       containers:
       - name: "elasticsearch"
         image: "elasticsearch:2.2"
-        envFrom:
-        - secretRef:
-            name: db-secrets
-            optional: false
         volumeMounts:
           - name: elasticsearch-data
             mountPath: /usr/share/elasticsearch/data
