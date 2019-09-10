@@ -2,23 +2,23 @@ language: php
 
 jobs:
   include:
-    - stage: test
-      php: 7.2
-      before_script:
-      - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-      - composer install --prefer-dist --no-interaction
-      script:
-      - composer phpstan
-    - stage: build
-      services:
-        - docker
-      script:
-        - docker build . --tag thecodingmachine/packanalyst:latest
-        - |
-          if [[ "$TRAVIS_PULL_REQUEST" = false && "$TRAVIS_BRANCH" = "master" ]] ; then
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push thecodingmachine/packanalyst:latest
-          fi
+#    - stage: test
+#      php: 7.2
+#      before_script:
+#      - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+#      - composer install --prefer-dist --no-interaction
+#      script:
+#      - composer phpstan
+#    - stage: build
+#      services:
+#        - docker
+#      script:
+#        - docker build . --tag thecodingmachine/packanalyst:latest
+#        - |
+#          if [[ "$TRAVIS_PULL_REQUEST" = false && "$TRAVIS_BRANCH" = "master" ]] ; then
+#            docker login -u $DOCKER_USER -p $DOCKER_PASS
+#            docker push thecodingmachine/packanalyst:latest
+#          fi
     - stage: deploy
       services:
         - docker

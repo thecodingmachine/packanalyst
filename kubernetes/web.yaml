@@ -15,8 +15,6 @@ spec:
       labels:
         app: "web"
     spec:
-#      imagePullSecrets:
-#      - name: "tcmregistry"
       securityContext:
         fsGroup: 1000
       containers:
@@ -58,7 +56,7 @@ data:
   # Your Google Analytics key. Leave empty if you want to disable Google Analytics tracking. Don't have a key for your website? Get one here: http://www.google.com/analytics/
   GOOGLE_ANALYTICS_KEY: UA-25804465-2
   # The base domain name to track (if you are tracking sub-domains). In the form: '.example.com'. Keep this empty if you don't track subdomains.
-  GOOGLE_ANALYTICS_DOMAIN_NAME:
+  GOOGLE_ANALYTICS_DOMAIN_NAME: ""
   # Set to true to enable debug/development mode.
   DEBUG: true
   # Disable Mouf UI
