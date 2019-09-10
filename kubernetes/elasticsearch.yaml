@@ -1,0 +1,54 @@
+---
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "elasticsearch"
+  labels:
+    app: "elasticsearch"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "elasticsearch"
+  template:
+    metadata:
+      labels:
+        app: "elasticsearch"
+    spec:
+      containers:
+      - name: "elasticsearch"
+        image: "elasticsearch:2.2"
+        envFrom:
+        - secretRef:
+            name: db-secrets
+            optional: false
+        volumeMounts:
+          - name: elasticsearch-data
+            mountPath: /usr/share/elasticsearch/data
+      volumes:
+        - name: elasticsearch-data
+          persistentVolumeClaim:
+            claimName: elasticsearch-claim
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: elasticsearch-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+spec:
+  selector:
+    app: "elasticsearch"
+  ports:
+  - name: elasticsearch
+    port: 9200
+    targetPort: 9200

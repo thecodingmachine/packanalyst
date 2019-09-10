@@ -1,0 +1,54 @@
+---
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "mongo"
+  labels:
+    app: "mongo"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "mongo"
+  template:
+    metadata:
+      labels:
+        app: "mongo"
+    spec:
+      containers:
+      - name: "mongodb"
+        image: "mongo:3.6"
+        envFrom:
+        - secretRef:
+            name: db-secrets
+            optional: false
+        volumeMounts:
+          - name: mongo-data
+            mountPath: /data/db
+      volumes:
+        - name: mongo-data
+          persistentVolumeClaim:
+            claimName: mongo-claim
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+spec:
+  selector:
+    app: "mongo"
+  ports:
+  - name: mongo
+    port: 27017
+    targetPort: 27017

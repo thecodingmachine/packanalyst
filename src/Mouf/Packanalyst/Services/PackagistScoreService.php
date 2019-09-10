@@ -61,6 +61,6 @@ class PackagistScoreService
         $client = new GuzzleHttp\Client();
         $response = $client->get('https://packagist.org/search.json?q=&page='.$page);
 
-        return $response->json();
+        return GuzzleHttp\json_decode($response->getBody(), true);
     }
 }

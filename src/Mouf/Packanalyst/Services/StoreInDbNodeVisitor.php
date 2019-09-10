@@ -56,6 +56,11 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
         if ($node instanceof Stmt\Class_ || $node instanceof Stmt\Interface_
             || $node instanceof Stmt\Trait_ || $node instanceof Stmt\Function_) {
             $item = [];
+
+            if ($node->name === null) {
+                // Anonymous class
+                return;
+            }
             $itemName = $node->namespacedName->toString();
 
             $item['name'] = $this->ensureUtf8($itemName);
@@ -118,7 +123,9 @@ class StoreInDbNodeVisitor extends NodeVisitorAbstract
                 }
             }
         } elseif ($node instanceof Stmt\Catch_) {
-            $this->uses[$node->type->toString()] = true;
+            foreach ($node->types as $type) {
+                $this->uses[$type->toString()] = true;
+            }
         } /*elseif ($node instanceof Expr\FuncCall) {
             if ($node->name instanceof Name) {
         	echo $node->name->toString()."\n";

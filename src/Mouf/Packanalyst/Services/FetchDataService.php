@@ -52,6 +52,11 @@ class FetchDataService
      */
     private $downloadManager;
 
+    /**
+     * @var ClassesDetector
+     */
+    private $classesDetector;
+
     public function __construct(ClassesDetector $classesDetector, LoggerInterface $logger, ItemDao $itemDao, PackageDao $packageDao)
     {
         $this->classesDetector = $classesDetector;
@@ -190,6 +195,7 @@ class FetchDataService
 
             foreach ($importantPackages as $package) {
                 /* @var $package PackageInterface */
+                $packageVersion = null;
                 try {
                     // Let's reset to null (in case an exception happens on first line).
                     $packageVersionEntity = null;

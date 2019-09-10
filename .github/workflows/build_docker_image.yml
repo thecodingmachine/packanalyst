@@ -1,0 +1,20 @@
+name: Build Docker Image
+
+on:
+  push:
+    branches:
+      - master
+  pull_request: # for testing purpose. TO REMOVE!
+    branches:
+      - master
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build the Docker image
+        run: docker build . --tag thecodingmachine/packanalyst:latest

@@ -41,12 +41,12 @@ class ClassesDetector extends NodeVisitorAbstract
      */
     public function storePackage($basePath, array $packageVersion)
     {
-        $this->traverser = new NodeTraverser();
+        $traverser = new NodeTraverser();
 
         $storeInDbNodeVisitor = new StoreInDbNodeVisitor($packageVersion, $this->itemDao);
 
-        $this->traverser->addVisitor(new NameResolver()); // we will need resolved names
-        $this->traverser->addVisitor($storeInDbNodeVisitor);     // our own node visitor
+        $traverser->addVisitor(new NameResolver()); // we will need resolved names
+        $traverser->addVisitor($storeInDbNodeVisitor);     // our own node visitor
 
 
         if (file_exists($basePath.'/composer.json')) {
@@ -74,11 +74,6 @@ class ClassesDetector extends NodeVisitorAbstract
             });
         }
 
-        $this->classes = [];
-        $this->interfaces = [];
-        $this->traits = [];
-        $this->functions = [];
-
         foreach ($files as $file) {
             try {
                 $relativeFileName = substr($file, strlen($basePath));
@@ -92,7 +87,7 @@ class ClassesDetector extends NodeVisitorAbstract
                 $stmts = $this->parser->parse($code);
 
                 // traverse
-                $stmts = $this->traverser->traverse($stmts);
+                $stmts = $traverser->traverse($stmts);
             } catch (Error $e) {
                 $this->logger->warning('PHP error detected in file {file}. Ignoring file. Error: {errorMsg}', [
                     'file' => $file,

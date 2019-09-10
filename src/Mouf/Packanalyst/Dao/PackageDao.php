@@ -130,6 +130,9 @@ class PackageDao
             ];
         }
 
+        if ($package->getReleaseDate() === null) {
+            throw new \Exception('The package does not have a valid release date.');
+        }
         $packageVersion['releaseDate'] = new \MongoDB\BSON\UTCDateTime($package->getReleaseDate()->getTimestamp()*1000);
         $packageVersion['type'] = $package->getType();
         $packageVersion['sourceUrl'] = $package->getSourceUrl();

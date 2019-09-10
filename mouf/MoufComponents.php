@@ -13,54 +13,56 @@ $moufManager->getConfigManager()->setConstantsDefinitionArray(array (
     'defaultValue' => 'localhost',
     'type' => 'string',
     'comment' => 'The host name for the Elastic Search server',
+    'fetchFromEnv' => true,
   ),
   'ELASTICSEARCH_PORT' => 
   array (
     'defaultValue' => '9200',
     'type' => 'string',
     'comment' => 'The default port to connect to Elastic Search server',
+    'fetchFromEnv' => true,
   ),
   'SECRET' => 
   array (
     'defaultValue' => 'HLxRssObAZpJdFYfHJpT',
     'type' => 'string',
     'comment' => 'A random string. It should be different for any application deployed.',
-  ),
-  'DEBUG_MODE' => 
-  array (
-    'defaultValue' => true,
-    'type' => 'bool',
-    'comment' => 'When the application is in debug mode, stacktraces are outputed directly to the user. Otherwise, they are hidden.',
+    'fetchFromEnv' => true,
   ),
   'DOWNLOAD_DIR' => 
   array (
     'defaultValue' => 'downloads',
     'type' => 'string',
     'comment' => 'The download directory',
+    'fetchFromEnv' => true,
   ),
   'MONGODB_CONNECTIONSTRING' => 
   array (
     'defaultValue' => 'mongodb://localhost:27017',
     'type' => 'string',
     'comment' => 'Connection string to MongoDB',
+    'fetchFromEnv' => true,
   ),
   'GOOGLE_ANALYTICS_KEY' => 
   array (
     'defaultValue' => '',
     'type' => 'string',
     'comment' => 'Your Google Analytics key. Leave empty if you want to disable Google Analytics tracking. Don\'t have a key for your website? Get one here: http://www.google.com/analytics/',
+    'fetchFromEnv' => true,
   ),
   'GOOGLE_ANALYTICS_DOMAIN_NAME' => 
   array (
     'defaultValue' => '',
     'type' => 'string',
     'comment' => 'The base domain name to track (if you are tracking sub-domains). In the form: \'.example.com\'. Keep this empty if you don\'t track subdomains.',
+    'fetchFromEnv' => true,
   ),
   'DEBUG' => 
   array (
     'defaultValue' => true,
     'type' => 'bool',
     'comment' => 'Set to true to enable debug/development mode.',
+    'fetchFromEnv' => true,
   ),
 ));
 
@@ -1195,7 +1197,7 @@ return $driver;
     array (
       'debugMode' => 
       array (
-        'value' => 'DEBUG_MODE',
+        'value' => 'DEBUG',
         'type' => 'config',
         'metadata' => 
         array (

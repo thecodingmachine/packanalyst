@@ -1,0 +1,6 @@
+parameters:
+    ignoreErrors:
+     - "#on an unknown class Mouf#"
+     - "#Constant .* not found#"
+#includes:
+ #   - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
