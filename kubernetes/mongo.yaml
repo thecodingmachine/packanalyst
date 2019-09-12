@@ -7,6 +7,9 @@ metadata:
     app: "mongo"
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
+    rollingUpdate: ~
   selector:
     matchLabels:
       app: "mongo"

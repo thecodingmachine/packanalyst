@@ -7,6 +7,9 @@ metadata:
     app: "elasticsearch"
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
+    rollingUpdate: ~
   selector:
     matchLabels:
       app: "elasticsearch"
