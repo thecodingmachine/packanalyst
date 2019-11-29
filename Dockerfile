@@ -1,10 +1,10 @@
 FROM thecodingmachine/php:7.2-v2-apache-node8
 
 ENV PHP_EXTENSION_MONGODB=1
-ENV PHP_INI_MEMORY_LIMIT=256M
+ENV PHP_INI_MEMORY_LIMIT=512M
 
 ENV CRON_USER_1=docker
-ENV CRON_SCHEDULE_1="42 * * * *"
+ENV CRON_SCHEDULE_1="*/5 * * * *"
 ENV CRON_COMMAND_1="cd /var/www/html;ulimit -S -s 131072;./console.php run -v"
 
 ENV CRON_USER_2=docker
