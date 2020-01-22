@@ -25,6 +25,9 @@ spec:
       - name: "web"
         image: "thecodingmachine/packanalyst:latest"
         imagePullPolicy: Always
+        env:
+        - name: STARTUP_COMMAND_FS
+          value: "sudo chown docker:docker /var/downloads"
         envFrom:
         - configMapRef:
             name: config
