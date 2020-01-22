@@ -18,8 +18,9 @@ spec:
       labels:
         app: "web"
     spec:
-      securityContext:
-        fsGroup: 1000
+      # Removing fsGroup because it causes a timeout on mount (changing the group of all files takes too much time)
+      #securityContext:
+      #  fsGroup: 1000
       containers:
       - name: "web"
         image: "thecodingmachine/packanalyst:latest"
